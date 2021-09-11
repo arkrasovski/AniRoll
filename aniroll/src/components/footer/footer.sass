@@ -1,0 +1,34 @@
+$mainColor: rgb(127, 0, 0)
+$shadow: 0 5px 5px rgba(0, 0, 0, 0.2)
+
+footer
+  box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.2)
+  padding: 0 10%
+  display: grid
+  grid-template-columns: 1fr 1fr 2fr
+  grid-gap: 40px
+  div
+    li
+      list-style-type: none
+      display: flex
+      margin: 20px 0
+      align-items: center
+      svg
+        margin: 0 15px
+        transform: scale(2.5)
+      .workTimeInfo
+        span
+          display: block
+          font-size: 20px
+  .telNumber
+    display: flex
+    align-items: center
+    svg
+      margin: 0 15px
+      transform: scale(2.5)
+  .telNumber > span
+    font-size: 40px
+    margin-right: 15px
+  .telNumbers span
+    display: block
+    font-size: 20px

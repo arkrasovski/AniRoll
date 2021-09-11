@@ -1,0 +1,32 @@
+$mainColor: rgb(127, 0, 0)
+$shadow: 0 5px 5px rgba(0, 0, 0, 0.2)
+
+header
+  padding: 0 10%
+  display: flex
+  justify-content: space-between
+  box-shadow: $shadow
+
+  .logo
+    display: flex
+    align-items: center
+    img
+      width: 150px
+      margin-right: 20px
+    span
+      font-size: 50px
+      color: $mainColor
+
+  .links
+    ul
+      display: flex
+      height: 100%
+      align-items: center
+      li
+        list-style-type: none
+        margin-right: 20px
+        font-size: 25px
+        a
+          color: $mainColor
+        svg
+          margin-left: 50px
