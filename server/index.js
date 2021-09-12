@@ -8,8 +8,8 @@ app.use(cors());
 app.use(express.json());
 
 // Route to get all posts
-app.get("/api/get", (req, res) => {
-  db.query("SELECT * FROM posts", (err, result) => {
+app.get("/api/getRolls", (req, res) => {
+  db.query("SELECT * FROM rolls", (err, result) => {
     if (err) {
       console.log(err);
     }

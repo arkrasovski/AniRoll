@@ -7,15 +7,15 @@ import { FaShoppingBasket, FaUserNinja } from "react-icons/fa";
 const Header = ({ links }) => {
   return (
     <header>
-      <div class="logo">
+      <div className="logo">
         <img src={logo} alt="Логотип компании aniroll"></img>
         <span>AniRoll</span>
       </div>
-      <div class="links">
+      <div className="links">
         <ul>
           {links.map((value, key) => {
             return (
-              <li>
+              <li key={key}>
                 <Link to={value}>{value}</Link>
               </li>
             );

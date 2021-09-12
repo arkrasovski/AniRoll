@@ -1,6 +1,6 @@
 import React from "react";
 import "./footer.sass";
-import logo from "../../images/yatologo.png";
+import footerImg from "../../images/footer.png";
 import { MdHeadsetMic } from "react-icons/md";
 import { ImTruck, ImPhone } from "react-icons/im";
 
@@ -36,7 +36,12 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="footerImg"></div>
+      <div className="footerImg">
+        <img
+          src={footerImg}
+          alt="Изображение Юкихиры Сомы из аниме Повар-боец сома"
+        ></img>
+      </div>
     </footer>
   );
 };
