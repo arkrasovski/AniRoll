@@ -34,10 +34,32 @@ export default class ItemBox extends Component {
       });
   }
 
+  deleteItem = (id) => {
+    console.log("yes");
+
+    this.setState(({ itemList }) => {
+      const index = itemList.findIndex((elem) => elem.id === id);
+      console.log(index);
+      const before = itemList.slice(0, index);
+      const after = itemList.slice(index + 1);
+      const newArray = [...before, ...after];
+
+      return { itemList: newArray };
+    });
+  };
+
   renderItems(arr) {
     if (arr) {
+      console.log(arr);
       return arr.map((item, i) => {
-        return <ItemCard item={item} key={i}></ItemCard>;
+        console.log(item.name);
+        return (
+          <ItemCard
+            item={item}
+            key={item.id}
+            onDelete={this.deleteItem}
+          ></ItemCard>
+        );
       });
     }
   }
@@ -60,6 +82,7 @@ export default class ItemBox extends Component {
     }
 
     const { itemList } = this.state;
+    console.log("massiv", itemList);
     let items = this.renderItems(itemList);
     return (
       <section className="main">

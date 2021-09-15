@@ -37,6 +37,22 @@ export default class App extends Component {
             />
 
             <Route
+              path="/роллы"
+              exact
+              component={(props) => (
+                <ItemBox
+                  getData={async () => {
+                    return await Axios.get(
+                      "http://localhost:3002/api/getRolls"
+                    );
+                  }}
+                  type={"rolls"}
+                  {...props}
+                />
+              )}
+            />
+
+            <Route
               path="/createnewrolls"
               component={(props) => <CreateCardBox type={"rolls"} {...props} />}
             />

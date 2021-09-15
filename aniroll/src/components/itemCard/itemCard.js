@@ -29,10 +29,17 @@ export default class ItemCard extends Component {
       return null;
     }
     const { name, url, type, number, price, weight, id } = item;
+    const { onDelete } = this.props;
     return (
       <div className="card">
         <Link to="/">
-          <div className="deleteSign" onClick={() => this.deletePost(id)}>
+          <div
+            className="deleteSign"
+            onClick={() => {
+              this.deletePost(id);
+              onDelete(id);
+            }}
+          >
             <ImCross />
           </div>
         </Link>
