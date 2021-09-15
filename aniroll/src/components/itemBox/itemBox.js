@@ -13,8 +13,11 @@ export default class ItemBox extends Component {
   };
 
   componentDidMount() {
-    const { getData } = this.props;
+    this.updateItem();
+  }
 
+  updateItem() {
+    const { getData } = this.props;
     getData()
       .then((itemList) => {
         this.setState({
@@ -61,6 +64,9 @@ export default class ItemBox extends Component {
     return (
       <section className="main">
         <div className="itemContainer"> {items}</div>
+        <Link to={"/createnew" + this.props.type}>
+          <button className="addCard">Добавить товар</button>
+        </Link>
       </section>
     );
   }

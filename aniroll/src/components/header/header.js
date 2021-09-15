@@ -8,7 +8,9 @@ const Header = ({ links }) => {
   return (
     <header>
       <div className="logo">
-        <img src={logo} alt="Логотип компании aniroll"></img>
+        <Link to="/">
+          <img src={logo} alt="Логотип компании aniroll"></img>
+        </Link>
         <span>AniRoll</span>
       </div>
       <div className="links">

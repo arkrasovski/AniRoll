@@ -29,29 +29,16 @@ app.get("/api/getFromId/:id", (req, res) => {
 });
 
 // Route for creating the post
-app.post("/api/create", (req, res) => {
-  const username = req.body.userName;
-  const title = req.body.title;
-  const text = req.body.text;
+app.post("/api/createrolls", (req, res) => {
+  const name = req.body.name;
+  const url = req.body.url;
+  const number = req.body.number;
+  const price = req.body.price;
+  const weight = req.body.weight;
 
   db.query(
-    "INSERT INTO posts (title, post_text, user_name) VALUES (?,?,?)",
-    [title, text, username],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log(result);
-    }
-  );
-});
-
-// Route to like a post
-app.post("/api/like/:id", (req, res) => {
-  const id = req.params.id;
-  db.query(
-    "UPDATE posts SET likes = likes + 1 WHERE id = ?",
-    id,
+    "INSERT INTO rolls (name, url, number, price, weight) VALUES (?,?,?,?,?)",
+    [name, url, number, price, weight],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -63,10 +50,10 @@ app.post("/api/like/:id", (req, res) => {
 
 // Route to delete a post
 
-app.delete("/api/delete/:id", (req, res) => {
+app.delete("/api/deleterolls/:id", (req, res) => {
   const id = req.params.id;
 
-  db.query("DELETE FROM posts WHERE id= ?", id, (err, result) => {
+  db.query("DELETE FROM rolls WHERE id= ?", id, (err, result) => {
     if (err) {
       console.log(err);
     }

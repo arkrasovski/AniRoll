@@ -3,6 +3,7 @@ $shadow: 0 5px 5px rgba(0, 0, 0, 0.2)
 $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
 
 .card
+  position: relative
   border-left: 1px solid rgba(0, 0, 0, 0.2)
   border-top: 1px solid rgba(0, 0, 0, 0.2)
   height: 500px
@@ -39,3 +40,8 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
     width: 130px
     font-size: 20px
     height: 60px
+  .deleteSign
+    position: absolute
+    right: -20px
+    svg
+      color: $mainColor
