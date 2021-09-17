@@ -29,7 +29,7 @@ export default class ItemCard extends Component {
       return null;
     }
     const { name, url, type, number, price, weight, id } = item;
-    const { onDelete } = this.props;
+    const { onDelete, addToOrders } = this.props;
     return (
       <div className="card">
         <Link to="/">
@@ -51,7 +51,13 @@ export default class ItemCard extends Component {
           <span>{price} руб</span>
           <span>{weight} гр.</span>
         </div>
-        <button>В корзину</button>
+        <button
+          onClick={() => {
+            addToOrders(this.state.item);
+          }}
+        >
+          В корзину
+        </button>
       </div>
     );
   }

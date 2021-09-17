@@ -8,12 +8,17 @@ import ErrorMessage from "../errorMessage";
 export default class ItemBox extends Component {
   state = {
     itemList: null,
-    loading: true,
+    loading: false,
     error: false,
   };
 
   componentDidMount() {
     this.updateItem();
+  }
+
+  shouldComponentUpdate(prevProps) {
+    // вместо !== будет какое то сравнение между this.props.tableData и nextProps.tableData
+    return this.state.itemList !== prevProps.itemList;
   }
 
   updateItem() {
@@ -35,11 +40,8 @@ export default class ItemBox extends Component {
   }
 
   deleteItem = (id) => {
-    console.log("yes");
-
     this.setState(({ itemList }) => {
       const index = itemList.findIndex((elem) => elem.id === id);
-      console.log(index);
       const before = itemList.slice(0, index);
       const after = itemList.slice(index + 1);
       const newArray = [...before, ...after];
@@ -49,15 +51,15 @@ export default class ItemBox extends Component {
   };
 
   renderItems(arr) {
+    const { addToOrders } = this.props;
     if (arr) {
-      console.log(arr);
-      return arr.map((item, i) => {
-        console.log(item.name);
+      return arr.map((item) => {
         return (
           <ItemCard
             item={item}
             key={item.id}
             onDelete={this.deleteItem}
+            addToOrders={addToOrders}
           ></ItemCard>
         );
       });
@@ -82,7 +84,6 @@ export default class ItemBox extends Component {
     }
 
     const { itemList } = this.state;
-    console.log("massiv", itemList);
     let items = this.renderItems(itemList);
     return (
       <section className="main">
