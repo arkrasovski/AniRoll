@@ -50,6 +50,16 @@ app.post("/api/createrolls", (req, res) => {
 
 // Route to delete a post
 
+app.get("/api/getrollsFromId/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("SELECT * FROM rolls WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
+});
+
 app.delete("/api/deleterolls/:id", (req, res) => {
   const id = req.params.id;
 

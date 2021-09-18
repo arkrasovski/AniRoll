@@ -4,6 +4,7 @@ import Footer from "./components/footer";
 import ItemBox from "./components/itemBox";
 import CreateCardBox from "./components/createCardBox";
 import BasketBox from "./components/basketBox";
+import ItemFull from "./components/itemFull";
 import Axios from "axios";
 import "./App.css";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
@@ -17,17 +18,16 @@ export default class App extends Component {
   };
 
   updateOrders = () => {
-    console.log("kek");
     this.setState({ orders: orders });
   };
 
-  addToOrders = (order) => {
+  addToOrders = (order, number = 1) => {
     const itemInd = orders.findIndex((item) => item.id === order.id);
     if (itemInd >= 0) {
       const itemInState = orders.find((item) => item.id === order.id);
       const newItem = {
         ...itemInState,
-        qtty: ++itemInState.qtty,
+        qtty: itemInState.qtty + number,
       };
 
       orders = [
@@ -46,7 +46,7 @@ export default class App extends Component {
         id: order.id,
         number: order.number,
         type: order.type,
-        qtty: 1,
+        qtty: number,
       };
 
       orders = [...orders, newItem];
@@ -95,6 +95,11 @@ export default class App extends Component {
     console.log("app", orders);
   };
 
+  // addToOrdersFromFullItem = (item, number) => {
+  //   console.log("added!!!", number);
+  //   this.addToOrders(item, number);
+  // };
+
   render() {
     return (
       <Router>
@@ -116,6 +121,7 @@ export default class App extends Component {
                   }}
                   type={"rolls"}
                   addToOrders={this.addToOrders}
+                  goFullItem={this.goFullItem}
                   {...props}
                 />
               )}
@@ -159,7 +165,16 @@ export default class App extends Component {
               path="/rolls/:id/"
               render={({ match }) => {
                 const { id } = match.params;
-                return <Footer />;
+                return (
+                  <ItemFull
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getrollsFromId/${id}`
+                      );
+                    }}
+                    addToOrders={this.addToOrders}
+                  />
+                );
               }}
             />
           </Switch>
