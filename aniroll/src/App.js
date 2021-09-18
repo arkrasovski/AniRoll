@@ -13,6 +13,12 @@ export default class App extends Component {
   state = {
     links: ["Роллы", "Суши", "Сеты", "Соусы", "Напитки"],
     types: ["rolls", "sushi", "sets", "souses", "drinks"],
+    orders: null,
+  };
+
+  updateOrders = () => {
+    console.log("kek");
+    this.setState({ orders: orders });
   };
 
   addToOrders = (order) => {
@@ -22,7 +28,6 @@ export default class App extends Component {
       const newItem = {
         ...itemInState,
         qtty: ++itemInState.qtty,
-        kek: null,
       };
 
       orders = [
@@ -53,7 +58,7 @@ export default class App extends Component {
     const before = orders.slice(0, index);
     const after = orders.slice(index + 1);
     orders = [...before, ...after];
-    this.setState({ kek: "lol" });
+    this.setState({ orders: orders });
   };
 
   addQTTY = (id) => {
@@ -69,7 +74,7 @@ export default class App extends Component {
       newItem,
       ...orders.slice(itemInd + 1),
     ];
-    this.setState({ kek: "lol" });
+    this.setState({ orders: orders });
     console.log("app", orders);
   };
 
@@ -86,7 +91,7 @@ export default class App extends Component {
       newItem,
       ...orders.slice(itemInd + 1),
     ];
-    this.setState({ kek: "lol" });
+    this.setState({ orders: orders });
     console.log("app", orders);
   };
 
@@ -94,7 +99,10 @@ export default class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Header links={this.state.links}></Header>
+          <Header
+            links={this.state.links}
+            updateOrders={this.updateOrders}
+          ></Header>
           <Switch>
             <Route
               path="/"

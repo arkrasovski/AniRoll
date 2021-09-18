@@ -4,7 +4,7 @@ import "./header.sass";
 import logo from "../../images/yatologo.png";
 import { FaShoppingBasket, FaUserNinja } from "react-icons/fa";
 
-const Header = ({ links }) => {
+const Header = ({ links, updateOrders }) => {
   return (
     <header>
       <div className="logo">
@@ -24,7 +24,11 @@ const Header = ({ links }) => {
           })}
           <li>
             <Link to="/basket">
-              <FaShoppingBasket color={"rgb(127, 0, 0)"} size={"40px"} />
+              <FaShoppingBasket
+                onClick={updateOrders}
+                color={"rgb(127, 0, 0)"}
+                size={"40px"}
+              />
             </Link>
           </li>
           <li>
