@@ -154,6 +154,14 @@ export default class App extends Component {
                 />
               )}
             />
+
+            <Route
+              path="/rolls/:id/"
+              render={({ match }) => {
+                const { id } = match.params;
+                return <Footer />;
+              }}
+            />
           </Switch>
 
           <Footer />

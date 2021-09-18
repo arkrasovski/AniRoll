@@ -32,18 +32,19 @@ export default class ItemCard extends Component {
     const { onDelete, addToOrders } = this.props;
     return (
       <div className="card">
-        <Link to="/">
-          <div
-            className="deleteSign"
-            onClick={() => {
-              this.deletePost(id);
-              onDelete(id);
-            }}
-          >
-            <ImCross />
-          </div>
+        <div
+          className="deleteSign"
+          onClick={() => {
+            this.deletePost(id);
+            onDelete(id);
+          }}
+        >
+          <ImCross />
+        </div>
+
+        <Link to={"/" + type + "/" + id}>
+          <img src={url} alt={type + " " + name} />
         </Link>
-        <img src={url} alt={type + " " + name} />
         <div className="titleCard">
           <span className="title">{name}</span>, {number} шт.
         </div>

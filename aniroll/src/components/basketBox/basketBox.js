@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import "./basketBox.sass";
 import BasketItem from "../basketItem/basketItem";
-import Spinner from "../spinner";
-import ErrorMessage from "../errorMessage";
+import hhi from "../../images/hhi.jpg";
 
 export default class BasketBox extends Component {
   state = {
     basketList: null,
+    total: 0,
   };
 
   // deleteItem = (id) => {
@@ -61,9 +60,39 @@ export default class BasketBox extends Component {
     }
   }
 
+  fintTotal(arr) {
+    let sum = 0;
+    if (arr) {
+      arr.forEach((item) => {
+        sum += item.price * item.qtty;
+      });
+    }
+    return sum;
+  }
+
   render() {
     const { basketList } = this.state;
     let items = this.renderItems(basketList);
-    return <section className="main">{items}</section>;
+    let total = this.fintTotal(basketList);
+
+    console.log(basketList);
+    if (!basketList || basketList.length === 0) {
+      return (
+        <section className="mainBasket">
+          <div className="emptyBasket">
+            <span>Ваша корзина еще пуста ххи</span>
+            <img src={hhi} alt="Хитрый хайповый извращенец" />
+          </div>
+        </section>
+      );
+    }
+
+    return (
+      <section className="mainBasket">
+        <div className="total">{Math.round(total * 100) / 100} руб.</div>
+        {items}
+        <button className="checkout">Оформить заказ</button>
+      </section>
+    );
   }
 }

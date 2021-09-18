@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./basketItem.sass";
-import { ImCross } from "react-icons/im";
+import { IoMdCloseCircle } from "react-icons/io";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 
 export default class BasketItem extends Component {
@@ -29,13 +29,15 @@ export default class BasketItem extends Component {
             removeFromOrders(id);
           }}
         >
-          <ImCross />
+          <IoMdCloseCircle />
         </div>
         <div className="basketItem">
           <img src={url} alt="Изображение товара" />
           <div className="basketItemInfo">
             <span className="name">{name}</span>
-            <span className="price">Стоимость: {price * qtty}</span>
+            <span className="price">
+              Стоимость: {Math.round(price * qtty * 100) / 100}
+            </span>
             <span className="number">{number} шт</span>
           </div>
         </div>

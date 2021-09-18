@@ -8,17 +8,12 @@ import ErrorMessage from "../errorMessage";
 export default class ItemBox extends Component {
   state = {
     itemList: null,
-    loading: false,
+    loading: true,
     error: false,
   };
 
   componentDidMount() {
     this.updateItem();
-  }
-
-  shouldComponentUpdate(prevProps) {
-    // вместо !== будет какое то сравнение между this.props.tableData и nextProps.tableData
-    return this.state.itemList !== prevProps.itemList;
   }
 
   updateItem() {
