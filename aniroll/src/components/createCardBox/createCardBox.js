@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import "./createCardBox.sass";
 import Axios from "axios";
 
@@ -10,17 +9,19 @@ export default class ItemBox extends Component {
     number: "",
     price: "",
     weight: "",
+    description: "",
   };
 
   submitCard = () => {
-    const inputs = document.querySelectorAll("input");
-    console.log(inputs);
+    const inputs = document.querySelectorAll("input[required]");
+    const textarea = document.querySelector("textarea");
 
     inputs.forEach((input) => {
       if (!input.value) {
         input.classList.add("empty");
       }
     });
+    console.log(this.state.name);
 
     Axios.post(`http://localhost:3002/api/create${this.props.type}`, {
       name: this.state.name,
@@ -28,7 +29,9 @@ export default class ItemBox extends Component {
       number: this.state.number,
       price: this.state.price,
       weight: this.state.weight,
+      description: this.state.description,
     });
+    textarea.value = "";
     inputs.forEach((input) => {
       input.value = "";
     });
@@ -81,6 +84,15 @@ export default class ItemBox extends Component {
             onChange={(e) => {
               e.target.classList.remove("empty");
               this.setState({ weight: e.target.value });
+            }}
+          />
+
+          <label>Описание: </label>
+          <textarea
+            type="text"
+            onChange={(e) => {
+              e.target.classList.remove("empty");
+              this.setState({ description: e.target.value });
             }}
           />
 

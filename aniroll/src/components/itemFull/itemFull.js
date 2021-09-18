@@ -53,7 +53,7 @@ export default class ItemFull extends Component {
     if (!this.state.item) {
       return null;
     }
-    const { name, url, type, number, price, weight, id, qtty } = item[0];
+    const { name, url, type, number, price, weight, id, description } = item[0];
     const { addToOrders } = this.props;
     return (
       <section className="main">
@@ -67,7 +67,9 @@ export default class ItemFull extends Component {
               </span>
               <span className="number">{number} шт</span>
             </div>
+            <div className="description">{description}</div>
           </div>
+
           <div className="fullItemCounter">
             <AiOutlineMinusCircle
               onClick={() => {

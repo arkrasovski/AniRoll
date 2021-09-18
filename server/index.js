@@ -35,10 +35,11 @@ app.post("/api/createrolls", (req, res) => {
   const number = req.body.number;
   const price = req.body.price;
   const weight = req.body.weight;
+  const description = req.body.description;
 
   db.query(
-    "INSERT INTO rolls (name, url, number, price, weight) VALUES (?,?,?,?,?)",
-    [name, url, number, price, weight],
+    "INSERT INTO rolls (name, url, number, price, weight, description) VALUES (?,?,?,?,?,?)",
+    [name, url, number, price, weight, description],
     (err, result) => {
       if (err) {
         console.log(err);
