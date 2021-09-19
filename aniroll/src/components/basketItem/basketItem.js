@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import "./basketItem.sass";
 import { IoMdCloseCircle } from "react-icons/io";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
@@ -19,14 +18,14 @@ export default class BasketItem extends Component {
     if (!this.state.item) {
       return null;
     }
-    const { name, url, type, number, price, weight, id, qtty } = item;
+    const { name, url, type, number, price, id, qtty } = item;
     const { removeFromOrders, addQTTY, subQTTY } = this.props;
     return (
       <div className="cardBasket">
         <div
           className="deleteBasket"
           onClick={() => {
-            removeFromOrders(id);
+            removeFromOrders(id, type);
           }}
         >
           <IoMdCloseCircle />
@@ -45,14 +44,14 @@ export default class BasketItem extends Component {
           <AiOutlineMinusCircle
             onClick={() => {
               if (qtty > 1) {
-                subQTTY(id);
+                subQTTY(id, type);
               }
             }}
           />
           <div className="counter">{qtty}</div>
           <AiOutlinePlusCircle
             onClick={() => {
-              addQTTY(id);
+              addQTTY(id, type);
             }}
           />
         </div>

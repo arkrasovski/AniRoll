@@ -18,15 +18,6 @@ app.get("/api/getRolls", (req, res) => {
 });
 
 // Route to get one post
-app.get("/api/getFromId/:id", (req, res) => {
-  const id = req.params.id;
-  db.query("SELECT * FROM posts WHERE id = ?", id, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    res.send(result);
-  });
-});
 
 // Route for creating the post
 app.post("/api/createrolls", (req, res) => {
@@ -65,6 +56,60 @@ app.delete("/api/deleterolls/:id", (req, res) => {
   const id = req.params.id;
 
   db.query("DELETE FROM rolls WHERE id= ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+});
+
+app.get("/api/getdrinks", (req, res) => {
+  db.query("SELECT * FROM drinks", (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
+});
+
+// Route to get one post
+
+// Route for creating the post
+app.post("/api/createdrinks", (req, res) => {
+  const name = req.body.name;
+  const url = req.body.url;
+  const number = req.body.number;
+  const price = req.body.price;
+  const weight = req.body.weight;
+  const description = req.body.description;
+
+  db.query(
+    "INSERT INTO drinks (name, url, number, price, weight, description) VALUES (?,?,?,?,?,?)",
+    [name, url, number, price, weight, description],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+    }
+  );
+});
+
+// Route to delete a post
+
+app.get("/api/getdrinksFromId/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("SELECT * FROM drinks WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
+});
+
+app.delete("/api/deletedrinks/:id", (req, res) => {
+  const id = req.params.id;
+
+  db.query("DELETE FROM drinks WHERE id= ?", id, (err, result) => {
     if (err) {
       console.log(err);
     }

@@ -9,28 +9,10 @@ export default class BasketBox extends Component {
     total: 0,
   };
 
-  // deleteItem = (id) => {
-  //   this.setState(({ itemList }) => {
-  //     const index = itemList.findIndex((elem) => elem.id === id);
-  //     const before = itemList.slice(0, index);
-  //     const after = itemList.slice(index + 1);
-  //     const newArray = [...before, ...after];
-
-  //     return { itemList: newArray };
-  //   });
-  // };
-
   componentDidMount() {
     const { orders } = this.props;
     this.setState({ basketList: orders });
   }
-
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.orders !== prevProps.orders) {
-  //     const { orders } = this.props;
-  //     this.setState({ basketList: orders });
-  //   } //сравниваем совпадение предыдущих пропсов и текущих
-  // }
 
   removeFromState = (id) => {
     const { basketList } = this.state;
@@ -75,7 +57,6 @@ export default class BasketBox extends Component {
     let items = this.renderItems(basketList);
     let total = this.fintTotal(basketList);
 
-    console.log(basketList);
     if (!basketList || basketList.length === 0) {
       return (
         <section className="mainBasket">

@@ -18,7 +18,7 @@ const Header = ({ links, updateOrders }) => {
           {links.map((value, key) => {
             return (
               <li key={key}>
-                <Link to={value}>{value}</Link>
+                <Link to={"/" + value}>{value}</Link>
               </li>
             );
           })}

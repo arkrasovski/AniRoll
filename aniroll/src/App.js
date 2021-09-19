@@ -22,9 +22,13 @@ export default class App extends Component {
   };
 
   addToOrders = (order, number = 1) => {
-    const itemInd = orders.findIndex((item) => item.id === order.id);
+    const itemInd = orders.findIndex(
+      (item) => item.id === order.id && item.type === order.type
+    );
     if (itemInd >= 0) {
-      const itemInState = orders.find((item) => item.id === order.id);
+      const itemInState = orders.find(
+        (item) => item.id === order.id && item.type === order.type
+      );
       const newItem = {
         ...itemInState,
         qtty: itemInState.qtty + number,
@@ -53,17 +57,23 @@ export default class App extends Component {
     }
   };
 
-  removeFromOrders = (id) => {
-    const index = orders.findIndex((elem) => elem.id === id);
+  removeFromOrders = (id, type) => {
+    const index = orders.findIndex(
+      (elem) => elem.id === id && elem.type === type
+    );
     const before = orders.slice(0, index);
     const after = orders.slice(index + 1);
     orders = [...before, ...after];
     this.setState({ orders: orders });
   };
 
-  addQTTY = (id) => {
-    const itemInd = orders.findIndex((item) => item.id === id);
-    const itemInState = orders.find((item) => item.id === id);
+  addQTTY = (id, type) => {
+    const itemInd = orders.findIndex(
+      (item) => item.id === id && item.type === type
+    );
+    const itemInState = orders.find(
+      (item) => item.id === id && item.type === type
+    );
     const newItem = {
       ...itemInState,
       qtty: ++itemInState.qtty,
@@ -75,12 +85,15 @@ export default class App extends Component {
       ...orders.slice(itemInd + 1),
     ];
     this.setState({ orders: orders });
-    console.log("app", orders);
   };
 
-  subQTTY = (id) => {
-    const itemInd = orders.findIndex((item) => item.id === id);
-    const itemInState = orders.find((item) => item.id === id);
+  subQTTY = (id, type) => {
+    const itemInd = orders.findIndex(
+      (item) => item.id === id && item.type === type
+    );
+    const itemInState = orders.find(
+      (item) => item.id === id && item.type === type
+    );
     const newItem = {
       ...itemInState,
       qtty: --itemInState.qtty,
@@ -92,13 +105,7 @@ export default class App extends Component {
       ...orders.slice(itemInd + 1),
     ];
     this.setState({ orders: orders });
-    console.log("app", orders);
   };
-
-  // addToOrdersFromFullItem = (item, number) => {
-  //   console.log("added!!!", number);
-  //   this.addToOrders(item, number);
-  // };
 
   render() {
     return (
@@ -138,6 +145,8 @@ export default class App extends Component {
                     );
                   }}
                   type={"rolls"}
+                  addToOrders={this.addToOrders}
+                  goFullItem={this.goFullItem}
                   {...props}
                 />
               )}
@@ -147,20 +156,6 @@ export default class App extends Component {
               path="/createnewrolls"
               component={(props) => <CreateCardBox type={"rolls"} {...props} />}
             />
-
-            <Route
-              path="/basket"
-              component={(props) => (
-                <BasketBox
-                  orders={orders}
-                  removeFromOrders={this.removeFromOrders}
-                  addQTTY={this.addQTTY}
-                  subQTTY={this.subQTTY}
-                  {...props}
-                />
-              )}
-            />
-
             <Route
               path="/rolls/:id/"
               render={({ match }) => {
@@ -176,6 +171,60 @@ export default class App extends Component {
                   />
                 );
               }}
+            />
+
+            <Route
+              path="/напитки"
+              exact
+              component={(props) => (
+                <ItemBox
+                  getData={async () => {
+                    return await Axios.get(
+                      "http://localhost:3002/api/getdrinks"
+                    );
+                  }}
+                  type={"drinks"}
+                  addToOrders={this.addToOrders}
+                  goFullItem={this.goFullItem}
+                  {...props}
+                />
+              )}
+            />
+
+            <Route
+              path="/createnewdrinks"
+              component={(props) => (
+                <CreateCardBox type={"drinks"} {...props} />
+              )}
+            />
+            <Route
+              path="/drinks/:id/"
+              render={({ match }) => {
+                const { id } = match.params;
+                return (
+                  <ItemFull
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getdrinksFromId/${id}`
+                      );
+                    }}
+                    addToOrders={this.addToOrders}
+                  />
+                );
+              }}
+            />
+
+            <Route
+              path="/basket"
+              component={(props) => (
+                <BasketBox
+                  orders={orders}
+                  removeFromOrders={this.removeFromOrders}
+                  addQTTY={this.addQTTY}
+                  subQTTY={this.subQTTY}
+                  {...props}
+                />
+              )}
             />
           </Switch>
 
