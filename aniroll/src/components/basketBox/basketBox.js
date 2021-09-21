@@ -31,7 +31,7 @@ export default class BasketBox extends Component {
         return (
           <BasketItem
             item={item}
-            key={item.id}
+            key={item.id + item.type[0]}
             removeFromOrders={removeFromOrders}
             addToOrders={addToOrders}
             addQTTY={addQTTY}
