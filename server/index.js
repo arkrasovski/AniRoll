@@ -160,6 +160,26 @@ app.delete("/api/deletedrinks/:id", (req, res) => {
   });
 });
 
+//Create order
+
+app.post("/api/addOrder", (req, res) => {
+  const name = req.body.name;
+  const address = req.body.address;
+  const telNumber = req.body.telNumber;
+  const orderText = req.body.orderText;
+
+  db.query(
+    "INSERT INTO orders (client, address, telNumber, orderText) VALUES (?,?,?,?)",
+    [name, address, telNumber, orderText],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+    }
+  );
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });

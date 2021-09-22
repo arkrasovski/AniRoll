@@ -5,6 +5,7 @@ import ItemBox from "./components/itemBox";
 import CreateCardBox from "./components/createCardBox";
 import BasketBox from "./components/basketBox";
 import ItemFull from "./components/itemFull";
+import FinishOrder from "./components/finishOrder";
 import Axios from "axios";
 import "./App.css";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
@@ -105,6 +106,11 @@ export default class App extends Component {
       ...orders.slice(itemInd + 1),
     ];
     this.setState({ orders: orders });
+  };
+
+  clearOrder = () => {
+    orders = [];
+    this.setState(orders);
   };
 
   render() {
@@ -260,6 +266,17 @@ export default class App extends Component {
                   removeFromOrders={this.removeFromOrders}
                   addQTTY={this.addQTTY}
                   subQTTY={this.subQTTY}
+                  {...props}
+                />
+              )}
+            />
+
+            <Route
+              path="/finishOrder"
+              component={(props) => (
+                <FinishOrder
+                  orders={this.state.orders}
+                  clearOrder={this.clearOrder}
                   {...props}
                 />
               )}

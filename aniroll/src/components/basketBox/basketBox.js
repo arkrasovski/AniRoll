@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./basketBox.sass";
+import { Link } from "react-router-dom";
 import BasketItem from "../basketItem/basketItem";
 import hhi from "../../images/hhi.jpg";
 
@@ -72,7 +73,10 @@ export default class BasketBox extends Component {
       <section className="mainBasket">
         <div className="total">{Math.round(total * 100) / 100} руб.</div>
         {items}
-        <button className="checkout">Оформить заказ</button>
+
+        <Link to="/finishOrder">
+          <button className="checkout">Оформить заказ</button>
+        </Link>
       </section>
     );
   }
