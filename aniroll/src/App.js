@@ -110,7 +110,7 @@ export default class App extends Component {
   };
 
   clearOrder = () => {
-    orders = [];
+    orders.length = 0;
     this.setState({ orders });
   };
 

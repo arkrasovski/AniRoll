@@ -43,7 +43,7 @@ export default class ItemBox extends Component {
         telNumber: this.state.telNum,
         orderText,
       })
-        .then(this.test()) //сюда можно передавать функции
+        .then(this.postIsNormal()) //сюда можно передавать функции
         .catch((err) => console.log(err));
     }
 
@@ -52,13 +52,14 @@ export default class ItemBox extends Component {
     });
   };
 
-  test = () => {
-    this.setState({ Redirect: true });
+  postIsNormal = () => {
+    this.setState({ Redirect: true }, () => {
+      this.props.clearOrder();
+    });
   };
 
   render() {
     if (this.state.Redirect) {
-      this.props.clearOrder();
       console.log("redirect");
       return <Redirect push to="/" />;
     }
@@ -99,10 +100,12 @@ export default class ItemBox extends Component {
         </section>
       );
     }
-    return (
-      <section className="main">
-        Ваша корзина пуста, сделайте сначала заказ
-      </section>
-    );
+    if (!this.state.orders) {
+      return (
+        <section className="main">
+          Ваша корзина пуста, сделайте сначала заказ
+        </section>
+      );
+    }
   }
 }
