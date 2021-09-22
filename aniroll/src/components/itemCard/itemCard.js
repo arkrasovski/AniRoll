@@ -18,10 +18,7 @@ export default class ItemCard extends Component {
   deletePost = (id) => {
     Axios.delete(
       `http://localhost:3002/api/delete${this.state.item.type}/${id}`
-    ).then((response) => {
-      alert("you deleted a post");
-    });
-    window.location.reload(); //перезагрузка страницы
+    );
   };
 
   render() {

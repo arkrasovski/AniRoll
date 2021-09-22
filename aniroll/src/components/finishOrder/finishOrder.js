@@ -1,14 +1,15 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import "./finishOrder.sass";
-import { Link } from "react-router-dom";
 import Axios from "axios";
 
-export default class FinishOrder extends Component {
+export default class ItemBox extends Component {
   state = {
     orders: null,
     name: "",
     telNum: "",
     address: "",
+    Redirect: false,
   };
 
   componentDidMount() {
@@ -25,22 +26,42 @@ export default class FinishOrder extends Component {
       }
     });
 
-    const { orders } = this.state;
-    let orderText = "";
-    orders.forEach((order) => {
-      orderText += order.name + " x" + order.qtty + " ";
-    });
+    if (
+      this.state.name !== "" &&
+      this.state.address !== "" &&
+      this.state.telNum !== ""
+    ) {
+      const { orders } = this.state;
+      let orderText = "";
+      orders.forEach((order) => {
+        orderText += order.name + " x" + order.qtty + " ";
+      });
 
-    Axios.post(`http://localhost:3002/api/addOrder`, {
-      name: this.state.name,
-      address: this.state.address,
-      telNumber: this.state.telNum,
-      orderText,
+      Axios.post(`http://localhost:3002/api/addOrder`, {
+        name: this.state.name,
+        address: this.state.address,
+        telNumber: this.state.telNum,
+        orderText,
+      })
+        .then(this.test()) //сюда можно передавать функции
+        .catch((err) => console.log(err));
+    }
+
+    inputs.forEach((input) => {
+      input.value = "";
     });
   };
 
+  test = () => {
+    this.setState({ Redirect: true });
+  };
+
   render() {
-    const { clearOrder } = this.props;
+    if (this.state.Redirect) {
+      this.props.clearOrder();
+      console.log("redirect");
+      return <Redirect push to="/" />;
+    }
     if (this.state.orders) {
       return (
         <section className="main">
@@ -73,16 +94,7 @@ export default class FinishOrder extends Component {
               }}
             />
 
-            <Link to="/">
-              <button
-                onClick={() => {
-                  this.submitCard();
-                  clearOrder();
-                }}
-              >
-                Отправить заказ
-              </button>
-            </Link>
+            <button onClick={this.submitCard}>Submit Post</button>
           </div>
         </section>
       );
