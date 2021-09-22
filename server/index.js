@@ -40,6 +40,29 @@ app.post("/api/createrolls", (req, res) => {
   );
 });
 
+//Route to change a post
+
+app.post("/api/changerollsFromId/:id", (req, res) => {
+  const name = req.body.name;
+  const url = req.body.url;
+  const number = req.body.number;
+  const price = req.body.price;
+  const weight = req.body.weight;
+  const description = req.body.description;
+  const id = req.body.id;
+
+  db.query(
+    "UPDATE rolls SET name = ?, url = ? , number = ? , price = ?, weight = ?, description = ? WHERE id = ?",
+    [name, url, number, price, weight, description, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+    }
+  );
+});
+
 // Route to delete a post
 
 app.get("/api/getrollsFromId/:id", (req, res) => {
@@ -104,6 +127,27 @@ app.get("/api/getdrinksFromId/:id", (req, res) => {
     }
     res.send(result);
   });
+});
+
+app.post("/api/changedrinksFromId/:id", (req, res) => {
+  const name = req.body.name;
+  const url = req.body.url;
+  const number = req.body.number;
+  const price = req.body.price;
+  const weight = req.body.weight;
+  const description = req.body.description;
+  const id = req.body.id;
+
+  db.query(
+    "UPDATE drinks SET name = ?, url = ? , number = ? , price = ?, weight = ?, description = ? WHERE id = ?",
+    [name, url, number, price, weight, description, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+    }
+  );
 });
 
 app.delete("/api/deletedrinks/:id", (req, res) => {

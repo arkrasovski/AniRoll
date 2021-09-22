@@ -10,7 +10,44 @@ export default class ItemBox extends Component {
     price: "",
     weight: "",
     description: "",
+    itemToChange: null,
   };
+
+  componentDidMount() {
+    if (this.props.isUpdate) {
+      const { getData } = this.props;
+      getData()
+        .then((item) => {
+          const itemToChange = item.data[0];
+          this.setState({
+            name: itemToChange.name,
+            url: itemToChange.url,
+            number: itemToChange.number,
+            price: itemToChange.price,
+            weight: itemToChange.weight,
+            description: itemToChange.description,
+            itemToChange,
+          });
+
+          const data = [
+            itemToChange.name,
+            itemToChange.url,
+            itemToChange.number,
+            itemToChange.price,
+            itemToChange.weight,
+          ];
+          const inputs = document.querySelectorAll("input[required]");
+          inputs.forEach((input, i) => {
+            input.value = data[i];
+          });
+          const textarea = document.querySelector("textarea");
+          textarea.value = itemToChange.description;
+        })
+        .catch(() => {
+          console.log("error!");
+        });
+    }
+  }
 
   submitCard = () => {
     const inputs = document.querySelectorAll("input[required]");
@@ -21,7 +58,39 @@ export default class ItemBox extends Component {
         input.classList.add("empty");
       }
     });
-    console.log(this.state.name);
+
+    const { itemToChange } = this.state;
+
+    if (this.props.isUpdate) {
+      if (
+        (this.state.name !== itemToChange.name ||
+          this.state.url !== itemToChange.url ||
+          this.state.number !== itemToChange.number ||
+          this.state.price !== itemToChange.price ||
+          this.state.weight !== itemToChange.weight ||
+          this.state.description !== itemToChange.description) &&
+        (this.state.name !== "" ||
+          this.state.url !== "" ||
+          this.state.number !== "" ||
+          this.state.price !== "" ||
+          this.state.weight !== "" ||
+          this.state.description !== "")
+      ) {
+        Axios.post(
+          `http://localhost:3002/api/change${itemToChange.type}FromId/${itemToChange.id}`,
+          {
+            name: this.state.name,
+            url: this.state.url,
+            number: this.state.number,
+            price: this.state.price,
+            weight: this.state.weight,
+            description: this.state.description,
+            id: itemToChange.id,
+          }
+        );
+      }
+      return;
+    }
 
     Axios.post(`http://localhost:3002/api/create${this.props.type}`, {
       name: this.state.name,

@@ -156,8 +156,27 @@ export default class App extends Component {
               path="/createnewrolls"
               component={(props) => <CreateCardBox type={"rolls"} {...props} />}
             />
+
             <Route
-              path="/rolls/:id/"
+              path="/updaterolls/:id"
+              render={({ match }) => {
+                const { id } = match.params;
+                return (
+                  <CreateCardBox
+                    type={"rolls"}
+                    isUpdate={true}
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getrollsFromId/${id}`
+                      );
+                    }}
+                  />
+                );
+              }}
+            />
+
+            <Route
+              path="/rolls/:id"
               render={({ match }) => {
                 const { id } = match.params;
                 return (
@@ -197,6 +216,25 @@ export default class App extends Component {
                 <CreateCardBox type={"drinks"} {...props} />
               )}
             />
+
+            <Route
+              path="/updatedrinks/:id"
+              render={({ match }) => {
+                const { id } = match.params;
+                return (
+                  <CreateCardBox
+                    type={"drinks"}
+                    isUpdate={true}
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getdrinksFromId/${id}`
+                      );
+                    }}
+                  />
+                );
+              }}
+            />
+
             <Route
               path="/drinks/:id/"
               render={({ match }) => {

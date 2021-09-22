@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./itemCard.sass";
 import { ImCross } from "react-icons/im";
+import { GrUpdate } from "react-icons/gr";
 import Axios from "axios";
 
 export default class ItemCard extends Component {
@@ -40,6 +41,11 @@ export default class ItemCard extends Component {
           }}
         >
           <ImCross />
+        </div>
+        <div className="updateSign">
+          <Link to={`update${item.type}/${item.id}`}>
+            <GrUpdate />
+          </Link>
         </div>
 
         <Link to={"/" + type + "/" + id}>
