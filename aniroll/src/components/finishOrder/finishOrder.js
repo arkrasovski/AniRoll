@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router";
 import "./finishOrder.sass";
 import Axios from "axios";
+import MaskedInput from "react-input-mask";
 
 export default class ItemBox extends Component {
   state = {
@@ -89,7 +90,10 @@ export default class ItemBox extends Component {
 
   validateForm = () => {
     this.setState({
-      formValid: !this.state.nameError && !this.state.addressError,
+      formValid:
+        !this.state.nameError &&
+        !this.state.addressError &&
+        !this.state.telNumError,
     });
   };
 
@@ -116,49 +120,30 @@ export default class ItemBox extends Component {
               }}
             />
             <label>Номер телефона: </label>
-            <input
-              required
-              //id="online_phone"
-              //autoFocus="autofocus"
-              //value="+375(__)___-__-__"
-              //pattern="\+375\s?[\(]{0,1}9[0-9]{1}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}"
-              //placeholder="+375(__)___-__-__"
-              type="text"
+
+            {this.state.telNumDirty && this.state.telNumError && (
+              <div style={{ color: "red" }}>{this.state.telNumError}</div>
+            )}
+            <MaskedInput
+              mask={"+375 (99) 999-99-99"}
               onChange={(e) => {
+                this.setState({ telNumDirty: true });
                 e.target.classList.remove("empty");
-                this.setState({ telNum: e.target.value });
-                // function setCursorPosition(pos, e) {
-                //   e.focus();
-                //   if (e.setSelectionRange) e.setSelectionRange(pos, pos);
-                //   else if (e.createTextRange) {
-                //     var range = e.createTextRange();
-                //     range.collapse(true);
-                //     range.moveEnd("character", pos);
-                //     range.moveStart("character", pos);
-                //     range.select();
-                //   }
-                // }
-                // function mask(e) {
-                //   console.log("clicked!");
-                //   var matrix = this.placeholder, // .defaultValue
-                //     i = 0,
-                //     def = matrix.replace(/\D/g, ""),
-                //     val = this.value.replace(/\D/g, "");
-                //   def.length >= val.length && (val = def);
-                //   matrix = matrix.replace(/[_\d]/g, function (a) {
-                //     return val.charAt(i++) || "_";
-                //   });
-                //   this.value = matrix;
-                //   i = matrix.lastIndexOf(val.substr(-1));
-                //   i < matrix.length && matrix !== this.placeholder
-                //     ? i++
-                //     : (i = matrix.indexOf("_"));
-                //   setCursorPosition(i, this);
-                // }
-                // //var input = document.querySelector("#online_phone");
-                // e.target.addEventListener("input", mask, false);
-                // e.target.focus();
-                // setCursorPosition(3, e.target);
+                console.log(e.target.value.slice(-1));
+                this.setState({ telNum: e.target.value }, this.validateForm);
+                if (
+                  e.target.value === "+375 (__) ___-__-__" ||
+                  e.target.value.slice(-1) === "_"
+                ) {
+                  e.target.classList.add("empty");
+                  console.log("dasawrr");
+                  this.setState(
+                    { telNumError: "Поле должно быть заполнено" },
+                    this.validateForm
+                  );
+                } else {
+                  this.setState({ telNumError: "" }, this.validateForm);
+                }
               }}
             />
             <label>Адрес: </label>
