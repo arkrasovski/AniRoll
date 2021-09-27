@@ -25,6 +25,7 @@ export default class ItemBox extends Component {
     weightError: "Вес не может быть пустым",
 
     formValid: false,
+    isUpdated: false,
   };
 
   componentDidMount() {
@@ -54,6 +55,21 @@ export default class ItemBox extends Component {
           inputs.forEach((input, i) => {
             input.value = data[i];
           });
+          this.setState(
+            {
+              nameDirty: true,
+              urlDirty: true,
+              numberDirty: true,
+              priceDirty: true,
+              weightDirty: true,
+              nameError: "",
+              urlError: "",
+              numberError: "",
+              priceError: "",
+              weightError: "",
+            },
+            this.validateForm
+          );
           const textarea = document.querySelector("textarea");
           textarea.value = itemToChange.description;
         })
@@ -63,68 +79,48 @@ export default class ItemBox extends Component {
     }
   }
 
-  // componentDidUpdate(prevState) {
-  //   if (
-  //     prevState.nameError !== this.state.nameError &&
-  //     prevState.urlError !== this.state.urlError &&
-  //     prevState.numberError !== this.state.numberError &&
-  //     prevState.priceError !== this.state.priceError &&
-  //     prevState.weightError !== this.state.weightError
-  //   ) {
-  //     if (
-  //       !this.state.nameError &&
-  //       !this.state.urlError &&
-  //       !this.state.numberError &&
-  //       !this.state.priceError &&
-  //       !this.state.weightError
-  //     ) {
-  //       this.setState({ formValid: true });
-  //     } else {
-  //       this.setState({ formValid: false });
-  //     }
-  //   }
-  // }
-
   submitCard = () => {
     const inputs = document.querySelectorAll("input[required]");
     const textarea = document.querySelector("textarea");
 
-    inputs.forEach((input) => {
-      if (!input.value) {
-        input.classList.add("empty");
-      }
-    });
+    // inputs.forEach((input) => {
+    //   if (!input.value) {
+    //     input.classList.add("empty");
+    //   }
+    // });
 
     const { itemToChange } = this.state;
 
     if (this.props.isUpdate) {
-      if (
-        (this.state.name !== itemToChange.name ||
-          this.state.url !== itemToChange.url ||
-          this.state.number !== itemToChange.number ||
-          this.state.price !== itemToChange.price ||
-          this.state.weight !== itemToChange.weight ||
-          this.state.description !== itemToChange.description) &&
-        (this.state.name !== "" ||
-          this.state.url !== "" ||
-          this.state.number !== "" ||
-          this.state.price !== "" ||
-          this.state.weight !== "" ||
-          this.state.description !== "")
-      ) {
-        Axios.post(
-          `http://localhost:3002/api/change${itemToChange.type}FromId/${itemToChange.id}`,
-          {
-            name: this.state.name,
-            url: this.state.url,
-            number: this.state.number,
-            price: this.state.price,
-            weight: this.state.weight,
-            description: this.state.description,
-            id: itemToChange.id,
-          }
-        );
-      }
+      Axios.post(
+        `http://localhost:3002/api/change${itemToChange.type}FromId/${itemToChange.id}`,
+        {
+          name: this.state.name,
+          url: this.state.url,
+          number: this.state.number,
+          price: this.state.price,
+          weight: this.state.weight,
+          description: this.state.description,
+          id: itemToChange.id,
+        }
+      );
+
+      this.setState(
+        {
+          formValid: false,
+          nameDirty: false,
+          urlDirty: false,
+          numberDirty: false,
+          priceDirty: false,
+          weightDirty: false,
+          nameError: "",
+          urlError: "",
+          numberError: "",
+          priceError: "",
+          weightError: "",
+        },
+        this.validateForm
+      );
       return;
     }
 
@@ -165,13 +161,15 @@ export default class ItemBox extends Component {
     e.target.classList.remove("empty");
     const name = e.target.name;
     const nameError = name + "Error";
-    this.setState({ [name]: e.target.value });
+    this.setState({ [name]: e.target.value }, this.validateForm);
     if (isNaN(e.target.value)) {
+      e.target.classList.add("empty");
       this.setState(
         { [nameError]: "Введено некорректное значение" },
         this.validateForm
       );
     } else if (e.target.value === "") {
+      e.target.classList.add("empty");
       this.setState(
         { [nameError]: "Поле должно быть заполнено" },
         this.validateForm
@@ -190,6 +188,37 @@ export default class ItemBox extends Component {
         !this.state.priceError &&
         !this.state.weightError
     );
+    if (this.props.isUpdate) {
+      const { itemToChange } = this.state;
+      if (
+        this.state.name !== itemToChange.name ||
+        this.state.url !== itemToChange.url ||
+        +this.state.number !== itemToChange.number ||
+        +this.state.price !== itemToChange.price ||
+        +this.state.weight !== itemToChange.weight ||
+        this.state.description !== itemToChange.description
+      ) {
+        console.log(
+          "ultraproverka",
+          typeof this.state.price,
+          typeof itemToChange.price
+        );
+        this.setState({
+          formValid:
+            !this.state.nameError &&
+            !this.state.urlError &&
+            !this.state.numberError &&
+            !this.state.priceError &&
+            !this.state.weightError,
+          isUpdated: true,
+        });
+      } else {
+        console.log("fu");
+        this.setState({ formValid: false, isUpdated: false });
+      }
+      return;
+    }
+
     this.setState({
       formValid:
         !this.state.nameError &&
@@ -201,7 +230,8 @@ export default class ItemBox extends Component {
   };
 
   render() {
-    console.log(this.state.formValid);
+    console.log("formValid", this.state.formValid);
+
     return (
       <section className="main">
         <div className="uploadPost">
@@ -211,13 +241,15 @@ export default class ItemBox extends Component {
           )}
           <input
             required
+            maxLength="30"
             type="text"
             name="name"
             onBlur={(e) => this.blurHandler(e)}
             onChange={(e) => {
               e.target.classList.remove("empty");
-              this.setState({ name: e.target.value });
+              this.setState({ name: e.target.value }, this.validateForm);
               if (e.target.value === "") {
+                e.target.classList.add("empty");
                 this.setState(
                   { nameError: "Поле должно быть заполнено" },
                   this.validateForm
@@ -238,8 +270,9 @@ export default class ItemBox extends Component {
             onBlur={(e) => this.blurHandler(e)}
             onChange={(e) => {
               e.target.classList.remove("empty");
-              this.setState({ url: e.target.value });
+              this.setState({ url: e.target.value }, this.validateForm);
               if (e.target.value === "") {
+                e.target.classList.add("empty");
                 this.setState(
                   { urlError: "Поле должно быть заполнено" },
                   this.validateForm
@@ -291,15 +324,23 @@ export default class ItemBox extends Component {
 
           <label>Описание: </label>
           <textarea
+            maxLength="300"
             type="text"
             name="description"
             onBlur={(e) => this.blurHandler(e)}
             onChange={(e) => {
               e.target.classList.remove("empty");
-              this.setState({ description: e.target.value });
+              this.setState({ description: e.target.value }, this.validateForm);
             }}
           />
-          <button disabled={!this.state.formValid} onClick={this.submitCard}>
+          {!this.state.isUpdated && this.props.isUpdate ? (
+            <span>На данный момент значения идентичны</span>
+          ) : null}
+          <button
+            className={this.state.formValid + "Disable"}
+            disabled={!this.state.formValid}
+            onClick={this.submitCard}
+          >
             Submit Post
           </button>
         </div>
