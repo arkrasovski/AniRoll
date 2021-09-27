@@ -83,12 +83,6 @@ export default class ItemBox extends Component {
     const inputs = document.querySelectorAll("input[required]");
     const textarea = document.querySelector("textarea");
 
-    // inputs.forEach((input) => {
-    //   if (!input.value) {
-    //     input.classList.add("empty");
-    //   }
-    // });
-
     const { itemToChange } = this.state;
 
     if (this.props.isUpdate) {
@@ -155,6 +149,9 @@ export default class ItemBox extends Component {
   blurHandler = (e) => {
     const name = e.target.name + "Dirty";
     this.setState({ [name]: true });
+    if (e.target.value === "") {
+      e.target.classList.add("empty");
+    }
   };
 
   numericInputHandler = (e) => {
