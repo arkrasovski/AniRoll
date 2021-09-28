@@ -126,7 +126,13 @@ export default class ItemBox extends Component {
       price: this.state.price,
       weight: this.state.weight,
       description: this.state.description,
-    }).then(console.log("yspeh"));
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     this.setState({
       formValid: false,
       nameDirty: false,
