@@ -143,6 +143,7 @@ export default class ItemBox extends Component {
                   required
                   name="name"
                   type="text"
+                  placeholder="Иванов Иван Иванович"
                   onBlur={(e) => this.blurHandler(e)}
                   onChange={(e) => {
                     this.inputHandler(e);
@@ -156,6 +157,7 @@ export default class ItemBox extends Component {
               )}
               <div className="inputBox">
                 <MaskedInput
+                  placeholder="+375 (29) 999-99-99"
                   mask={"+375 (99) 999-99-99"}
                   onChange={(e) => {
                     this.setState({ telNumDirty: true });
@@ -186,6 +188,7 @@ export default class ItemBox extends Component {
               <div className="inputBox">
                 <input
                   required
+                  placeholder="ул. Бельского д. 1 кв. 1"
                   name="address"
                   type="text"
                   onBlur={(e) => this.blurHandler(e)}
@@ -202,7 +205,7 @@ export default class ItemBox extends Component {
                   this.submitCard();
                 }}
               >
-                Submit Post
+                Оформить заказ
               </button>
             </div>
             <img src={Odzen} alt="Одзен из аниме 'Созданный в бездне'"></img>
