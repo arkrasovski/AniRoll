@@ -35,19 +35,35 @@ export default class ItemBox extends Component {
     orders.forEach((order) => {
       orderText += order.name + " x" + order.qtty + " ";
     });
-    console.log("alloupervi");
+
     Axios.post(`http://localhost:3002/api/addOrder`, {
       name: this.state.name,
       address: this.state.address,
       telNumber: this.state.telNum,
       orderText,
-    }).then(this.postIsNormal());
-    // .then(function (response) {
-    //   console.log(response);
+    })
+      //.then(this.postIsNormal());
+      .then(function (response) {
+        console.log("ok", response);
+      })
+      .catch(function (error) {
+        console.log("ne ok", error);
+      });
+    // fetch("http://localhost:3002/api/addOrder", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     name: this.state.name,
+    //     address: this.state.address,
+    //     telNumber: this.state.telNum,
+    //     orderText,
+    //   }),
     // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
+    //   .then((res) => {
+    //     if (!res.ok) throw Error(res.statusText);
+    //     return res.json();
+    //   })
+    //   .then((data) => console.log(data))
+    //   .catch((error) => console.log(error));
   };
 
   postIsNormal = () => {

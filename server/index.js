@@ -174,10 +174,19 @@ app.post("/api/addOrder", (req, res) => {
     (err, result) => {
       if (err) {
         console.log(err);
+        res.send(error);
+        return;
       }
       console.log(result);
+      res.send(result);
     }
   );
+  // .then((response) => {
+  //   res.status(200).send(response);
+  // })
+  // .catch((error) => {
+  //   res.status(400).send(error);
+  // });
 });
 
 app.listen(PORT, () => {
