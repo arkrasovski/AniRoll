@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./createCardBox.sass";
 import Axios from "axios";
 import { ImCross } from "react-icons/im";
+import Modal from "../modal";
+import { Redirect } from "react-router";
 
 export default class ItemBox extends Component {
   state = {
@@ -27,6 +29,11 @@ export default class ItemBox extends Component {
 
     formValid: false,
     isUpdated: false,
+
+    modalActive: false,
+    modalText: "",
+
+    Redirect: false,
   };
 
   componentDidMount() {
@@ -98,7 +105,21 @@ export default class ItemBox extends Component {
           description: this.state.description,
           id: itemToChange.id,
         }
-      );
+      )
+        .then((response) => {
+          this.setState({
+            modalActive: true,
+            modalText: "Товар успешно обновлен!",
+          });
+          console.log("ok", response);
+        })
+        .catch((error) => {
+          this.setState({
+            modalActive: true,
+            modalText: "Извините, не получилось обновить товар",
+          });
+          console.log("ne ok", error);
+        });
 
       this.setState(
         {
@@ -127,11 +148,19 @@ export default class ItemBox extends Component {
       weight: this.state.weight,
       description: this.state.description,
     })
-      .then(function (response) {
-        console.log(response);
+      .then((response) => {
+        this.setState({
+          modalActive: true,
+          modalText: "Товар успешно добавлен!",
+        });
+        console.log("ok", response);
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) => {
+        this.setState({
+          modalActive: true,
+          modalText: "Извините, не получилось добавить товар",
+        });
+        console.log("ne ok", error);
       });
     this.setState({
       formValid: false,
@@ -233,9 +262,20 @@ export default class ItemBox extends Component {
     });
   };
 
+  setModalActive = () => {
+    //console.log("clicked");
+    this.setState({ modalActive: false });
+    if (this.props.isUpdate) {
+      this.setState({ Redirect: true });
+    }
+  };
+
   render() {
     console.log("formValid", this.state.formValid);
-    console.log("desc", this.state.description);
+    if (this.state.Redirect) {
+      return <Redirect push to={`/${this.state.itemToChange.type}`} />;
+    }
+
     return (
       <section className="main">
         <div className="uploadPost">
@@ -389,6 +429,11 @@ export default class ItemBox extends Component {
             Submit Post
           </button>
         </div>
+        <Modal
+          active={this.state.modalActive}
+          setActive={this.setModalActive}
+          content={this.state.modalText}
+        />
       </section>
     );
   }

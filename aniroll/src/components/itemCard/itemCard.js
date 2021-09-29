@@ -18,7 +18,17 @@ export default class ItemCard extends Component {
   deletePost = (id) => {
     Axios.delete(
       `http://localhost:3002/api/delete${this.state.item.type}/${id}`
-    );
+    )
+      .then((response) => {
+        this.props.onDelete(this.state.item.id);
+
+        this.props.getResponse(true);
+        console.log("ok", response);
+      })
+      .catch((error) => {
+        this.props.getResponse(false);
+        console.log("ne ok", error);
+      });
   };
 
   render() {
@@ -27,14 +37,13 @@ export default class ItemCard extends Component {
       return null;
     }
     const { name, url, type, number, price, weight, id } = item;
-    const { onDelete, addToOrders } = this.props;
+    const { addToOrders } = this.props;
     return (
       <div className="card">
         <div
           className="deleteSign"
           onClick={() => {
             this.deletePost(id);
-            onDelete(id);
           }}
         >
           <ImCross />

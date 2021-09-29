@@ -34,8 +34,11 @@ app.post("/api/createrolls", (req, res) => {
     (err, result) => {
       if (err) {
         console.log(err);
+        res.send(error);
+        return;
       }
       console.log(result);
+      res.send(result);
     }
   );
 });
@@ -57,8 +60,11 @@ app.post("/api/changerollsFromId/:id", (req, res) => {
     (err, result) => {
       if (err) {
         console.log(err);
+        res.send(error);
+        return;
       }
       console.log(result);
+      res.send(result);
     }
   );
 });
@@ -79,8 +85,14 @@ app.delete("/api/deleterolls/:id", (req, res) => {
   const id = req.params.id;
 
   db.query("DELETE FROM rolls WHERE id= ?", id, (err, result) => {
-    if (err) {
-      console.log(err);
+    {
+      if (err) {
+        console.log(err);
+        res.send(error);
+        return;
+      }
+      console.log(result);
+      res.send(result);
     }
   });
 });
@@ -111,8 +123,11 @@ app.post("/api/createdrinks", (req, res) => {
     (err, result) => {
       if (err) {
         console.log(err);
+        res.send(error);
+        return;
       }
       console.log(result);
+      res.send(result);
     }
   );
 });
@@ -144,8 +159,11 @@ app.post("/api/changedrinksFromId/:id", (req, res) => {
     (err, result) => {
       if (err) {
         console.log(err);
+        res.send(error);
+        return;
       }
       console.log(result);
+      res.send(result);
     }
   );
 });
@@ -154,8 +172,14 @@ app.delete("/api/deletedrinks/:id", (req, res) => {
   const id = req.params.id;
 
   db.query("DELETE FROM drinks WHERE id= ?", id, (err, result) => {
-    if (err) {
-      console.log(err);
+    {
+      if (err) {
+        console.log(err);
+        res.send(error);
+        return;
+      }
+      console.log(result);
+      res.send(result);
     }
   });
 });

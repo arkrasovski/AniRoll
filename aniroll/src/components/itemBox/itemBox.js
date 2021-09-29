@@ -4,12 +4,16 @@ import "./itemBox.sass";
 import ItemCard from "../itemCard";
 import Spinner from "../spinner";
 import ErrorMessage from "../errorMessage";
+import Modal from "../modal";
 
 export default class ItemBox extends Component {
   state = {
     itemList: null,
     loading: true,
     error: false,
+
+    modalActive: false,
+    modalText: "",
   };
 
   componentDidMount() {
@@ -55,11 +59,30 @@ export default class ItemBox extends Component {
             key={item.id}
             onDelete={this.deleteItem}
             addToOrders={addToOrders}
+            getResponse={this.setModalActive}
           ></ItemCard>
         );
       });
     }
   }
+
+  setModalActive = (isOk) => {
+    if (isOk) {
+      this.setState({
+        modalActive: true,
+        modalText: "Товар успешно удалён!",
+      });
+    } else {
+      this.setState({
+        modalActive: true,
+        modalText: "Извините, не получилось удалить товар",
+      });
+    }
+  };
+
+  setModalUnActive = () => {
+    this.setState({ modalActive: false });
+  };
 
   render() {
     if (!this.state.item && this.state.error) {
@@ -86,6 +109,11 @@ export default class ItemBox extends Component {
         <Link to={"/createnew" + this.props.type}>
           <button className="addCard">Добавить товар</button>
         </Link>
+        <Modal
+          active={this.state.modalActive}
+          setActive={this.setModalUnActive}
+          content={this.state.modalText}
+        />
       </section>
     );
   }

@@ -4,6 +4,7 @@ import "./finishOrder.sass";
 import Axios from "axios";
 import MaskedInput from "react-input-mask";
 import Odzen from "../../images/odzen.png";
+import Modal from "../modal";
 
 export default class ItemBox extends Component {
   state = {
@@ -22,6 +23,9 @@ export default class ItemBox extends Component {
     addressError: "Адрес не может быть пустым",
 
     formValid: false,
+
+    modalActive: false,
+    modalText: "",
   };
 
   componentDidMount() {
@@ -43,10 +47,18 @@ export default class ItemBox extends Component {
       orderText,
     })
       //.then(this.postIsNormal());
-      .then(function (response) {
+      .then((response) => {
+        this.setState({
+          modalActive: true,
+          modalText: "Ваш заказ успешно отправлен!",
+        });
         console.log("ok", response);
       })
-      .catch(function (error) {
+      .catch((error) => {
+        this.setState({
+          modalActive: true,
+          modalText: "Извините, произошла ошибка",
+        });
         console.log("ne ok", error);
       });
     // fetch("http://localhost:3002/api/addOrder", {
@@ -103,6 +115,13 @@ export default class ItemBox extends Component {
         !this.state.nameError &&
         !this.state.addressError &&
         !this.state.telNumError,
+    });
+  };
+
+  setModalActive = () => {
+    this.setState({ modalActive: false });
+    this.setState({ Redirect: true }, () => {
+      this.props.clearOrder();
     });
   };
 
@@ -188,6 +207,11 @@ export default class ItemBox extends Component {
             </div>
             <img src={Odzen} alt="Одзен из аниме 'Созданный в бездне'"></img>
           </div>
+          <Modal
+            active={this.state.modalActive}
+            setActive={this.setModalActive}
+            content={this.state.modalText}
+          />
         </section>
       );
     }

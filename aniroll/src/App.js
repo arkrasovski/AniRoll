@@ -14,7 +14,7 @@ import { useLocation } from "react-router";
 let orders = [];
 export default class App extends Component {
   state = {
-    links: ["Роллы", "Суши", "Сеты", "Соусы", "Напитки"],
+    links: ["rolls", "Суши", "Сеты", "Соусы", "drinks"],
     types: ["rolls", "sushi", "sets", "souses", "drinks"],
     orders: null,
   };
@@ -142,7 +142,7 @@ export default class App extends Component {
             />
 
             <Route
-              path="/роллы"
+              path="/rolls"
               exact
               component={(props) => (
                 <ItemBox
@@ -200,7 +200,7 @@ export default class App extends Component {
             />
 
             <Route
-              path="/напитки"
+              path="/drinks"
               exact
               component={(props) => (
                 <ItemBox
