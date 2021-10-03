@@ -6,10 +6,10 @@ import CreateCardBox from "./components/createCardBox";
 import BasketBox from "./components/basketBox";
 import ItemFull from "./components/itemFull";
 import FinishOrder from "./components/finishOrder";
+import NoMatch from "./components/noMatch";
 import Axios from "axios";
 import "./App.css";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { useLocation } from "react-router";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 let orders = [];
 export default class App extends Component {
@@ -459,6 +459,10 @@ export default class App extends Component {
                 />
               )}
             />
+
+            <Route path="*">
+              <NoMatch />
+            </Route>
           </Switch>
 
           <Footer />
@@ -467,3 +471,18 @@ export default class App extends Component {
     );
   }
 }
+
+// function NoMatch() {
+//   let location = useLocation();
+
+//   return (
+//     <section className="main">
+//       <div className="errorBox">
+//         <img src={rem} alt="Бессмер из аниме бессмертный " />
+//         <span className="errorText">
+//           No match for <code>{location.pathname}</code>
+//         </span>
+//       </div>
+//     </section>
+//   );
+// }
