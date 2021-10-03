@@ -9,13 +9,14 @@ import FinishOrder from "./components/finishOrder";
 import NoMatch from "./components/noMatch";
 import Axios from "axios";
 import "./App.css";
+import "./fonts.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 let orders = [];
 export default class App extends Component {
   state = {
     links: ["rolls", "sushi", "sets", "sauces", "drinks"],
-    types: ["rolls", "sushi", "sets", "sauses", "drinks"],
+    types: ["Роллы", "Суши", "Сеты", "Соусы", "Напитки"],
     orders: null,
   };
 
@@ -120,6 +121,7 @@ export default class App extends Component {
         <div className="App">
           <Header
             links={this.state.links}
+            names={this.state.types}
             updateOrders={this.updateOrders}
           ></Header>
           <Switch>

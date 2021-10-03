@@ -4,7 +4,7 @@ import "./header.sass";
 import logo from "../../images/yatologo.png";
 import { FaShoppingBasket, FaUserNinja } from "react-icons/fa";
 
-const Header = ({ links, updateOrders }) => {
+const Header = ({ links, updateOrders, names }) => {
   return (
     <header>
       <div className="logo">
@@ -18,7 +18,7 @@ const Header = ({ links, updateOrders }) => {
           {links.map((value, key) => {
             return (
               <li key={key}>
-                <Link to={"/" + value}>{value}</Link>
+                <Link to={"/" + value}>{names[key]}</Link>
               </li>
             );
           })}
