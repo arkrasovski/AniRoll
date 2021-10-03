@@ -11,12 +11,13 @@ const Header = ({ links, updateOrders, names }) => {
 
   return (
     <header>
-      <div className="logo">
-        <Link to="/">
+      <Link to="/">
+        <div className="logo">
           <img src={logo} alt="Логотип компании aniroll"></img>
-        </Link>
-        <span>AniRoll</span>
-      </div>
+
+          <span>AniRoll</span>
+        </div>
+      </Link>
       <div className="links">
         <ul>
           {links.map((value, key) => {
