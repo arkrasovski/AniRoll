@@ -14,8 +14,8 @@ import { useLocation } from "react-router";
 let orders = [];
 export default class App extends Component {
   state = {
-    links: ["rolls", "Суши", "Сеты", "Соусы", "drinks"],
-    types: ["rolls", "sushi", "sets", "souses", "drinks"],
+    links: ["rolls", "sushi", "sets", "sauces", "drinks"],
+    types: ["rolls", "sushi", "sets", "sauses", "drinks"],
     orders: null,
   };
 
@@ -251,6 +251,183 @@ export default class App extends Component {
                     getData={async () => {
                       return await Axios.get(
                         `http://localhost:3002/api/getdrinksFromId/${id}`
+                      );
+                    }}
+                    addToOrders={this.addToOrders}
+                  />
+                );
+              }}
+            />
+
+            {/* суши */}
+            <Route
+              path="/sushi"
+              exact
+              component={(props) => (
+                <ItemBox
+                  getData={async () => {
+                    return await Axios.get(
+                      "http://localhost:3002/api/getsushi"
+                    );
+                  }}
+                  type={"sushi"}
+                  addToOrders={this.addToOrders}
+                  goFullItem={this.goFullItem}
+                  {...props}
+                />
+              )}
+            />
+
+            <Route
+              path="/createnewsushi"
+              component={(props) => <CreateCardBox type={"sushi"} {...props} />}
+            />
+
+            <Route
+              path="/updatesushi/:id"
+              render={({ match }) => {
+                const { id } = match.params;
+                return (
+                  <CreateCardBox
+                    type={"sushi"}
+                    isUpdate={true}
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getsushiFromId/${id}`
+                      );
+                    }}
+                  />
+                );
+              }}
+            />
+
+            <Route
+              path="/sushi/:id/"
+              render={({ match }) => {
+                const { id } = match.params;
+                return (
+                  <ItemFull
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getsushiFromId/${id}`
+                      );
+                    }}
+                    addToOrders={this.addToOrders}
+                  />
+                );
+              }}
+            />
+
+            {/* sets */}
+            <Route
+              path="/sets"
+              exact
+              component={(props) => (
+                <ItemBox
+                  getData={async () => {
+                    return await Axios.get("http://localhost:3002/api/getsets");
+                  }}
+                  type={"sets"}
+                  addToOrders={this.addToOrders}
+                  goFullItem={this.goFullItem}
+                  {...props}
+                />
+              )}
+            />
+
+            <Route
+              path="/createnewsets"
+              component={(props) => <CreateCardBox type={"sets"} {...props} />}
+            />
+
+            <Route
+              path="/updatesets/:id"
+              render={({ match }) => {
+                const { id } = match.params;
+                return (
+                  <CreateCardBox
+                    type={"sets"}
+                    isUpdate={true}
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getsetsFromId/${id}`
+                      );
+                    }}
+                  />
+                );
+              }}
+            />
+
+            <Route
+              path="/sets/:id/"
+              render={({ match }) => {
+                const { id } = match.params;
+                return (
+                  <ItemFull
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getsetsFromId/${id}`
+                      );
+                    }}
+                    addToOrders={this.addToOrders}
+                  />
+                );
+              }}
+            />
+
+            {/* sauces */}
+            <Route
+              path="/sauces"
+              exact
+              component={(props) => (
+                <ItemBox
+                  getData={async () => {
+                    return await Axios.get(
+                      "http://localhost:3002/api/getsauces"
+                    );
+                  }}
+                  type={"sauces"}
+                  addToOrders={this.addToOrders}
+                  goFullItem={this.goFullItem}
+                  {...props}
+                />
+              )}
+            />
+
+            <Route
+              path="/createnewsauces"
+              component={(props) => (
+                <CreateCardBox type={"sauces"} {...props} />
+              )}
+            />
+
+            <Route
+              path="/updatesauces/:id"
+              render={({ match }) => {
+                const { id } = match.params;
+                return (
+                  <CreateCardBox
+                    type={"sauces"}
+                    isUpdate={true}
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getsaucesFromId/${id}`
+                      );
+                    }}
+                  />
+                );
+              }}
+            />
+
+            <Route
+              path="/sauces/:id/"
+              render={({ match }) => {
+                const { id } = match.params;
+                return (
+                  <ItemFull
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getsaucesFromId/${id}`
                       );
                     }}
                     addToOrders={this.addToOrders}

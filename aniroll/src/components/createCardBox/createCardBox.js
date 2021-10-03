@@ -152,6 +152,12 @@ export default class ItemBox extends Component {
         this.setState({
           modalActive: true,
           modalText: "Товар успешно добавлен!",
+          description: "",
+          url: "",
+        });
+        textarea.value = "";
+        inputs.forEach((input) => {
+          input.value = "";
         });
         console.log("ok", response);
       })
@@ -174,11 +180,6 @@ export default class ItemBox extends Component {
       numberError: "Количество не может быть пустым",
       priceError: "Цена не может быть пустой",
       weightError: "Вес не может быть пустым",
-    });
-
-    textarea.value = "";
-    inputs.forEach((input) => {
-      input.value = "";
     });
   };
 
