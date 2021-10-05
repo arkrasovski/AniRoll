@@ -8,37 +8,179 @@ footer
   grid-template-columns: 1fr 1fr 2fr
   grid-gap: 40px
   font-family: 'Montserrat Alternates', sans-serif
-  div
-    img
-      width: 50%
-    li
-      list-style-type: none
-      display: flex
-      margin: 20px 0
-      align-items: center
-      svg
-        margin: 0 15px
-        transform: scale(2.5)
-      .workTimeInfo
-        span
-          display: block
-          font-size: 20px
+  footer > div
+    display: flex
+    justify-content: center
+    flex-direction: column
+    align-items: center
 
   .workTime
     display: flex
     flex-direction: column
     justify-content: center
+    ul
+      li
+        list-style-type: none
+        display: flex
+        margin: 20px 0
+        align-items: center
+        svg
+          margin: 0 15px
+          transform: scale(2.5)
+        .workTimeInfo
+          span
+            display: block
+            font-size: 20px
+
   .telNumber
     display: flex
     align-items: center
     svg
       margin: 0 15px
       transform: scale(2.5)
-  .telNumber > span
-    font-size: 40px
-    margin-right: 15px
-  .telNumbers span
-    display: block
-    font-size: 20px
+    .fullTelNotation
+      display: flex
+      align-items: center
+      span
+        font-size: 40px
+        margin-right: 15px
+      .telNumbers span
+        display: block
+        font-size: 20px
   .footerImg
     text-align: center
+    img
+      width: 50%
+
+@media screen and (max-width: 1650px) and (min-width: 1450px)
+  footer
+    grid-gap: 30px
+
+    .workTime
+      ul
+        li
+          svg
+            transform: scale(2.3)
+          .workTimeInfo
+            span
+              font-size: 18px
+
+    .telNumber
+      svg
+        transform: scale(2.3)
+      .fullTelNotation
+        span
+          font-size: 30px
+        .telNumbers span
+          font-size: 18px
+
+@media screen and (max-width: 1450px) and (min-width: 1250px)
+  footer
+    grid-gap: 30px
+
+    .workTime
+      ul
+        li
+          svg
+            transform: scale(2)
+          .workTimeInfo
+            span
+              font-size: 15px
+
+    .telNumber
+      svg
+        transform: scale(2)
+      .fullTelNotation
+        span
+          font-size: 23px
+        .telNumbers span
+          font-size: 15px
+
+@media screen and (max-width: 1250px) and (min-width: 1000px)
+  footer
+    grid-gap: 15px
+
+    .workTime
+      ul
+        li
+          margin: 15px 0
+          svg
+            transform: scale(1.5)
+          .workTimeInfo
+            span
+              font-size: 10px
+
+    .telNumber
+      svg
+        transform: scale(1.5)
+      .fullTelNotation
+        span
+          font-size: 18px
+        .telNumbers span
+          font-size: 10px
+
+@media screen and (max-width: 1000px) and (min-width: 800px)
+  footer
+    grid-gap: 0
+
+    .workTime
+      ul
+        li
+          margin: 10px 0
+          svg
+            transform: scale(1.5)
+          .workTimeInfo
+            span
+              font-size: 10px
+
+    .telNumber
+      svg
+        transform: scale(1.5)
+      .fullTelNotation
+        span
+          font-size: 14px
+          margin-right: 5px
+        .telNumbers span
+          font-size: 10px
+
+@media screen and (max-width: 800px) and (min-width: 320px)
+  footer
+    grid-template-columns: 1fr
+    grid-gap: 30px
+    .workTime
+      align-items: center
+      ul
+        li
+          svg
+            margin: 0 20px
+
+    .telNumber
+      justify-content: center
+
+    .footerImg
+      img
+        width: 80%
+
+@media screen and (max-width: 500px) and (min-width: 320px)
+  footer
+    grid-gap: 20px
+    .workTime
+      ul
+        li
+          margin: 10px 0
+          svg
+            transform: scale(2)
+          .workTimeInfo
+            span
+              font-size: 15px
+
+    .telNumber
+      svg
+        margin: 0 15px
+        transform: scale(2)
+      .fullTelNotation
+        span
+          font-size: 25px
+          margin-right: 10px
+        .telNumbers span
+          font-size: 15px

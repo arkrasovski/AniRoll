@@ -42,7 +42,6 @@ const Header = ({ links, updateOrders, names }) => {
           <li>
             <FiMenu
               onClick={() => {
-                console.log("click");
                 setMenuActive(!menuActive);
               }}
             />

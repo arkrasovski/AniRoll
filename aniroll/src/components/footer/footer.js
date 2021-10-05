@@ -28,11 +28,13 @@ const Footer = () => {
 
       <div className="telNumber">
         <ImPhone color={"rgb(127, 0, 0)"} />
-        <span>+375</span>
-        <div className="telNumbers">
-          <span>(29) 536-23-43</span>
-          <span>(25) 578-23-43</span>
-          <span>(44) 512-23-43</span>
+        <div className="fullTelNotation">
+          <span>+375</span>
+          <div className="telNumbers">
+            <span>(29) 536-23-43</span>
+            <span>(25) 578-23-43</span>
+            <span>(44) 512-23-43</span>
+          </div>
         </div>
       </div>
 
