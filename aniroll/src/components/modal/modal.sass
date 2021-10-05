@@ -20,13 +20,12 @@ $mainColor: rgb(127, 0, 0)
         border-radius: 12px
         background-color: #fff
         height: 200px
-        width: 400px
+        width: 40%
         display: flex
         align-items: center
         justify-content: center
         transform: scale(0.5)
         transition: 0.4s all
-        width: 50vh
 
 .modal.active
     opacity: 1
@@ -34,3 +33,15 @@ $mainColor: rgb(127, 0, 0)
 
     .modal_content.active
         transform: scale(1)
+
+@media screen and (max-width: 800px) and (min-width: 320px)
+    .modal
+        .modal_content
+            width: 60%
+            height: 150px
+
+@media screen and (max-width: 500px) and (min-width: 320px)
+    .modal
+        .modal_content
+            width: 80%
+            height: 100px

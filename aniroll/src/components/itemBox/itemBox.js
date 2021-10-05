@@ -88,7 +88,7 @@ export default class ItemBox extends Component {
     if (!this.state.item && this.state.error) {
       return (
         <section className="spinnerBox">
-          <ErrorMessage />;{" "}
+          <ErrorMessage />
         </section>
       );
     }
