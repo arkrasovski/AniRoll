@@ -7,13 +7,16 @@ import "./noMatch.sass";
 const NoMatch = () => {
   let location = useLocation();
   return (
-    <section className="main">
+    <section className="mainNoMatch">
+      <img src={rem} alt="Рэм из аниме Re:zero " />
       <div className="noMatchBox">
-        <img src={rem} alt="Рэм из аниме Re:zero " />
         <span className="noMatchText">
-          Не найдено ничего <code>{location.pathname}</code> <br />
-          <Link to="/">На главную</Link>
+          Не найдено ничего по адресу{" "}
+          <code>{"localhost:3000" + location.pathname}</code> <br />
         </span>
+        <Link to="/">
+          <button>На главную</button>
+        </Link>
       </div>
     </section>
   );
