@@ -57,7 +57,7 @@ export default class ItemFull extends Component {
       const { name, url, number, price, description } = item[0];
       const { addToOrders } = this.props;
       return (
-        <section className="main">
+        <section className="FullItemMain">
           <div className="fullItem">
             <div className="fullItemInfo">
               <img src={url} alt="Изображение товара" />
