@@ -3,6 +3,7 @@ $shadow: 0 5px 5px rgba(0, 0, 0, 0.2)
 $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
 
 .cardBasket
+  font-family: 'Bellota Text', cursive
   position: relative
   border-left: 1px solid rgba(0, 0, 0, 0.2)
   border-top: 1px solid rgba(0, 0, 0, 0.2)
@@ -14,6 +15,7 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
   padding: 1%
   display: flex
   justify-content: space-between
+
   .deleteBasket
     position: absolute
     right: -20px
@@ -26,12 +28,14 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
       cursor: pointer
   .basketItem
     display: flex
+    width: 80%
     img
       border-radius: 20px
       box-shadow: $shadow
       margin-right: 30px
       display: flex
     .basketItemInfo
+      width: 100%
       display: flex
       flex-direction: column
       .name
@@ -40,12 +44,15 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
       .price
         flex: 1 0 auto
         margin-top: 20px
+        font-size: 20px
       .number
+        font-size: 20px
         flex: 0 0 auto
   .basketCounter
-    margin-right: 50px
+    width: 20%
     display: flex
     align-items: center
+    justify-content: flex-end
     svg
       font-size: 30px
       color: $mainColor
@@ -59,3 +66,122 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
       justify-content: center
       border-radius: 50%
       box-shadow: $shadow
+
+@media screen and (max-width: 1500px) and (min-width: 1200px)
+  .cardBasket
+    height: 200px
+    .deleteBasket
+      right: -15px
+      svg
+        font-size: 25px
+    .basketItem
+      img
+        margin-right: 15px
+      .basketItemInfo
+        .name
+          font-size: 20px
+        .price
+          margin-top: 10px
+          font-size: 15px
+        .number
+          font-size: 15px
+    .basketCounter
+      svg
+        font-size: 20px
+      .counter
+        font-size: 15px
+        width: 40px
+        height: 40px
+
+@media screen and (max-width: 1200px) and (min-width: 800px)
+  .cardBasket
+    height: 150px
+    .deleteBasket
+      right: -10px
+      top: -10px
+      svg
+        font-size: 20px
+    .basketItem
+      img
+        margin-right: 10px
+      .basketItemInfo
+        .name
+          font-size: 20px
+        .price
+          margin-top: 10px
+          font-size: 15px
+        .number
+          font-size: 15px
+    .basketCounter
+      svg
+        font-size: 18px
+      .counter
+        font-size: 15px
+        width: 35px
+        height: 35px
+
+@media screen and (max-width: 800px) and (min-width: 320px)
+  .cardBasket
+    flex-direction: column
+    height: 100%
+    .deleteBasket
+      right: -10px
+      top: -10px
+      svg
+        font-size: 20px
+    .basketItem
+      width: 100%
+      img
+        margin-right: 10px
+        width: 50%
+      .basketItemInfo
+        .name
+          font-size: 15px
+        .price
+          margin-top: 10px
+          font-size: 10px
+        .number
+          font-size: 10px
+    .basketCounter
+      width: 100%
+      justify-content: center
+      margin-bottom: 5px
+      svg
+        font-size: 15px
+      .counter
+        font-size: 10px
+        width: 30px
+        height: 30px
+
+@media screen and (max-width: 500px) and (min-width: 320px)
+  .cardBasket
+    flex-direction: column
+    height: 100%
+    .deleteBasket
+      right: -10px
+      top: -10px
+      svg
+        font-size: 20px
+    .basketItem
+      flex-direction: column
+      width: 100%
+      img
+        margin: 0 auto
+        width: 50%
+      .basketItemInfo
+        .name
+          font-size: 15px
+        .price
+          margin-top: 10px
+          font-size: 10px
+        .number
+          font-size: 10px
+    .basketCounter
+      width: 100%
+      justify-content: center
+      svg
+        font-size: 15px
+      .counter
+        font-size: 10px
+        width: 30px
+        height: 30px
