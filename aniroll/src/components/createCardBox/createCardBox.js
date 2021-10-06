@@ -282,7 +282,7 @@ export default class ItemBox extends Component {
         <div className="uploadPost">
           <label>Название товара: </label>
           {this.state.nameDirty && this.state.nameError && (
-            <div style={{ color: "red" }}>{this.state.nameError}</div>
+            <span className="validateError">{this.state.nameError}</span>
           )}
           <div className="inputBox">
             <input
@@ -308,7 +308,7 @@ export default class ItemBox extends Component {
           </div>
           <label>Url изображения: </label>
           {this.state.urlDirty && this.state.urlError && (
-            <div style={{ color: "red" }}>{this.state.urlError}</div>
+            <span className="validateError">{this.state.urlError}</span>
           )}
           <div className="inputBox">
             <input
@@ -350,7 +350,7 @@ export default class ItemBox extends Component {
           </div>
           <label>Количество товаров: </label>
           {this.state.numberDirty && this.state.numberError && (
-            <div style={{ color: "red" }}>{this.state.numberError}</div>
+            <span className="validateError">{this.state.numberError}</span>
           )}
           <div className="inputBox">
             <input
@@ -365,7 +365,7 @@ export default class ItemBox extends Component {
           </div>
           <label>Цена: </label>
           {this.state.priceDirty && this.state.priceError && (
-            <div style={{ color: "red" }}>{this.state.priceError}</div>
+            <span className="validateError">{this.state.priceError}</span>
           )}
           <div className="inputBox">
             <input
@@ -380,7 +380,7 @@ export default class ItemBox extends Component {
           </div>
           <label>Вес: </label>
           {this.state.weightDirty && this.state.weightError && (
-            <div style={{ color: "red" }}>{this.state.weightError}</div>
+            <span className="validateError">{this.state.weightError}</span>
           )}
           <div className="inputBox">
             <input
@@ -420,14 +420,16 @@ export default class ItemBox extends Component {
             ) : null}
           </div>
           {!this.state.isUpdated && this.props.isUpdate ? (
-            <span>На данный момент значения идентичны</span>
+            <span className="identValues">
+              На данный момент значения идентичны
+            </span>
           ) : null}
           <button
             className={this.state.formValid + "Disable"}
             disabled={!this.state.formValid}
             onClick={this.submitCard}
           >
-            Submit Post
+            {this.props.isUpdate ? "Изменить" : "Добавить"}
           </button>
         </div>
         <Modal

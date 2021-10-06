@@ -133,10 +133,10 @@ export default class ItemBox extends Component {
       return (
         <section className="main">
           <div className="uploadPostWrapper">
-            <div className="uploadPost">
+            <div className="confirmOrder">
               <label>Ваше ФИО: </label>
               {this.state.nameDirty && this.state.nameError && (
-                <div style={{ color: "red" }}>{this.state.nameError}</div>
+                <span className="validateError">{this.state.nameError}</span>
               )}
               <div className="inputBox">
                 <input
@@ -153,7 +153,7 @@ export default class ItemBox extends Component {
               <label>Номер телефона: </label>
 
               {this.state.telNumDirty && this.state.telNumError && (
-                <div style={{ color: "red" }}>{this.state.telNumError}</div>
+                <span className="validateError">{this.state.telNumError}</span>
               )}
               <div className="inputBox">
                 <MaskedInput
@@ -183,7 +183,7 @@ export default class ItemBox extends Component {
               </div>
               <label>Адрес: </label>
               {this.state.addressDirty && this.state.addressError && (
-                <div style={{ color: "red" }}>{this.state.addressError}</div>
+                <span className="validateError">{this.state.addressError}</span>
               )}
               <div className="inputBox">
                 <input
