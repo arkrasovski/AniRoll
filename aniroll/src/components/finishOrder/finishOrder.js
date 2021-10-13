@@ -53,7 +53,6 @@ export default class ItemBox extends Component {
     })
       .then((response) => {
         Axios.get(`http://localhost:3002/api/lastOrder`).then((response) => {
-          console.log("nomer", response.data[0].ID);
           this.setState({
             modalActive: true,
             modalText: `Ваш заказ номер ${response.data[0].ID} успешно отправлен!`,
@@ -128,7 +127,6 @@ export default class ItemBox extends Component {
   };
 
   render() {
-    console.log("orders", this.state.orders);
     if (this.state.Redirect) {
       return <Redirect push to="/" />;
     }

@@ -10,7 +10,8 @@ const Modal = ({ active, setActive, content }) => {
           e.stopPropagation();
         }}
       >
-        {content}
+        <span>{content}</span>
+        <button onClick={setActive}>Ок</button>
       </div>
     </div>
   );
