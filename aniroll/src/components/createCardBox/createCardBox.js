@@ -3,6 +3,7 @@ import "./createCardBox.sass";
 import Axios from "axios";
 import { ImCross } from "react-icons/im";
 import Modal from "../modal";
+import NoMatch from "../noMatch";
 import { Redirect } from "react-router";
 
 export default class ItemBox extends Component {
@@ -277,167 +278,173 @@ export default class ItemBox extends Component {
       return <Redirect push to={`/${this.state.itemToChange.type}`} />;
     }
 
-    return (
-      <section className="main">
-        <div className="uploadPost">
-          <label>Название товара: </label>
-          {this.state.nameDirty && this.state.nameError && (
-            <span className="validateError">{this.state.nameError}</span>
-          )}
-          <div className="inputBox">
-            <input
-              required
-              maxLength="30"
-              type="text"
-              name="name"
-              onBlur={(e) => this.blurHandler(e)}
-              onChange={(e) => {
-                e.target.classList.remove("empty");
-                this.setState({ name: e.target.value }, this.validateForm);
-                if (e.target.value === "") {
-                  e.target.classList.add("empty");
-                  this.setState(
-                    { nameError: "Поле должно быть заполнено" },
-                    this.validateForm
-                  );
-                } else {
-                  this.setState({ nameError: "" }, this.validateForm);
-                }
-              }}
-            />
-          </div>
-          <label>Url изображения: </label>
-          {this.state.urlDirty && this.state.urlError && (
-            <span className="validateError">{this.state.urlError}</span>
-          )}
-          <div className="inputBox">
-            <input
-              required
-              type="text"
-              id="url"
-              name="url"
-              onBlur={(e) => this.blurHandler(e)}
-              onChange={(e) => {
-                e.target.classList.remove("empty");
-                this.setState({ url: e.target.value }, this.validateForm);
-                if (e.target.value === "") {
-                  e.target.classList.add("empty");
-                  this.setState(
-                    { urlError: "Поле должно быть заполнено" },
-                    this.validateForm
-                  );
-                } else {
-                  this.setState({ urlError: "" }, this.validateForm);
-                }
-              }}
-            />
-            {this.state.url ? (
-              <ImCross
-                onClick={() => {
-                  const inputUrl = document.querySelector("#url");
-                  console.log(inputUrl);
-                  inputUrl.value = "";
-                  this.setState(
-                    {
-                      url: "",
-                      urlError: "Url не может быть пустым",
-                    },
-                    this.validateForm
-                  );
+    if (localStorage.getItem("isAdmin")) {
+      return (
+        <section className="main">
+          <div className="uploadPost">
+            <label>Название товара: </label>
+            {this.state.nameDirty && this.state.nameError && (
+              <span className="validateError">{this.state.nameError}</span>
+            )}
+            <div className="inputBox">
+              <input
+                required
+                maxLength="30"
+                type="text"
+                name="name"
+                onBlur={(e) => this.blurHandler(e)}
+                onChange={(e) => {
+                  e.target.classList.remove("empty");
+                  this.setState({ name: e.target.value }, this.validateForm);
+                  if (e.target.value === "") {
+                    e.target.classList.add("empty");
+                    this.setState(
+                      { nameError: "Поле должно быть заполнено" },
+                      this.validateForm
+                    );
+                  } else {
+                    this.setState({ nameError: "" }, this.validateForm);
+                  }
                 }}
               />
-            ) : null}
-          </div>
-          <label>Количество товаров: </label>
-          {this.state.numberDirty && this.state.numberError && (
-            <span className="validateError">{this.state.numberError}</span>
-          )}
-          <div className="inputBox">
-            <input
-              required
-              type="text"
-              name="number"
-              onBlur={(e) => this.blurHandler(e)}
-              onChange={(e) => {
-                this.numericInputHandler(e);
-              }}
-            />
-          </div>
-          <label>Цена: </label>
-          {this.state.priceDirty && this.state.priceError && (
-            <span className="validateError">{this.state.priceError}</span>
-          )}
-          <div className="inputBox">
-            <input
-              required
-              type="text"
-              name="price"
-              onBlur={(e) => this.blurHandler(e)}
-              onChange={(e) => {
-                this.numericInputHandler(e);
-              }}
-            />
-          </div>
-          <label>Вес: </label>
-          {this.state.weightDirty && this.state.weightError && (
-            <span className="validateError">{this.state.weightError}</span>
-          )}
-          <div className="inputBox">
-            <input
-              required
-              type="text"
-              name="weight"
-              onBlur={(e) => this.blurHandler(e)}
-              onChange={(e) => {
-                this.numericInputHandler(e);
-              }}
-            />
-          </div>
+            </div>
+            <label>Url изображения: </label>
+            {this.state.urlDirty && this.state.urlError && (
+              <span className="validateError">{this.state.urlError}</span>
+            )}
+            <div className="inputBox">
+              <input
+                required
+                type="text"
+                id="url"
+                name="url"
+                onBlur={(e) => this.blurHandler(e)}
+                onChange={(e) => {
+                  e.target.classList.remove("empty");
+                  this.setState({ url: e.target.value }, this.validateForm);
+                  if (e.target.value === "") {
+                    e.target.classList.add("empty");
+                    this.setState(
+                      { urlError: "Поле должно быть заполнено" },
+                      this.validateForm
+                    );
+                  } else {
+                    this.setState({ urlError: "" }, this.validateForm);
+                  }
+                }}
+              />
+              {this.state.url ? (
+                <ImCross
+                  onClick={() => {
+                    const inputUrl = document.querySelector("#url");
+                    console.log(inputUrl);
+                    inputUrl.value = "";
+                    this.setState(
+                      {
+                        url: "",
+                        urlError: "Url не может быть пустым",
+                      },
+                      this.validateForm
+                    );
+                  }}
+                />
+              ) : null}
+            </div>
+            <label>Количество товаров: </label>
+            {this.state.numberDirty && this.state.numberError && (
+              <span className="validateError">{this.state.numberError}</span>
+            )}
+            <div className="inputBox">
+              <input
+                required
+                type="text"
+                name="number"
+                onBlur={(e) => this.blurHandler(e)}
+                onChange={(e) => {
+                  this.numericInputHandler(e);
+                }}
+              />
+            </div>
+            <label>Цена: </label>
+            {this.state.priceDirty && this.state.priceError && (
+              <span className="validateError">{this.state.priceError}</span>
+            )}
+            <div className="inputBox">
+              <input
+                required
+                type="text"
+                name="price"
+                onBlur={(e) => this.blurHandler(e)}
+                onChange={(e) => {
+                  this.numericInputHandler(e);
+                }}
+              />
+            </div>
+            <label>Вес: </label>
+            {this.state.weightDirty && this.state.weightError && (
+              <span className="validateError">{this.state.weightError}</span>
+            )}
+            <div className="inputBox">
+              <input
+                required
+                type="text"
+                name="weight"
+                onBlur={(e) => this.blurHandler(e)}
+                onChange={(e) => {
+                  this.numericInputHandler(e);
+                }}
+              />
+            </div>
 
-          <label>Описание: </label>
-          <div className="inputBox">
-            <textarea
-              maxLength="300"
-              type="text"
-              name="description"
-              onBlur={(e) => this.blurHandler(e)}
-              onChange={(e) => {
-                e.target.classList.remove("empty");
-                this.setState(
-                  { description: e.target.value },
-                  this.validateForm
-                );
-              }}
-            />
-            {this.state.description ? (
-              <ImCross
-                onClick={() => {
-                  const textarea = document.querySelector("textarea");
-                  textarea.value = "";
-                  this.setState({ description: "" });
+            <label>Описание: </label>
+            <div className="inputBox">
+              <textarea
+                maxLength="300"
+                type="text"
+                name="description"
+                onBlur={(e) => this.blurHandler(e)}
+                onChange={(e) => {
+                  e.target.classList.remove("empty");
+                  this.setState(
+                    { description: e.target.value },
+                    this.validateForm
+                  );
                 }}
               />
+              {this.state.description ? (
+                <ImCross
+                  onClick={() => {
+                    const textarea = document.querySelector("textarea");
+                    textarea.value = "";
+                    this.setState({ description: "" });
+                  }}
+                />
+              ) : null}
+            </div>
+            {!this.state.isUpdated && this.props.isUpdate ? (
+              <span className="identValues">
+                На данный момент значения идентичны
+              </span>
             ) : null}
+            <button
+              className={this.state.formValid + "Disable"}
+              disabled={!this.state.formValid}
+              onClick={this.submitCard}
+            >
+              {this.props.isUpdate ? "Изменить" : "Добавить"}
+            </button>
           </div>
-          {!this.state.isUpdated && this.props.isUpdate ? (
-            <span className="identValues">
-              На данный момент значения идентичны
-            </span>
-          ) : null}
-          <button
-            className={this.state.formValid + "Disable"}
-            disabled={!this.state.formValid}
-            onClick={this.submitCard}
-          >
-            {this.props.isUpdate ? "Изменить" : "Добавить"}
-          </button>
-        </div>
-        <Modal
-          active={this.state.modalActive}
-          setActive={this.setModalActive}
-          content={this.state.modalText}
-        />
-      </section>
-    );
+          <Modal
+            active={this.state.modalActive}
+            setActive={this.setModalActive}
+            content={this.state.modalText}
+          />
+        </section>
+      );
+    }
+
+    if (!localStorage.getItem("isAdmin")) {
+      return <NoMatch />;
+    }
   }
 }
