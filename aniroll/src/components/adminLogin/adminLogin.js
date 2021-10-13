@@ -12,6 +12,14 @@ export default class AdminLogin extends Component {
     modalText: "",
     validateTrue: false,
 
+    loginDirty: false,
+    passwordDirty: false,
+
+    loginError: "Логин не может быть пустым",
+    passwordError: "Пароль не может быть пустым",
+
+    formValid: false,
+
     Redirect: false,
 
     trueLogin: "admin",
@@ -53,24 +61,58 @@ export default class AdminLogin extends Component {
   };
 
   setModalActiveAdmin = () => {
-    //console.log("clicked");
     this.setState({ modalActive: false, Redirect: true });
     localStorage.setItem("isAdmin", true);
   };
 
   setModalActiveNoAdmin = () => {
-    //console.log("clicked");
     this.setState({ modalActive: false, Redirect: true });
     localStorage.removeItem("isAdmin");
   };
 
   setModalActive = () => {
-    this.setState({ modalActive: false });
+    this.setState({
+      modalActive: false,
+      formValid: false,
+      loginError: "Логин не может быть пустым",
+      passwordError: "Пароль не может быть пустым",
+      loginDirty: false,
+      passwordDirty: false,
+    });
+  };
+
+  blurHandler = (e) => {
+    const name = e.target.name + "Dirty";
+    this.setState({ [name]: true });
+    if (e.target.value === "") {
+      e.target.classList.add("empty");
+    }
+  };
+
+  inputHandler = (e) => {
+    e.target.classList.remove("empty");
+    const name = e.target.name;
+    const nameError = name + "Error";
+
+    this.setState({ [name]: e.target.value }, this.validateForm);
+    if (e.target.value === "") {
+      e.target.classList.add("empty");
+      this.setState(
+        { [nameError]: "Поле должно быть заполнено" },
+        this.validateForm
+      );
+    } else {
+      this.setState({ [nameError]: "" }, this.validateForm);
+    }
+  };
+
+  validateForm = () => {
+    this.setState({
+      formValid: !this.state.loginError && !this.state.passwordError,
+    });
   };
 
   render() {
-    console.log(this.state.Redirect);
-
     if (this.state.Redirect) {
       return <Redirect push to="/" />;
     }
@@ -79,21 +121,42 @@ export default class AdminLogin extends Component {
         <section className="mainAdmin">
           <span className="title">Введите логин и пароль</span>
           <form>
-            <input
-              type="text"
-              placeholder="Логин"
-              onChange={(e) => {
-                this.setState({ login: e.target.value });
-              }}
-            />
-            <input
-              type="password"
-              placeholder="Пароль"
-              onChange={(e) => {
-                this.setState({ password: e.target.value });
-              }}
-            />
-            <button type="submit" onClick={this.enter}>
+            <div>
+              {this.state.loginDirty && this.state.loginError && (
+                <span className="validateError">{this.state.loginError}</span>
+              )}
+              <input
+                type="text"
+                name="login"
+                placeholder="Логин"
+                onBlur={(e) => this.blurHandler(e)}
+                onChange={(e) => {
+                  this.inputHandler(e);
+                }}
+              />
+            </div>
+            <div>
+              {this.state.passwordDirty && this.state.passwordError && (
+                <span className="validateError">
+                  {this.state.passwordError}
+                </span>
+              )}
+              <input
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                onBlur={(e) => this.blurHandler(e)}
+                onChange={(e) => {
+                  this.inputHandler(e);
+                }}
+              />
+            </div>
+            <button
+              className={this.state.formValid + "Disable"}
+              disabled={!this.state.formValid}
+              type="submit"
+              onClick={this.enter}
+            >
               Войти
             </button>
           </form>

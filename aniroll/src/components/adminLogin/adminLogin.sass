@@ -17,17 +17,25 @@ section.mainAdmin
     flex-direction: column
     width: 100%
     align-items: flex-start
-    input
-      outline: none
-      padding: 0 15px
-      font-size: 20px
-      border-top: 1px solid rgba(0, 0, 0, 0.3)
-      border-left: 1px solid rgba(0, 0, 0, 0.3)
-      border-radius: 15px
-      box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)
+    .validateError
+      font-size: 15px
+      color: #ff0000
+    div
       width: 100%
-      height: 40px
       margin: 40px 0
+      input
+        outline: none
+        padding: 0 15px
+        font-size: 20px
+        border-top: 1px solid rgba(0, 0, 0, 0.3)
+        border-left: 1px solid rgba(0, 0, 0, 0.3)
+        border-radius: 15px
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)
+        width: 100%
+        height: 40px
+      input.empty
+        border-top: 1px solid rgba(0, 0, 0, 0.3)
+        border-left: 1px solid rgba(0, 0, 0, 0.3)
   button
     outline: none
     margin-top: 50px
@@ -38,3 +46,8 @@ section.mainAdmin
     width: 150px
     border-radius: 15px
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)
+  .falseDisable
+    cursor: no-drop
+
+  .trueDisable
+    cursor: pointer
