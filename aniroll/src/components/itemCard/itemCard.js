@@ -31,7 +31,63 @@ export default class ItemCard extends Component {
       });
   };
 
+  localAddToOrders = (order, number = 1) => {
+    if (localStorage.getItem("orders")) {
+      let orders = JSON.parse(localStorage.getItem("orders"));
+      const itemInd = orders.findIndex(
+        (item) => item.id === order.id && item.type === order.type
+      );
+      if (itemInd >= 0) {
+        const itemInState = orders.find(
+          (item) => item.id === order.id && item.type === order.type
+        );
+        const newItem = {
+          ...itemInState,
+          qtty: itemInState.qtty + number,
+        };
+
+        orders = [
+          ...orders.slice(0, itemInd),
+          newItem,
+          ...orders.slice(itemInd + 1),
+        ];
+        localStorage.setItem("orders", JSON.stringify(orders));
+      }
+      // товара раньше не было в корзине
+      else {
+        const newItem = {
+          name: order.name,
+          price: order.price,
+          url: order.url,
+          weight: order.weight,
+          id: order.id,
+          number: order.number,
+          type: order.type,
+          qtty: number,
+        };
+
+        orders = [...orders, newItem];
+        localStorage.setItem("orders", JSON.stringify(orders));
+      }
+    } else {
+      const newItem = {
+        name: order.name,
+        price: order.price,
+        url: order.url,
+        weight: order.weight,
+        id: order.id,
+        number: order.number,
+        type: order.type,
+        qtty: number,
+      };
+      localStorage.setItem("orders", JSON.stringify([newItem]));
+    }
+  };
+
   render() {
+    //localStorage.removeItem("orders");
+
+    //console.log(JSON.parse(localStorage.getItem("orders")));
     const { item } = this.state;
     if (!this.state.item) {
       return null;
@@ -66,7 +122,7 @@ export default class ItemCard extends Component {
         </div>
         <button
           onClick={() => {
-            addToOrders(this.state.item);
+            this.localAddToOrders(this.state.item);
           }}
         >
           В корзину

@@ -29,8 +29,10 @@ export default class ItemBox extends Component {
   };
 
   componentDidMount() {
-    const { orders } = this.props;
-    this.setState({ orders });
+    if (localStorage.getItem("orders")) {
+      const orders = JSON.parse(localStorage.getItem("orders"));
+      this.setState({ orders });
+    }
   }
 
   submitCard = async () => {
@@ -78,12 +80,6 @@ export default class ItemBox extends Component {
     //   .catch((error) => console.log(error));
   };
 
-  postIsNormal = () => {
-    this.setState({ Redirect: true }, () => {
-      this.props.clearOrder();
-    });
-  };
-
   blurHandler = (e) => {
     const name = e.target.name + "Dirty";
     this.setState({ [name]: true });
@@ -121,14 +117,23 @@ export default class ItemBox extends Component {
   setModalActive = () => {
     this.setState({ modalActive: false });
     this.setState({ Redirect: true }, () => {
-      this.props.clearOrder();
+      localStorage.removeItem("orders");
     });
   };
 
   render() {
+    console.log("orders", this.state.orders);
     if (this.state.Redirect) {
       return <Redirect push to="/" />;
     }
+    if (!this.state.orders || this.state.orders.length === 0) {
+      return (
+        <section className="main">
+          Ваша корзина пуста, сделайте сначала заказ
+        </section>
+      );
+    }
+
     if (this.state.orders) {
       return (
         <section className="main">
@@ -215,13 +220,6 @@ export default class ItemBox extends Component {
             setActive={this.setModalActive}
             content={this.state.modalText}
           />
-        </section>
-      );
-    }
-    if (!this.state.orders) {
-      return (
-        <section className="main">
-          Ваша корзина пуста, сделайте сначала заказ
         </section>
       );
     }

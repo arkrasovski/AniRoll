@@ -12,107 +12,11 @@ import "./App.css";
 import "./fonts.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-let orders = [];
+//let orders = [];
 export default class App extends Component {
   state = {
     links: ["rolls", "sushi", "sets", "sauces", "drinks"],
     types: ["Роллы", "Суши", "Сеты", "Соусы", "Напитки"],
-    orders: null,
-  };
-
-  updateOrders = () => {
-    this.setState({ orders: orders });
-  };
-
-  addToOrders = (order, number = 1) => {
-    const itemInd = orders.findIndex(
-      (item) => item.id === order.id && item.type === order.type
-    );
-    if (itemInd >= 0) {
-      const itemInState = orders.find(
-        (item) => item.id === order.id && item.type === order.type
-      );
-      const newItem = {
-        ...itemInState,
-        qtty: itemInState.qtty + number,
-      };
-
-      orders = [
-        ...orders.slice(0, itemInd),
-        newItem,
-        ...orders.slice(itemInd + 1),
-      ];
-    }
-    // товара раньше не было в корзине
-    else {
-      const newItem = {
-        name: order.name,
-        price: order.price,
-        url: order.url,
-        weight: order.weight,
-        id: order.id,
-        number: order.number,
-        type: order.type,
-        qtty: number,
-      };
-
-      orders = [...orders, newItem];
-    }
-  };
-
-  removeFromOrders = (id, type) => {
-    const index = orders.findIndex(
-      (elem) => elem.id === id && elem.type === type
-    );
-    const before = orders.slice(0, index);
-    const after = orders.slice(index + 1);
-    orders = [...before, ...after];
-    this.setState({ orders: orders });
-  };
-
-  addQTTY = (id, type) => {
-    const itemInd = orders.findIndex(
-      (item) => item.id === id && item.type === type
-    );
-    const itemInState = orders.find(
-      (item) => item.id === id && item.type === type
-    );
-    const newItem = {
-      ...itemInState,
-      qtty: ++itemInState.qtty,
-    };
-
-    orders = [
-      ...orders.slice(0, itemInd),
-      newItem,
-      ...orders.slice(itemInd + 1),
-    ];
-    this.setState({ orders: orders });
-  };
-
-  subQTTY = (id, type) => {
-    const itemInd = orders.findIndex(
-      (item) => item.id === id && item.type === type
-    );
-    const itemInState = orders.find(
-      (item) => item.id === id && item.type === type
-    );
-    const newItem = {
-      ...itemInState,
-      qtty: --itemInState.qtty,
-    };
-
-    orders = [
-      ...orders.slice(0, itemInd),
-      newItem,
-      ...orders.slice(itemInd + 1),
-    ];
-    this.setState({ orders: orders });
-  };
-
-  clearOrder = () => {
-    orders.length = 0;
-    this.setState({ orders });
   };
 
   render() {
@@ -438,29 +342,9 @@ export default class App extends Component {
               }}
             />
 
-            <Route
-              path="/basket"
-              component={(props) => (
-                <BasketBox
-                  orders={orders}
-                  removeFromOrders={this.removeFromOrders}
-                  addQTTY={this.addQTTY}
-                  subQTTY={this.subQTTY}
-                  {...props}
-                />
-              )}
-            />
+            <Route path="/basket" component={BasketBox} />
 
-            <Route
-              path="/finishOrder"
-              component={(props) => (
-                <FinishOrder
-                  orders={this.state.orders}
-                  clearOrder={this.clearOrder}
-                  {...props}
-                />
-              )}
-            />
+            <Route path="/finishOrder" component={FinishOrder} />
 
             <Route path="*">
               <NoMatch />
@@ -473,18 +357,3 @@ export default class App extends Component {
     );
   }
 }
-
-// function NoMatch() {
-//   let location = useLocation();
-
-//   return (
-//     <section className="main">
-//       <div className="errorBox">
-//         <img src={rem} alt="Бессмер из аниме бессмертный " />
-//         <span className="errorText">
-//           No match for <code>{location.pathname}</code>
-//         </span>
-//       </div>
-//     </section>
-//   );
-// }

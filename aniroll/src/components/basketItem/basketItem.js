@@ -13,6 +13,13 @@ export default class BasketItem extends Component {
     this.setState({ item });
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.item !== prevProps.item) {
+      const { item } = this.props;
+      this.setState({ item });
+    } //сравниваем совпадение предыдущих пропсов и текущих
+  }
+
   render() {
     const { item } = this.state;
     if (!this.state.item) {
@@ -20,6 +27,7 @@ export default class BasketItem extends Component {
     }
     const { name, url, type, number, price, id, qtty } = item;
     const { removeFromOrders, addQTTY, subQTTY } = this.props;
+    console.log("qtty", qtty);
     return (
       <div className="cardBasket">
         <div
@@ -43,9 +51,7 @@ export default class BasketItem extends Component {
         <div className="basketCounter">
           <AiOutlineMinusCircle
             onClick={() => {
-              if (qtty > 1) {
-                subQTTY(id, type);
-              }
+              subQTTY(id, type);
             }}
           />
           <div className="counter">{qtty}</div>

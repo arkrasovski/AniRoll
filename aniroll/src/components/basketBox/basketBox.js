@@ -11,32 +11,33 @@ export default class BasketBox extends Component {
   };
 
   componentDidMount() {
-    const { orders } = this.props;
-    this.setState({ basketList: orders });
+    // const { orders } = this.props;
+    // this.setState({ basketList: orders });
+    this.setState({ basketList: JSON.parse(localStorage.getItem("orders")) });
   }
 
-  removeFromState = (id) => {
-    const { basketList } = this.state;
+  // removeFromState = (id) => {
+  //   const { basketList } = this.state;
 
-    const index = basketList.findIndex((elem) => elem.id === id);
-    const before = basketList.slice(0, index);
-    const after = basketList.slice(index + 1);
-    const newArray = [...before, ...after];
-    this.setState({ basketList: newArray });
-  };
+  //   const index = basketList.findIndex((elem) => elem.id === id);
+  //   const before = basketList.slice(0, index);
+  //   const after = basketList.slice(index + 1);
+  //   const newArray = [...before, ...after];
+  //   this.setState({ basketList: newArray });
+  // };
 
   renderItems(arr) {
-    const { addToOrders, removeFromOrders, addQTTY, subQTTY } = this.props;
     if (arr) {
       return arr.map((item) => {
+        console.log("pererisovka");
+        console.log(item);
         return (
           <BasketItem
             item={item}
             key={item.id + item.type[0] + item.type[1]}
-            removeFromOrders={removeFromOrders}
-            addToOrders={addToOrders}
-            addQTTY={addQTTY}
-            subQTTY={subQTTY}
+            removeFromOrders={this.removeFromOrders}
+            addQTTY={this.addQTTY}
+            subQTTY={this.subQTTY}
           ></BasketItem>
         );
       });
@@ -53,8 +54,68 @@ export default class BasketBox extends Component {
     return sum;
   }
 
+  removeFromOrders = (id, type) => {
+    let orders = this.state.basketList;
+    const index = orders.findIndex(
+      (elem) => elem.id === id && elem.type === type
+    );
+    const before = orders.slice(0, index);
+    const after = orders.slice(index + 1);
+    orders = [...before, ...after];
+    this.setState({ basketList: orders });
+    localStorage.setItem("orders", JSON.stringify(orders));
+  };
+
+  addQTTY = (id, type) => {
+    let orders = this.state.basketList;
+    const itemInd = orders.findIndex(
+      (item) => item.id === id && item.type === type
+    );
+    const itemInState = orders.find(
+      (item) => item.id === id && item.type === type
+    );
+    const newItem = {
+      ...itemInState,
+      qtty: ++itemInState.qtty,
+    };
+
+    orders = [
+      ...orders.slice(0, itemInd),
+      newItem,
+      ...orders.slice(itemInd + 1),
+    ];
+    this.setState({ basketList: orders });
+    localStorage.setItem("orders", JSON.stringify(orders));
+  };
+
+  subQTTY = (id, type) => {
+    let orders = this.state.basketList;
+    const itemInd = orders.findIndex(
+      (item) => item.id === id && item.type === type
+    );
+    const itemInState = orders.find(
+      (item) => item.id === id && item.type === type
+    );
+    if (itemInState.qtty > 1) {
+      const newItem = {
+        ...itemInState,
+        qtty: --itemInState.qtty,
+      };
+
+      orders = [
+        ...orders.slice(0, itemInd),
+        newItem,
+        ...orders.slice(itemInd + 1),
+      ];
+      this.setState({ basketList: orders });
+      localStorage.setItem("orders", JSON.stringify(orders));
+    }
+  };
+
   render() {
+    console.log("basketList", this.state.basketList);
     const { basketList } = this.state;
+    console.log("list", basketList);
     let items = this.renderItems(basketList);
     let total = this.fintTotal(basketList);
 
@@ -73,7 +134,6 @@ export default class BasketBox extends Component {
       <section className="mainBasket">
         <div className="total">{Math.round(total * 100) / 100} руб.</div>
         {items}
-
         <Link to="/finishOrder">
           <button className="checkout">Оформить заказ</button>
         </Link>
