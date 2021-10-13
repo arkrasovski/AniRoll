@@ -27,7 +27,6 @@ export default class BasketItem extends Component {
     }
     const { name, url, type, number, price, id, qtty } = item;
     const { removeFromOrders, addQTTY, subQTTY } = this.props;
-    console.log("qtty", qtty);
     return (
       <div className="cardBasket">
         <div

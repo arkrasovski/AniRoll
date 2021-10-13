@@ -444,6 +444,18 @@ app.delete("/api/deletesauces/:id", (req, res) => {
   });
 });
 
+app.get("/api/lastOrder", (req, res) => {
+  db.query("SELECT MAX(id) as ID from orders", (err, result) => {
+    if (err) {
+      console.log(err);
+      res.send(error);
+      return;
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
+
 //Create order
 
 app.post("/api/addOrder", (req, res) => {
@@ -451,10 +463,11 @@ app.post("/api/addOrder", (req, res) => {
   const address = req.body.address;
   const telNumber = req.body.telNumber;
   const orderText = req.body.orderText;
+  const total = req.body.total;
 
   db.query(
-    "INSERT INTO orders (client, address, telNumber, orderText) VALUES (?,?,?,?)",
-    [name, address, telNumber, orderText],
+    "INSERT INTO orders (client, address, telNumber, orderText, total) VALUES (?,?,?,?,?)",
+    [name, address, telNumber, orderText, total],
     (err, result) => {
       if (err) {
         console.log(err);

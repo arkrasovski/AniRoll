@@ -85,30 +85,30 @@ export default class ItemCard extends Component {
   };
 
   render() {
-    //localStorage.removeItem("orders");
-
-    //console.log(JSON.parse(localStorage.getItem("orders")));
     const { item } = this.state;
     if (!this.state.item) {
       return null;
     }
     const { name, url, type, number, price, weight, id } = item;
-    const { addToOrders } = this.props;
     return (
       <div className="card">
-        <div
-          className="deleteSign"
-          onClick={() => {
-            this.deletePost(id);
-          }}
-        >
-          <ImCross />
-        </div>
-        <div className="updateSign">
-          <Link to={`update${item.type}/${item.id}`}>
-            <GrUpdate />
-          </Link>
-        </div>
+        {localStorage.getItem("isAdmin") ? (
+          <>
+            <div
+              className="deleteSign"
+              onClick={() => {
+                this.deletePost(id);
+              }}
+            >
+              <ImCross />
+            </div>
+            <div className="updateSign">
+              <Link to={`update${item.type}/${item.id}`}>
+                <GrUpdate />
+              </Link>
+            </div>
+          </>
+        ) : null}
 
         <Link to={"/" + type + "/" + id}>
           <img src={url} alt={type + " " + name} />

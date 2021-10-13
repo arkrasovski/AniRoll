@@ -50,7 +50,6 @@ export default class ItemBox extends Component {
   };
 
   renderItems(arr) {
-    const { addToOrders } = this.props;
     if (arr) {
       return arr.map((item) => {
         return (
@@ -58,8 +57,8 @@ export default class ItemBox extends Component {
             item={item}
             key={item.id}
             onDelete={this.deleteItem}
-            addToOrders={addToOrders}
             getResponse={this.setModalActive}
+            isAdmin={this.props.isAdmin}
           ></ItemCard>
         );
       });
@@ -106,9 +105,12 @@ export default class ItemBox extends Component {
     return (
       <section className="main">
         <div className="itemContainer"> {items}</div>
-        <Link to={"/createnew" + this.props.type}>
-          <button className="addCard">Добавить товар</button>
-        </Link>
+        {localStorage.getItem("isAdmin") ? (
+          <Link to={"/createnew" + this.props.type}>
+            <button className="addCard">Добавить товар</button>
+          </Link>
+        ) : null}
+
         <Modal
           active={this.state.modalActive}
           setActive={this.setModalUnActive}

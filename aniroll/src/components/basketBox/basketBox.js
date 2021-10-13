@@ -29,8 +29,6 @@ export default class BasketBox extends Component {
   renderItems(arr) {
     if (arr) {
       return arr.map((item) => {
-        console.log("pererisovka");
-        console.log(item);
         return (
           <BasketItem
             item={item}
@@ -113,9 +111,7 @@ export default class BasketBox extends Component {
   };
 
   render() {
-    console.log("basketList", this.state.basketList);
     const { basketList } = this.state;
-    console.log("list", basketList);
     let items = this.renderItems(basketList);
     let total = this.fintTotal(basketList);
 

@@ -38,8 +38,10 @@ export default class ItemBox extends Component {
   submitCard = async () => {
     const { orders } = this.state;
     let orderText = "";
+    let sum = 0;
     orders.forEach((order) => {
       orderText += order.name + " x" + order.qtty + " ";
+      sum += order.price * order.qtty;
     });
 
     Axios.post(`http://localhost:3002/api/addOrder`, {
@@ -47,13 +49,17 @@ export default class ItemBox extends Component {
       address: this.state.address,
       telNumber: this.state.telNum,
       orderText,
+      total: sum,
     })
-      //.then(this.postIsNormal());
       .then((response) => {
-        this.setState({
-          modalActive: true,
-          modalText: "Ваш заказ успешно отправлен!",
+        Axios.get(`http://localhost:3002/api/lastOrder`).then((response) => {
+          console.log("nomer", response.data[0].ID);
+          this.setState({
+            modalActive: true,
+            modalText: `Ваш заказ номер ${response.data[0].ID} успешно отправлен!`,
+          });
         });
+
         console.log("ok", response);
       })
       .catch((error) => {

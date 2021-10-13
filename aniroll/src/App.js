@@ -6,6 +6,7 @@ import CreateCardBox from "./components/createCardBox";
 import BasketBox from "./components/basketBox";
 import ItemFull from "./components/itemFull";
 import FinishOrder from "./components/finishOrder";
+import AdminLogin from "./components/adminLogin";
 import NoMatch from "./components/noMatch";
 import Axios from "axios";
 import "./App.css";
@@ -40,8 +41,8 @@ export default class App extends Component {
                     );
                   }}
                   type={"rolls"}
-                  addToOrders={this.addToOrders}
                   goFullItem={this.goFullItem}
+                  isAdmin={this.state.isAdmin}
                   {...props}
                 />
               )}
@@ -58,8 +59,8 @@ export default class App extends Component {
                     );
                   }}
                   type={"rolls"}
-                  addToOrders={this.addToOrders}
                   goFullItem={this.goFullItem}
+                  isAdmin={this.state.isAdmin}
                   {...props}
                 />
               )}
@@ -116,8 +117,8 @@ export default class App extends Component {
                     );
                   }}
                   type={"drinks"}
-                  addToOrders={this.addToOrders}
                   goFullItem={this.goFullItem}
+                  isAdmin={this.state.isAdmin}
                   {...props}
                 />
               )}
@@ -177,8 +178,8 @@ export default class App extends Component {
                     );
                   }}
                   type={"sushi"}
-                  addToOrders={this.addToOrders}
                   goFullItem={this.goFullItem}
+                  isAdmin={this.state.isAdmin}
                   {...props}
                 />
               )}
@@ -234,8 +235,8 @@ export default class App extends Component {
                     return await Axios.get("http://localhost:3002/api/getsets");
                   }}
                   type={"sets"}
-                  addToOrders={this.addToOrders}
                   goFullItem={this.goFullItem}
+                  isAdmin={this.state.isAdmin}
                   {...props}
                 />
               )}
@@ -293,8 +294,8 @@ export default class App extends Component {
                     );
                   }}
                   type={"sauces"}
-                  addToOrders={this.addToOrders}
                   goFullItem={this.goFullItem}
+                  isAdmin={this.state.isAdmin}
                   {...props}
                 />
               )}
@@ -345,6 +346,17 @@ export default class App extends Component {
             <Route path="/basket" component={BasketBox} />
 
             <Route path="/finishOrder" component={FinishOrder} />
+
+            <Route
+              path="/adminlogin"
+              component={(props) => (
+                <AdminLogin
+                  setAdmin={this.setAdmin}
+                  isAdmin={this.state.isAdmin}
+                  {...props}
+                />
+              )}
+            />
 
             <Route path="*">
               <NoMatch />
