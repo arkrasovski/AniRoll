@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./header.sass";
 import logo from "../../images/yatologo.png";
-import { FaShoppingBasket, FaUserNinja } from "react-icons/fa";
+import { FaShoppingBasket } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
+import { RiGalleryFill } from "react-icons/ri";
 import Menu from "../menu";
 
 const Header = ({ links, updateOrders, names }) => {
@@ -37,7 +38,9 @@ const Header = ({ links, updateOrders, names }) => {
             </Link>
           </li>
           <li>
-            <FaUserNinja color={"rgb(127, 0, 0)"} size={"40px"} />
+            <Link to="/gallery">
+              <RiGalleryFill color={"rgb(127, 0, 0)"} size={"40px"} />{" "}
+            </Link>
           </li>
           <li>
             <FiMenu

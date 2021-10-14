@@ -1,0 +1,135 @@
+$mainColor: rgb(127, 0, 0)
+$shadow: 0 5px 5px rgba(0, 0, 0, 0.2)
+$cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
+
+section.main
+  h2
+    color: $mainColor
+    font-family: 'Montserrat Alternates', sans-serif
+    font-size: 40px
+    text-align: center
+    margin-bottom: 20px
+  .galeryCard
+    width: 100%
+    box-shadow: $shadow
+    border-left: 1px solid rgba(0, 0, 0, 0.2)
+    border-top: 1px solid rgba(0, 0, 0, 0.2)
+    border-radius: 40px
+    padding: 1%
+    display: flex
+    margin-bottom: 20px
+    font-family: 'Bellota Text', cursive
+    .about
+      width: 100%
+      display: flex
+      justify-content: center
+      align-items: center
+      div
+        display: flex
+        flex-direction: column
+        span:first-child
+          color: $mainColor
+          font-size: 40px
+          font-weight: bold
+          margin-bottom: 50px
+        span
+          font-size: 20px
+          margin-bottom: 15px
+  .galeryCard:nth-child(even)
+    flex-direction: row-reverse
+    img
+      width: 30%
+      margin: 0 0 0 100px
+  .galeryCard:nth-child(odd)
+    flex-direction: row
+    img
+      margin: 0 100px 0 0
+      width: 30%
+
+@media screen and (max-width: 1600px) and (min-width: 1400px)
+  section.main
+    h2
+      font-size: 35px
+    .galeryCard
+      .about
+        div
+          span:first-child
+            font-size: 35px
+          span
+            font-size: 18px
+
+@media screen and (max-width: 1400px) and (min-width: 1100px)
+  section.main
+    h2
+      font-size: 30px
+    .galeryCard
+      .about
+        div
+          span:first-child
+            font-size: 30px
+            margin-bottom: 40px
+          span
+            font-size: 15px
+
+@media screen and (max-width: 1100px) and (min-width: 800px)
+  section.main
+    h2
+      font-size: 25px
+    .galeryCard
+      .about
+        div
+          span:first-child
+            font-size: 25px
+            margin-bottom: 25px
+          span
+            font-size: 13px
+            margin-bottom: 10px
+
+@media screen and (max-width: 800px) and (min-width: 320px)
+  section.main
+    h2
+      font-size: 25px
+    .galeryCard
+      flex-direction: column
+      align-items: center
+      .about
+        padding: 0 25%
+        justify-content: flex-start
+        div
+          span:first-child
+            font-size: 25px
+            margin-bottom: 20px
+          span
+            font-size: 13px
+            margin-bottom: 10px
+    .galeryCard:nth-child(even)
+      flex-direction: column
+      img
+        width: 50%
+        margin: 0 0 20px 0
+    .galeryCard:nth-child(odd)
+      flex-direction: column
+      img
+        margin: 0 0 20px 0
+        width: 50%
+
+@media screen and (max-width: 500px) and (min-width: 320px)
+  section.main
+    h2
+      font-size: 20px
+    .galeryCard
+
+      .about
+        div
+          span:first-child
+            font-size: 20px
+            margin-bottom: 15px
+          span
+            font-size: 10px
+            margin-bottom: 5px
+    .galeryCard:nth-child(even)
+      img
+        margin: 0 0 10px 0
+    .galeryCard:nth-child(odd)
+      img
+        margin: 0 0 10px 0

@@ -8,6 +8,7 @@ import ItemFull from "./components/itemFull";
 import FinishOrder from "./components/finishOrder";
 import AdminLogin from "./components/adminLogin";
 import NoMatch from "./components/noMatch";
+import Gallery from "./components/gallery";
 import Axios from "axios";
 import "./App.css";
 import "./fonts.css";
@@ -357,6 +358,8 @@ export default class App extends Component {
                 />
               )}
             />
+
+            <Route path="/gallery" component={Gallery} />
 
             <Route path="*">
               <NoMatch />
