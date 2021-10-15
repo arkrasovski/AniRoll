@@ -9,6 +9,7 @@ import FinishOrder from "./components/finishOrder";
 import AdminLogin from "./components/adminLogin";
 import NoMatch from "./components/noMatch";
 import Gallery from "./components/gallery";
+import ErrorMessage from "./components/errorMessage";
 import Axios from "axios";
 import "./App.css";
 import "./fonts.css";
@@ -19,17 +20,25 @@ export default class App extends Component {
   state = {
     links: ["rolls", "sushi", "sets", "sauces", "drinks"],
     types: ["Роллы", "Суши", "Сеты", "Соусы", "Напитки"],
+    error: false,
   };
 
+  componentDidCatch() {
+    this.setState({ error: true });
+  }
+
   render() {
+    if (this.state.error) {
+      return (
+        <section className="main">
+          <ErrorMessage />;
+        </section>
+      );
+    }
     return (
       <Router>
         <div className="App">
-          <Header
-            links={this.state.links}
-            names={this.state.types}
-            updateOrders={this.updateOrders}
-          ></Header>
+          <Header links={this.state.links} names={this.state.types}></Header>
           <Switch>
             <Route
               path="/"

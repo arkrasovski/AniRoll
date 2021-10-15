@@ -18,7 +18,7 @@ export default class ItemFull extends Component {
     getData()
       .then((item) => {
         this.setState({
-          item: item.data,
+          item: item.data[0],
           loading: false,
         });
       })
@@ -103,12 +103,11 @@ export default class ItemFull extends Component {
 
     const { item } = this.state;
 
-    if (!this.state.item || this.state.item.length === 0) {
+    if (!item || item.length === 0) {
       return <NoMatch />;
     }
-    if (this.state.item) {
-      const { name, url, number, price, description } = item[0];
-      const { addToOrders } = this.props;
+    if (item) {
+      const { name, url, number, price, description } = item;
       return (
         <section className="FullItemMain">
           <div className="fullItem">
@@ -146,8 +145,7 @@ export default class ItemFull extends Component {
           <button
             className="toBasketFullItem"
             onClick={() => {
-              this.localAddToOrders(item[0], this.state.number);
-              //addToOrders(item[0], this.state.number);
+              this.localAddToOrders(item, this.state.number);
             }}
           >
             В корзину

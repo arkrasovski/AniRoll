@@ -215,14 +215,6 @@ export default class ItemBox extends Component {
   };
 
   validateForm = () => {
-    console.log(
-      "proverka",
-      !this.state.nameError &&
-        !this.state.urlError &&
-        !this.state.numberError &&
-        !this.state.priceError &&
-        !this.state.weightError
-    );
     if (this.props.isUpdate) {
       const { itemToChange } = this.state;
       if (
@@ -233,11 +225,6 @@ export default class ItemBox extends Component {
         +this.state.weight !== itemToChange.weight ||
         this.state.description !== itemToChange.description
       ) {
-        console.log(
-          "ultraproverka",
-          typeof this.state.price,
-          typeof itemToChange.price
-        );
         this.setState({
           formValid:
             !this.state.nameError &&
@@ -248,7 +235,6 @@ export default class ItemBox extends Component {
           isUpdated: true,
         });
       } else {
-        console.log("fu");
         this.setState({ formValid: false, isUpdated: false });
       }
       return;
@@ -265,7 +251,6 @@ export default class ItemBox extends Component {
   };
 
   setModalActive = () => {
-    //console.log("clicked");
     this.setState({ modalActive: false });
     if (this.props.isUpdate) {
       this.setState({ Redirect: true });
@@ -273,7 +258,6 @@ export default class ItemBox extends Component {
   };
 
   render() {
-    console.log("formValid", this.state.formValid);
     if (this.state.Redirect) {
       return <Redirect push to={`/${this.state.itemToChange.type}`} />;
     }
@@ -337,7 +321,6 @@ export default class ItemBox extends Component {
                 <ImCross
                   onClick={() => {
                     const inputUrl = document.querySelector("#url");
-                    console.log(inputUrl);
                     inputUrl.value = "";
                     this.setState(
                       {
