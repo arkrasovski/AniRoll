@@ -41,24 +41,25 @@ export default class ItemBox extends Component {
     ) {
       this.onRequest(this.state.offset);
     }
-    console.log("scroll");
   };
 
   onRequest(offset) {
-    console.log(offset);
     this.onCharListLoading();
     const { getData, type } = this.props;
     getData(type, offset).then(this.onCharListLoaded).catch(this.onError);
   }
 
   onCharListLoaded = (newItemList) => {
+    console.log(
+      "ele,enti",
+      newItemList.data.elements[newItemList.data.elements.length - 1]
+    );
     this.setState(({ itemList, offset, max }) => ({
       itemList: [...itemList, ...newItemList.data.elements],
       loading: false,
       newItemLoading: false,
       max: offset === 1 ? newItemList.data.max : max,
       offset: ++offset,
-      //max: newItemList.data.max,
     }));
   };
 
@@ -80,9 +81,23 @@ export default class ItemBox extends Component {
       const before = itemList.slice(0, index);
       const after = itemList.slice(index + 1);
       const newArray = [...before, ...after];
-
       return { itemList: newArray, max: --max };
     });
+    console.log("max after delete", this.state.max);
+    const { getData, type } = this.props;
+    if (this.state.itemList.length !== this.state.max) {
+      getData(type, this.state.offset - 1)
+        .then((newItemList) => {
+          this.setState(({ itemList, max }) => ({
+            itemList: [
+              ...itemList,
+              newItemList.data.elements[newItemList.data.elements.length - 1],
+            ],
+          }));
+        })
+        .catch(this.onError);
+    }
+    console.log("max after delete 2", this.state.max);
   };
 
   renderItems(arr) {
@@ -117,12 +132,13 @@ export default class ItemBox extends Component {
 
   setModalUnActive = () => {
     this.setState({ modalActive: false });
-    window.location.reload();
+    //window.location.reload();
   };
 
   render() {
+    console.log("offset", this.state.offset);
+    console.log("elem", this.state.itemList);
     console.log("max", this.state.max);
-    console.log("length", this.state.itemList.length);
     if (!this.state.item && this.state.error) {
       return (
         <section className="spinnerBox">
