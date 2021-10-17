@@ -52,13 +52,11 @@ export default class ItemBox extends Component {
   }
 
   onCharListLoaded = (newItemList) => {
-    this.setState(({ itemList, offset, max }) => ({
+    this.setState(({ itemList, offset }) => ({
       itemList: [...itemList, ...newItemList.data.elements],
       loading: false,
       newItemLoading: false,
-      max: offset === 1 ? newItemList.data.max : max,
       offset: ++offset,
-      //max: newItemList.data.max,
     }));
   };
 
@@ -75,13 +73,13 @@ export default class ItemBox extends Component {
   };
 
   deleteItem = (id) => {
-    this.setState(({ itemList, max }) => {
+    this.setState(({ itemList }) => {
       const index = itemList.findIndex((elem) => elem.id === id);
       const before = itemList.slice(0, index);
       const after = itemList.slice(index + 1);
       const newArray = [...before, ...after];
 
-      return { itemList: newArray, max: --max };
+      return { itemList: newArray };
     });
   };
 
@@ -121,8 +119,6 @@ export default class ItemBox extends Component {
   };
 
   render() {
-    console.log("max", this.state.max);
-    console.log("length", this.state.itemList.length);
     if (!this.state.item && this.state.error) {
       return (
         <section className="spinnerBox">
