@@ -11,6 +11,7 @@ import NoMatch from "./components/noMatch";
 import Gallery from "./components/gallery";
 import ErrorMessage from "./components/errorMessage";
 import Axios from "axios";
+import GoodsService from "./services/goodsService";
 import "./App.css";
 import "./fonts.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -23,11 +24,14 @@ export default class App extends Component {
     error: false,
   };
 
+  GoodsService = new GoodsService();
+
   componentDidCatch() {
     this.setState({ error: true });
   }
 
   render() {
+    console.log(this.GoodsService.getGoods);
     if (this.state.error) {
       return (
         <section className="main">
@@ -45,11 +49,7 @@ export default class App extends Component {
               exact
               component={(props) => (
                 <ItemBox
-                  getData={async () => {
-                    return await Axios.get(
-                      "http://localhost:3002/api/getRolls"
-                    );
-                  }}
+                  getData={this.GoodsService.getGoods}
                   type={"rolls"}
                   goFullItem={this.goFullItem}
                   isAdmin={this.state.isAdmin}
@@ -63,11 +63,7 @@ export default class App extends Component {
               exact
               component={(props) => (
                 <ItemBox
-                  getData={async () => {
-                    return await Axios.get(
-                      "http://localhost:3002/api/getRolls"
-                    );
-                  }}
+                  getData={this.GoodsService.getGoods}
                   type={"rolls"}
                   goFullItem={this.goFullItem}
                   isAdmin={this.state.isAdmin}
@@ -121,11 +117,7 @@ export default class App extends Component {
               exact
               component={(props) => (
                 <ItemBox
-                  getData={async () => {
-                    return await Axios.get(
-                      "http://localhost:3002/api/getdrinks"
-                    );
-                  }}
+                  getData={this.GoodsService.getGoods}
                   type={"drinks"}
                   goFullItem={this.goFullItem}
                   isAdmin={this.state.isAdmin}
@@ -182,11 +174,7 @@ export default class App extends Component {
               exact
               component={(props) => (
                 <ItemBox
-                  getData={async () => {
-                    return await Axios.get(
-                      "http://localhost:3002/api/getsushi"
-                    );
-                  }}
+                  getData={this.GoodsService.getGoods}
                   type={"sushi"}
                   goFullItem={this.goFullItem}
                   isAdmin={this.state.isAdmin}
@@ -238,12 +226,9 @@ export default class App extends Component {
             {/* sets */}
             <Route
               path="/sets"
-              exact
               component={(props) => (
                 <ItemBox
-                  getData={async () => {
-                    return await Axios.get("http://localhost:3002/api/getsets");
-                  }}
+                  getData={this.GoodsService.getGoods}
                   type={"sets"}
                   goFullItem={this.goFullItem}
                   isAdmin={this.state.isAdmin}
@@ -295,14 +280,9 @@ export default class App extends Component {
             {/* sauces */}
             <Route
               path="/sauces"
-              exact
               component={(props) => (
                 <ItemBox
-                  getData={async () => {
-                    return await Axios.get(
-                      "http://localhost:3002/api/getsauces"
-                    );
-                  }}
+                  getData={this.GoodsService.getGoods}
                   type={"sauces"}
                   goFullItem={this.goFullItem}
                   isAdmin={this.state.isAdmin}

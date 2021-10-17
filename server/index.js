@@ -9,11 +9,32 @@ app.use(express.json());
 
 // Route to get all posts
 app.get("/api/getRolls", (req, res) => {
-  db.query("SELECT * FROM rolls", (err, result) => {
-    if (err) {
-      console.log(err);
+  // db.query("SELECT * FROM rolls", (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   res.send(result);
+  // });
+  const resultsPerPage = 8;
+  let sql = "SELECT * FROM rolls";
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    const numOfResults = result.length;
+    const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
+    let page = req.query.page ? Number(req.query.page) : 1;
+    if (page > numberOfPages) {
+      res.redirect("/?page=" + encodeURIComponent(numberOfPages));
+    } else if (page < 1) {
+      res.redirect("/?page=" + encodeURIComponent("1"));
     }
-    res.send(result);
+    //Determine the SQL LIMIT starting number
+    const startingLimit = (page - 1) * resultsPerPage;
+    //Get the relevant number of POSTS for this starting page
+    sql = `SELECT * FROM rolls LIMIT ${startingLimit},${resultsPerPage}`;
+    db.query(sql, (err, result) => {
+      if (err) throw err;
+      res.send({ max: numOfResults, elements: result });
+    });
   });
 });
 
@@ -98,11 +119,32 @@ app.delete("/api/deleterolls/:id", (req, res) => {
 });
 
 app.get("/api/getdrinks", (req, res) => {
-  db.query("SELECT * FROM drinks", (err, result) => {
-    if (err) {
-      console.log(err);
+  // db.query("SELECT * FROM drinks", (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   res.send(result);
+  // });
+  const resultsPerPage = 8;
+  let sql = "SELECT * FROM drinks";
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    const numOfResults = result.length;
+    const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
+    let page = req.query.page ? Number(req.query.page) : 1;
+    if (page > numberOfPages) {
+      res.redirect("/?page=" + encodeURIComponent(numberOfPages));
+    } else if (page < 1) {
+      res.redirect("/?page=" + encodeURIComponent("1"));
     }
-    res.send(result);
+    //Determine the SQL LIMIT starting number
+    const startingLimit = (page - 1) * resultsPerPage;
+    //Get the relevant number of POSTS for this starting page
+    sql = `SELECT * FROM drinks LIMIT ${startingLimit},${resultsPerPage}`;
+    db.query(sql, (err, result) => {
+      if (err) throw err;
+      res.send({ max: numOfResults, elements: result });
+    });
   });
 });
 
@@ -186,11 +228,32 @@ app.delete("/api/deletedrinks/:id", (req, res) => {
 
 //create sushi
 app.get("/api/getsushi", (req, res) => {
-  db.query("SELECT * FROM sushi", (err, result) => {
-    if (err) {
-      console.log(err);
+  // db.query("SELECT * FROM sushi", (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   res.send(result);
+  // });
+  const resultsPerPage = 8;
+  let sql = "SELECT * FROM sushi";
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    const numOfResults = result.length;
+    const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
+    let page = req.query.page ? Number(req.query.page) : 1;
+    if (page > numberOfPages) {
+      res.redirect("/?page=" + encodeURIComponent(numberOfPages));
+    } else if (page < 1) {
+      res.redirect("/?page=" + encodeURIComponent("1"));
     }
-    res.send(result);
+    //Determine the SQL LIMIT starting number
+    const startingLimit = (page - 1) * resultsPerPage;
+    //Get the relevant number of POSTS for this starting page
+    sql = `SELECT * FROM sushi LIMIT ${startingLimit},${resultsPerPage}`;
+    db.query(sql, (err, result) => {
+      if (err) throw err;
+      res.send({ max: numOfResults, elements: result });
+    });
   });
 });
 
@@ -274,11 +337,32 @@ app.delete("/api/deletesushi/:id", (req, res) => {
 
 //sets
 app.get("/api/getsets", (req, res) => {
-  db.query("SELECT * FROM sets", (err, result) => {
-    if (err) {
-      console.log(err);
+  // db.query("SELECT * FROM sets", (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   res.send(result);
+  // });
+  const resultsPerPage = 8;
+  let sql = "SELECT * FROM sets";
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    const numOfResults = result.length;
+    const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
+    let page = req.query.page ? Number(req.query.page) : 1;
+    if (page > numberOfPages) {
+      res.redirect("/?page=" + encodeURIComponent(numberOfPages));
+    } else if (page < 1) {
+      res.redirect("/?page=" + encodeURIComponent("1"));
     }
-    res.send(result);
+    //Determine the SQL LIMIT starting number
+    const startingLimit = (page - 1) * resultsPerPage;
+    //Get the relevant number of POSTS for this starting page
+    sql = `SELECT * FROM sets LIMIT ${startingLimit},${resultsPerPage}`;
+    db.query(sql, (err, result) => {
+      if (err) throw err;
+      res.send({ max: numOfResults, elements: result });
+    });
   });
 });
 
@@ -360,11 +444,32 @@ app.delete("/api/deletesets/:id", (req, res) => {
 
 //sauces
 app.get("/api/getsauces", (req, res) => {
-  db.query("SELECT * FROM sauces", (err, result) => {
-    if (err) {
-      console.log(err);
+  // db.query("SELECT * FROM sauces", (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   res.send(result);
+  // });
+  const resultsPerPage = 8;
+  let sql = "SELECT * FROM sauces";
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    const numOfResults = result.length;
+    const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
+    let page = req.query.page ? Number(req.query.page) : 1;
+    if (page > numberOfPages) {
+      res.redirect("/?page=" + encodeURIComponent(numberOfPages));
+    } else if (page < 1) {
+      res.redirect("/?page=" + encodeURIComponent("1"));
     }
-    res.send(result);
+    //Determine the SQL LIMIT starting number
+    const startingLimit = (page - 1) * resultsPerPage;
+    //Get the relevant number of POSTS for this starting page
+    sql = `SELECT * FROM sauces LIMIT ${startingLimit},${resultsPerPage}`;
+    db.query(sql, (err, result) => {
+      if (err) throw err;
+      res.send({ max: numOfResults, elements: result });
+    });
   });
 });
 

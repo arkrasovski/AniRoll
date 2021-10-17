@@ -8,35 +8,72 @@ import Modal from "../modal";
 
 export default class ItemBox extends Component {
   state = {
-    itemList: null,
+    itemList: [],
     loading: true,
     error: false,
+    newItemLoading: false,
+    offset: 1,
+    max: 0,
 
     modalActive: false,
     modalText: "",
   };
 
   componentDidMount() {
-    this.updateItem();
+    this.onRequest();
+    document.addEventListener("scroll", this.scrollHandler);
   }
 
-  updateItem() {
-    const { getData } = this.props;
-    getData()
-      .then((itemList) => {
-        this.setState({
-          itemList: itemList.data,
-          loading: false,
-        });
-      })
-      .catch(() => {
-        this.setState({
-          item: null,
-          error: true,
-          loading: false,
-        });
-      });
+  componentWillUnmount() {
+    document.removeEventListener("scroll", this.scrollHandler);
   }
+
+  scrollHandler = (e) => {
+    const footer = document.querySelector("footer");
+    console.log("footer", footer.offsetHeight);
+    console.log("window", window.innerHeight);
+    if (
+      e.target.documentElement.scrollHeight -
+        (e.target.documentElement.scrollTop +
+          window.innerHeight +
+          footer.offsetHeight) <
+        100 &&
+      this.state.itemList.length < this.state.max &&
+      !this.state.newItemLoading
+    ) {
+      this.onRequest(this.state.offset);
+    }
+    console.log("scroll");
+  };
+
+  onRequest(offset) {
+    console.log(offset);
+    this.onCharListLoading();
+    const { getData, type } = this.props;
+    getData(type, offset).then(this.onCharListLoaded).catch(this.onError);
+  }
+
+  onCharListLoaded = (newItemList) => {
+    this.setState(({ itemList, offset }) => ({
+      itemList: [...itemList, ...newItemList.data.elements],
+      loading: false,
+      newItemLoading: false,
+      offset: ++offset,
+      max: newItemList.data.max,
+    }));
+  };
+
+  onError = () => {
+    this.setState({
+      item: null,
+      error: true,
+      loading: false,
+    });
+  };
+
+  onCharListLoading = () => {
+    this.setState({ newItemLoading: true });
+  };
 
   deleteItem = (id) => {
     this.setState(({ itemList }) => {
@@ -84,6 +121,7 @@ export default class ItemBox extends Component {
   };
 
   render() {
+    console.log("max", this.state.max);
     if (!this.state.item && this.state.error) {
       return (
         <section className="spinnerBox">
