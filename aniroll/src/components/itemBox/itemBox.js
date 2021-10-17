@@ -76,13 +76,13 @@ export default class ItemBox extends Component {
   };
 
   deleteItem = (id) => {
-    this.setState(({ itemList }) => {
+    this.setState(({ itemList, max }) => {
       const index = itemList.findIndex((elem) => elem.id === id);
       const before = itemList.slice(0, index);
       const after = itemList.slice(index + 1);
       const newArray = [...before, ...after];
 
-      return { itemList: newArray };
+      return { itemList: newArray, max: --max };
     });
   };
 
