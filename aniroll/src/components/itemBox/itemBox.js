@@ -30,8 +30,6 @@ export default class ItemBox extends Component {
 
   scrollHandler = (e) => {
     const footer = document.querySelector("footer");
-    console.log("footer", footer.offsetHeight);
-    console.log("window", window.innerHeight);
     if (
       e.target.documentElement.scrollHeight -
         (e.target.documentElement.scrollTop +
@@ -54,12 +52,13 @@ export default class ItemBox extends Component {
   }
 
   onCharListLoaded = (newItemList) => {
-    this.setState(({ itemList, offset }) => ({
+    this.setState(({ itemList, offset, max }) => ({
       itemList: [...itemList, ...newItemList.data.elements],
       loading: false,
       newItemLoading: false,
+      max: offset === 1 ? newItemList.data.max : max,
       offset: ++offset,
-      max: newItemList.data.max,
+      //max: newItemList.data.max,
     }));
   };
 
@@ -117,11 +116,13 @@ export default class ItemBox extends Component {
   };
 
   setModalUnActive = () => {
-    this.setState({ modalActive: false });
+    //this.setState({ modalActive: false });
+    window.location.reload();
   };
 
   render() {
     console.log("max", this.state.max);
+    console.log("length", this.state.itemList.length);
     if (!this.state.item && this.state.error) {
       return (
         <section className="spinnerBox">
