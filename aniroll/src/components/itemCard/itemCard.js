@@ -118,7 +118,9 @@ export default class ItemCard extends Component {
         </div>
         <div className="cardPrice">
           <span>{price} руб</span>
-          <span>{weight} гр.</span>
+          <span>
+            {weight} {this.props.litres ? "л" : "гр"}.
+          </span>
         </div>
         <button
           onClick={() => {

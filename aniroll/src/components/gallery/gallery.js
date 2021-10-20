@@ -5,6 +5,7 @@ import rem from "./../../images/rem.png";
 import odzen from "./../../images/odzen.png";
 import footer from "./../../images/footer.png";
 import errorImage from "./../../images/errorImage.png";
+import megumin from "../../images/megumin.png";
 import hhi from "./../../images/hhi.jpg";
 
 export default class AdminLogin extends Component {
@@ -15,6 +16,7 @@ export default class AdminLogin extends Component {
       "Бессмер",
       "Рем",
       "Одзен",
+      "Мегумин",
       "Хитрый хайповый извращенец",
     ],
     title: [
@@ -23,6 +25,7 @@ export default class AdminLogin extends Component {
       "Для тебя, бессмертный",
       "Re:zero",
       "Созданный в бездне",
+      "Богиня благословляет этот прекрасный мир",
       "Палина не придумала",
     ],
     author: [
@@ -31,9 +34,10 @@ export default class AdminLogin extends Component {
       "Оойма Ёситоки",
       "Таппэй Нагацуки, Синъитиро Оцуки",
       "Цукуси Акихито",
+      "Кума Хиру, Хагурэ Юки",
       "Weptashka",
     ],
-    img: [yato, footer, errorImage, rem, odzen, hhi],
+    img: [yato, footer, errorImage, rem, odzen, megumin, hhi],
   };
 
   renderItems(arr) {

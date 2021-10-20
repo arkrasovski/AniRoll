@@ -121,6 +121,7 @@ export default class App extends Component {
                   type={"drinks"}
                   goFullItem={this.goFullItem}
                   isAdmin={this.state.isAdmin}
+                  litres={true}
                   {...props}
                 />
               )}

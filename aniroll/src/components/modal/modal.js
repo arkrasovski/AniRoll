@@ -1,5 +1,6 @@
 import React from "react";
 import "./modal.sass";
+import megumin from "../../images/megumin.png";
 
 const Modal = ({ active, setActive, content }) => {
   return (
@@ -10,6 +11,7 @@ const Modal = ({ active, setActive, content }) => {
           e.stopPropagation();
         }}
       >
+        <img src={megumin} alt="" />
         <span>{content}</span>
         <button onClick={setActive}>Ок</button>
       </div>

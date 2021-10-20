@@ -88,7 +88,7 @@ export default class ItemBox extends Component {
     if (this.state.itemList.length !== this.state.max) {
       getData(type, this.state.offset - 1)
         .then((newItemList) => {
-          this.setState(({ itemList, max }) => ({
+          this.setState(({ itemList }) => ({
             itemList: [
               ...itemList,
               newItemList.data.elements[newItemList.data.elements.length - 1],
@@ -110,6 +110,7 @@ export default class ItemBox extends Component {
             onDelete={this.deleteItem}
             getResponse={this.setModalActive}
             isAdmin={this.props.isAdmin}
+            litres={this.props.litres}
           ></ItemCard>
         );
       });
