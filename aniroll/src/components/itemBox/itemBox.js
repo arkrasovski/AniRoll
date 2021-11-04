@@ -46,19 +46,23 @@ export default class ItemBox extends Component {
   onRequest(offset) {
     this.onCharListLoading();
     const { getData, type } = this.props;
-    getData(type, offset).then(this.onCharListLoaded).catch(this.onError);
+    getData(type, offset)
+      .then(this.onCharListLoaded)
+      .catch((e) => {
+        if (e.response.status === 404 && offset > 1) {
+          console.log("slychai esli udalili i odnovremenno rabotaet user");
+          return;
+        }
+        this.onError();
+      });
   }
 
   onCharListLoaded = (newItemList) => {
-    console.log(
-      "ele,enti",
-      newItemList.data.elements[newItemList.data.elements.length - 1]
-    );
     this.setState(({ itemList, offset, max }) => ({
       itemList: [...itemList, ...newItemList.data.elements],
       loading: false,
       newItemLoading: false,
-      max: offset === 1 ? newItemList.data.max : max,
+      max: newItemList.data.max,
       offset: ++offset,
     }));
   };
@@ -83,21 +87,34 @@ export default class ItemBox extends Component {
       const newArray = [...before, ...after];
       return { itemList: newArray, max: --max };
     });
-    console.log("max after delete", this.state.max);
     const { getData, type } = this.props;
     if (this.state.itemList.length !== this.state.max) {
       getData(type, this.state.offset - 1)
         .then((newItemList) => {
+          const index = this.state.itemList.findIndex(
+            (elem) =>
+              elem.id ===
+              newItemList.data.elements[newItemList.data.elements.length - 1].id
+          ); // На случай если одновременно удалят что либо
+
           this.setState(({ itemList }) => ({
-            itemList: [
-              ...itemList,
-              newItemList.data.elements[newItemList.data.elements.length - 1],
-            ],
+            itemList:
+              index > -1
+                ? [...itemList]
+                : [
+                    ...itemList,
+                    newItemList.data.elements[
+                      newItemList.data.elements.length - 1
+                    ],
+                  ],
+            max: newItemList.data.max,
           }));
         })
-        .catch(this.onError);
+        .catch((e) => {
+          console.log(e);
+          this.onError();
+        });
     }
-    console.log("max after delete 2", this.state.max);
   };
 
   renderItems(arr) {
@@ -137,9 +154,6 @@ export default class ItemBox extends Component {
   };
 
   render() {
-    console.log("offset", this.state.offset);
-    console.log("elem", this.state.itemList);
-    console.log("max", this.state.max);
     if (!this.state.item && this.state.error) {
       return (
         <section className="spinnerBox">
