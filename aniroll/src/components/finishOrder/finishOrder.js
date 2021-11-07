@@ -163,14 +163,12 @@ export default class ItemBox extends Component {
                   name="telNum"
                   type="text"
                   lazy={true}
-                  onAccept={(value) => {
-                    console.log("VALUE", value);
+                  onAccept={(value, mask) => {
+                    console.log("VALUE", mask.el.input);
+
                     this.setState({ telNum: value }, this.validateForm);
-                  }}
-                  onChange={(e) => {
-                    e.target.classList.remove("empty");
-                    if (this.state.telNum.length < 19) {
-                      e.target.classList.add("empty");
+                    if (value.length < 19) {
+                      mask.el.input.classList.add("empty");
                       this.setState(
                         {
                           telNumError: "Поле должно быть заполнено",
@@ -179,6 +177,7 @@ export default class ItemBox extends Component {
                         this.validateForm
                       );
                     } else {
+                      mask.el.input.classList.remove("empty");
                       this.setState({ telNumError: "" }, this.validateForm);
                     }
                   }}
