@@ -265,7 +265,12 @@ export default class ItemBox extends Component {
     if (localStorage.getItem("isAdmin")) {
       return (
         <section className="main">
-          <div className="uploadPost">
+          <form
+            className="uploadPost"
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
             <label>Название товара: </label>
             {this.state.nameDirty && this.state.nameError && (
               <span className="validateError">{this.state.nameError}</span>
@@ -416,7 +421,8 @@ export default class ItemBox extends Component {
             >
               {this.props.isUpdate ? "Изменить" : "Добавить"}
             </button>
-          </div>
+          </form>
+
           <Modal
             active={this.state.modalActive}
             setActive={this.setModalActive}

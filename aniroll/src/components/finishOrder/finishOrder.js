@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router";
 import "./finishOrder.sass";
 import Axios from "axios";
-import MaskedInput from "react-input-mask";
+import { IMaskInput } from "react-imask";
 import Odzen from "../../images/odzen.png";
 import Modal from "../modal";
 
@@ -68,21 +68,6 @@ export default class ItemBox extends Component {
         });
         console.log("ne ok", error);
       });
-    // fetch("http://localhost:3002/api/addOrder", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     name: this.state.name,
-    //     address: this.state.address,
-    //     telNumber: this.state.telNum,
-    //     orderText,
-    //   }),
-    // })
-    //   .then((res) => {
-    //     if (!res.ok) throw Error(res.statusText);
-    //     return res.json();
-    //   })
-    //   .then((data) => console.log(data))
-    //   .catch((error) => console.log(error));
   };
 
   blurHandler = (e) => {
@@ -95,6 +80,7 @@ export default class ItemBox extends Component {
 
   inputHandler = (e) => {
     e.target.classList.remove("empty");
+    console.log("lol!");
     const name = e.target.name;
     const nameError = name + "Error";
 
@@ -127,6 +113,7 @@ export default class ItemBox extends Component {
   };
 
   render() {
+    console.log("telNum", this.state.telNum);
     if (this.state.Redirect) {
       return <Redirect push to="/" />;
     }
@@ -142,7 +129,11 @@ export default class ItemBox extends Component {
       return (
         <section className="main">
           <div className="uploadPostWrapper">
-            <div className="confirmOrder">
+            <form
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
               <label>Ваше ФИО: </label>
               {this.state.nameDirty && this.state.nameError && (
                 <span className="validateError">{this.state.nameError}</span>
@@ -165,23 +156,26 @@ export default class ItemBox extends Component {
                 <span className="validateError">{this.state.telNumError}</span>
               )}
               <div className="inputBox">
-                <MaskedInput
-                  placeholder="+375 (29) 999-99-99"
-                  mask={"+375 (99) 999-99-99"}
+                <IMaskInput
+                  placeholder="+375 (29) 000-00-00"
+                  mask={"+375 (00) 000-00-00"}
+                  onBlur={(e) => this.blurHandler(e)}
+                  name="telNum"
+                  type="text"
+                  lazy={true}
+                  onAccept={(value) => {
+                    console.log("VALUE", value);
+                    this.setState({ telNum: value }, this.validateForm);
+                  }}
                   onChange={(e) => {
-                    this.setState({ telNumDirty: true });
                     e.target.classList.remove("empty");
-                    this.setState(
-                      { telNum: e.target.value },
-                      this.validateForm
-                    );
-                    if (
-                      e.target.value === "+375 (__) ___-__-__" ||
-                      e.target.value.slice(-1) === "_"
-                    ) {
+                    if (this.state.telNum.length < 19) {
                       e.target.classList.add("empty");
                       this.setState(
-                        { telNumError: "Поле должно быть заполнено" },
+                        {
+                          telNumError: "Поле должно быть заполнено",
+                          telNumDirty: true,
+                        },
                         this.validateForm
                       );
                     } else {
@@ -216,7 +210,8 @@ export default class ItemBox extends Component {
               >
                 Оформить заказ
               </button>
-            </div>
+            </form>
+
             <img src={Odzen} alt="Одзен из аниме 'Созданный в бездне'"></img>
           </div>
           <Modal

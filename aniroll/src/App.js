@@ -113,64 +113,6 @@ export default class App extends Component {
             />
 
             <Route
-              path="/drinks"
-              exact
-              component={(props) => (
-                <ItemBox
-                  getData={this.GoodsService.getGoods}
-                  type={"drinks"}
-                  goFullItem={this.goFullItem}
-                  isAdmin={this.state.isAdmin}
-                  litres={true}
-                  {...props}
-                />
-              )}
-            />
-
-            <Route
-              path="/createnewdrinks"
-              component={(props) => (
-                <CreateCardBox type={"drinks"} {...props} />
-              )}
-            />
-
-            <Route
-              path="/updatedrinks/:id"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <CreateCardBox
-                    type={"drinks"}
-                    isUpdate={true}
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getdrinksFromId/${id}`
-                      );
-                    }}
-                  />
-                );
-              }}
-            />
-
-            <Route
-              path="/drinks/:id/"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <ItemFull
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getdrinksFromId/${id}`
-                      );
-                    }}
-                    addToOrders={this.addToOrders}
-                  />
-                );
-              }}
-            />
-
-            {/* суши */}
-            <Route
               path="/sushi"
               exact
               component={(props) => (
@@ -208,7 +150,7 @@ export default class App extends Component {
             />
 
             <Route
-              path="/sushi/:id/"
+              path="/sushi/:id"
               render={({ match }) => {
                 const { id } = match.params;
                 return (
@@ -224,9 +166,9 @@ export default class App extends Component {
               }}
             />
 
-            {/* sets */}
             <Route
               path="/sets"
+              exact
               component={(props) => (
                 <ItemBox
                   getData={this.GoodsService.getGoods}
@@ -262,7 +204,7 @@ export default class App extends Component {
             />
 
             <Route
-              path="/sets/:id/"
+              path="/sets/:id"
               render={({ match }) => {
                 const { id } = match.params;
                 return (
@@ -278,9 +220,9 @@ export default class App extends Component {
               }}
             />
 
-            {/* sauces */}
             <Route
               path="/sauces"
+              exact
               component={(props) => (
                 <ItemBox
                   getData={this.GoodsService.getGoods}
@@ -318,7 +260,7 @@ export default class App extends Component {
             />
 
             <Route
-              path="/sauces/:id/"
+              path="/sauces/:id"
               render={({ match }) => {
                 const { id } = match.params;
                 return (
@@ -326,6 +268,62 @@ export default class App extends Component {
                     getData={async () => {
                       return await Axios.get(
                         `http://localhost:3002/api/getsaucesFromId/${id}`
+                      );
+                    }}
+                    addToOrders={this.addToOrders}
+                  />
+                );
+              }}
+            />
+
+            <Route
+              path="/drinks"
+              exact
+              component={(props) => (
+                <ItemBox
+                  getData={this.GoodsService.getGoods}
+                  type={"drinks"}
+                  goFullItem={this.goFullItem}
+                  isAdmin={this.state.isAdmin}
+                  {...props}
+                />
+              )}
+            />
+
+            <Route
+              path="/createnewdrinks"
+              component={(props) => (
+                <CreateCardBox type={"drinks"} {...props} />
+              )}
+            />
+
+            <Route
+              path="/updatedrinks/:id"
+              render={({ match }) => {
+                const { id } = match.params;
+                return (
+                  <CreateCardBox
+                    type={"drinks"}
+                    isUpdate={true}
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getdrinksFromId/${id}`
+                      );
+                    }}
+                  />
+                );
+              }}
+            />
+
+            <Route
+              path="/drinks/:id"
+              render={({ match }) => {
+                const { id } = match.params;
+                return (
+                  <ItemFull
+                    getData={async () => {
+                      return await Axios.get(
+                        `http://localhost:3002/api/getdrinksFromId/${id}`
                       );
                     }}
                     addToOrders={this.addToOrders}

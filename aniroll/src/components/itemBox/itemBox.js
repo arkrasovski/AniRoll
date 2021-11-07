@@ -49,7 +49,11 @@ export default class ItemBox extends Component {
     getData(type, offset)
       .then(this.onCharListLoaded)
       .catch((e) => {
-        if (e.response.status === 404 && offset > 1) {
+        if (e.response.status === 404) {
+          if (this.state.offset === 1) {
+            this.setState({ loading: false });
+            console.log("tovarov net");
+          }
           console.log("slychai esli udalili i odnovremenno rabotaet user");
           return;
         }
@@ -58,6 +62,7 @@ export default class ItemBox extends Component {
   }
 
   onCharListLoaded = (newItemList) => {
+    console.log("char is loaded!");
     this.setState(({ itemList, offset, max }) => ({
       itemList: [...itemList, ...newItemList.data.elements],
       loading: false,
