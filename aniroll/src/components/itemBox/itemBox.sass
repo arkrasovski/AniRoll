@@ -2,12 +2,14 @@ $mainColor: rgb(127, 0, 0)
 $shadow: 0 5px 5px rgba(0, 0, 0, 0.2)
 
 section.main
-
+  display: flex
+  flex-direction: column
   padding: 500px 10%
   .itemContainer
     display: grid
     grid-template-columns: repeat(4, 1fr)
     grid-gap: 40px
+    flex: 1 0 auto
 
 section.spinnerBox
   display: flex
@@ -15,6 +17,7 @@ section.spinnerBox
   justify-content: center
 
 .addCard
+  flex: 0 0 auto
   margin-top: 50px
   height: 70px
   width: 200px

@@ -49,6 +49,11 @@ export default class ItemBox extends Component {
     getData(type, offset)
       .then(this.onCharListLoaded)
       .catch((e) => {
+        console.log(e.request, "242qrqw");
+        if (e.response === undefined) {
+          return this.onError();
+        }
+
         if (e.response.status === 404) {
           if (this.state.offset === 1) {
             this.setState({ loading: false });
