@@ -4,6 +4,12 @@ import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import Spinner from "../spinner";
 import ErrorMessage from "../errorMessage";
 import NoMatch from "../noMatch";
+import { ImCross } from "react-icons/im";
+import { GrUpdate } from "react-icons/gr";
+import { Link } from "react-router-dom";
+import Modal from "../modal";
+import Axios from "axios";
+import { Redirect } from "react-router";
 
 export default class ItemFull extends Component {
   state = {
@@ -11,6 +17,11 @@ export default class ItemFull extends Component {
     loading: true,
     error: false,
     number: 1,
+
+    redirect: false,
+
+    modalActive: false,
+    modalText: "",
   };
 
   componentDidMount() {
@@ -84,7 +95,44 @@ export default class ItemFull extends Component {
     }
   };
 
+  deleteItem = () => {
+    console.log("kotiki i sobachki", this.state.item);
+    const { type, id } = this.state.item;
+    Axios.delete(`http://localhost:3002/api/delete${type}/${id}`)
+      .then((response) => {
+        this.setModalActive(true);
+        console.log("ok", response);
+      })
+      .catch((error) => {
+        this.setModalActive(false);
+        console.log("ne ok", error);
+      });
+  };
+
+  setModalActive = (isOk) => {
+    if (isOk) {
+      this.setState({
+        modalActive: true,
+        modalText: "Товар успешно удалён!",
+      });
+    } else {
+      this.setState({
+        modalActive: true,
+        modalText: "Извините, не получилось удалить товар",
+      });
+    }
+  };
+
+  setModalUnActive = () => {
+    this.setState({ modalActive: false, redirect: true });
+    //window.location.reload();
+  };
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect push to={`/${this.state.item.type}`} />;
+    }
+
     if (!this.state.item && this.state.error) {
       return (
         <section className="spinnerBox">
@@ -111,6 +159,23 @@ export default class ItemFull extends Component {
       return (
         <section className="FullItemMain">
           <div className="fullItem">
+            {localStorage.getItem("isAdmin") ? (
+              <>
+                <div
+                  className="deleteSign"
+                  onClick={() => {
+                    this.deleteItem();
+                  }}
+                >
+                  <ImCross />
+                </div>
+                <div className="updateSign">
+                  <Link to={`/update${item.type}/${item.id}`}>
+                    <GrUpdate />
+                  </Link>
+                </div>
+              </>
+            ) : null}
             <div className="fullItemInfo">
               <img src={url} alt="Изображение товара" />
               <div className="fullItemText">
@@ -120,7 +185,9 @@ export default class ItemFull extends Component {
                 </span>
                 <span className="number">{number} шт</span>
               </div>
-              <div className="description">{description}</div>
+              {description === "" ? null : (
+                <div className="description">{description}</div>
+              )}
             </div>
 
             <div className="fullItemCounter">
@@ -150,6 +217,11 @@ export default class ItemFull extends Component {
           >
             В корзину
           </button>
+          <Modal
+            active={this.state.modalActive}
+            setActive={this.setModalUnActive}
+            content={this.state.modalText}
+          />
         </section>
       );
     }

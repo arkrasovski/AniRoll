@@ -10,6 +10,7 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
   justify-content: center
   align-items: flex-end
   .fullItem
+    position: relative
     border-left: 1px solid rgba(0, 0, 0, 0.2)
     border-top: 1px solid rgba(0, 0, 0, 0.2)
     height: 250px
@@ -20,6 +21,18 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
     padding: 1%
     display: flex
     justify-content: space-between
+    .deleteSign
+      position: absolute
+      top: 0
+      right: -20px
+      cursor: pointer
+      svg
+        color: $mainColor
+    .updateSign
+      position: absolute
+      right: -20px
+      top: 50px
+      cursor: pointer
     .fullItemInfo
       display: flex
       img
@@ -61,6 +74,7 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
         justify-content: center
         border-radius: 50%
         box-shadow: $shadow
+  
   .toBasketFullItem
     background: $mainColor
     color: #fff
@@ -73,6 +87,7 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
     border-radius: 15px
     box-shadow: $shadow
     cursor: pointer
+
 
 @media screen and (max-width: 1700px) and (min-width: 1500px)
   .FullItemMain
@@ -156,13 +171,20 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
       font-size: 15px
       width: 160px
 
-@media screen and (max-width: 999px) and (min-width: 800px)
+@media screen and (max-width: 1000px) and (min-width: 800px)
   .FullItemMain
     .fullItem
+      height: 150px
       flex-direction: column
       align-items: center
       justify-content: center
+      
       .fullItemInfo
+        width: 100%
+        padding: 0 20%
+        display: flex
+        justify-content: center
+     
         img
           margin-right: 10px
           width: 30%
@@ -177,6 +199,7 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
       .description
         font-size: 10px
       .fullItemCounter
+        border-top: 1px solid $mainColor
         margin-top: 20px
         svg
           font-size: 20px

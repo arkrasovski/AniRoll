@@ -13,6 +13,9 @@ export default class BasketBox extends Component {
   componentDidMount() {
     // const { orders } = this.props;
     // this.setState({ basketList: orders });
+    if (+new Date() > localStorage.getItem("localStorageEndTime")) {
+      localStorage.removeItem("orders");
+    }
     this.setState({ basketList: JSON.parse(localStorage.getItem("orders")) });
   }
 

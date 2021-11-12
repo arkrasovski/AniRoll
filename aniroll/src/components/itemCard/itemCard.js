@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./itemCard.sass";
-import { ImCross } from "react-icons/im";
-import { GrUpdate } from "react-icons/gr";
 import Axios from "axios";
 
 export default class ItemCard extends Component {
@@ -92,24 +90,6 @@ export default class ItemCard extends Component {
     const { name, url, type, number, price, weight, id } = item;
     return (
       <div className="card">
-        {localStorage.getItem("isAdmin") ? (
-          <>
-            <div
-              className="deleteSign"
-              onClick={() => {
-                this.deletePost(id);
-              }}
-            >
-              <ImCross />
-            </div>
-            <div className="updateSign">
-              <Link to={`update${item.type}/${item.id}`}>
-                <GrUpdate />
-              </Link>
-            </div>
-          </>
-        ) : null}
-
         <Link to={"/" + type + "/" + id}>
           <img src={url} alt={type + " " + name} />
         </Link>

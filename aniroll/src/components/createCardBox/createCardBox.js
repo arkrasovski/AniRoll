@@ -84,6 +84,10 @@ export default class ItemBox extends Component {
         })
         .catch(() => {
           console.log("error!");
+          this.setState({
+            modalActive: true,
+            modalText: "Извините, что-то пошло не так",
+          });
         });
     }
   }
@@ -259,7 +263,7 @@ export default class ItemBox extends Component {
 
   render() {
     if (this.state.Redirect) {
-      return <Redirect push to={`/${this.state.itemToChange.type}`} />;
+      return <Redirect push to={`/${this.props.type}`} />;
     }
 
     if (localStorage.getItem("isAdmin")) {

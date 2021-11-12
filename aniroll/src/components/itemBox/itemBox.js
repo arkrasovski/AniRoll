@@ -4,7 +4,6 @@ import "./itemBox.sass";
 import ItemCard from "../itemCard";
 import Spinner from "../spinner";
 import ErrorMessage from "../errorMessage";
-import Modal from "../modal";
 
 export default class ItemBox extends Component {
   state = {
@@ -14,9 +13,6 @@ export default class ItemBox extends Component {
     newItemLoading: false,
     offset: 1,
     max: 0,
-
-    modalActive: false,
-    modalText: "",
   };
 
   componentDidMount() {
@@ -46,28 +42,15 @@ export default class ItemBox extends Component {
   onRequest(offset) {
     this.onCharListLoading();
     const { getData, type } = this.props;
-    getData(type, offset)
-      .then(this.onCharListLoaded)
-      .catch((e) => {
-        console.log(e.request, "242qrqw");
-        if (e.response === undefined) {
-          return this.onError();
-        }
-
-        if (e.response.status === 404) {
-          if (this.state.offset === 1) {
-            this.setState({ loading: false });
-            console.log("tovarov net");
-          }
-          console.log("slychai esli udalili i odnovremenno rabotaet user");
-          return;
-        }
-        this.onError();
-      });
+    getData(type, offset).then(this.onCharListLoaded).catch(this.onError);
   }
 
   onCharListLoaded = (newItemList) => {
-    console.log("char is loaded!");
+    console.log("char is loaded!", newItemList);
+    // if (newItemList.data.elements.length === 0 && this.state.offset !== 1) {
+    //   console.log("pusto v zaprose  ");
+    //   return;
+    // }
     this.setState(({ itemList, offset, max }) => ({
       itemList: [...itemList, ...newItemList.data.elements],
       loading: false,
@@ -89,44 +72,6 @@ export default class ItemBox extends Component {
     this.setState({ newItemLoading: true });
   };
 
-  deleteItem = (id) => {
-    this.setState(({ itemList, max }) => {
-      const index = itemList.findIndex((elem) => elem.id === id);
-      const before = itemList.slice(0, index);
-      const after = itemList.slice(index + 1);
-      const newArray = [...before, ...after];
-      return { itemList: newArray, max: --max };
-    });
-    const { getData, type } = this.props;
-    if (this.state.itemList.length !== this.state.max) {
-      getData(type, this.state.offset - 1)
-        .then((newItemList) => {
-          const index = this.state.itemList.findIndex(
-            (elem) =>
-              elem.id ===
-              newItemList.data.elements[newItemList.data.elements.length - 1].id
-          ); // На случай если одновременно удалят что либо
-
-          this.setState(({ itemList }) => ({
-            itemList:
-              index > -1
-                ? [...itemList]
-                : [
-                    ...itemList,
-                    newItemList.data.elements[
-                      newItemList.data.elements.length - 1
-                    ],
-                  ],
-            max: newItemList.data.max,
-          }));
-        })
-        .catch((e) => {
-          console.log(e);
-          this.onError();
-        });
-    }
-  };
-
   renderItems(arr) {
     if (arr) {
       return arr.map((item) => {
@@ -144,26 +89,8 @@ export default class ItemBox extends Component {
     }
   }
 
-  setModalActive = (isOk) => {
-    if (isOk) {
-      this.setState({
-        modalActive: true,
-        modalText: "Товар успешно удалён!",
-      });
-    } else {
-      this.setState({
-        modalActive: true,
-        modalText: "Извините, не получилось удалить товар",
-      });
-    }
-  };
-
-  setModalUnActive = () => {
-    this.setState({ modalActive: false });
-    //window.location.reload();
-  };
-
   render() {
+    console.log("offset", this.state.offset, "max", this.state.max);
     if (!this.state.item && this.state.error) {
       return (
         <section className="spinnerBox">
@@ -185,17 +112,12 @@ export default class ItemBox extends Component {
     return (
       <section className="main">
         <div className="itemContainer"> {items}</div>
+        {this.state.newItemLoading ? <Spinner /> : null}
         {localStorage.getItem("isAdmin") ? (
           <Link to={"/createnew" + this.props.type}>
             <button className="addCard">Добавить товар</button>
           </Link>
         ) : null}
-
-        <Modal
-          active={this.state.modalActive}
-          setActive={this.setModalUnActive}
-          content={this.state.modalText}
-        />
       </section>
     );
   }

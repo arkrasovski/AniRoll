@@ -23,16 +23,17 @@ app.get("/api/getRolls", (req, res) => {
     const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
     let page = req.query.page ? Number(req.query.page) : 1;
     if (page > numberOfPages) {
-      res.redirect("/?page=" + encodeURIComponent(numberOfPages));
+      res.send({ max: numOfResults, elements: [] });
+      //res.redirect("/api/getRolls/?page=" + encodeURIComponent(numberOfPages));
     } else if (page < 1) {
-      res.redirect("/?page=" + encodeURIComponent("1"));
+      res.redirect("/api/getRolls/?page=" + encodeURIComponent("1"));
     }
     //Determine the SQL LIMIT starting number
     const startingLimit = (page - 1) * resultsPerPage;
     //Get the relevant number of POSTS for this starting page
     sql = `SELECT * FROM rolls LIMIT ${startingLimit},${resultsPerPage}`;
     db.query(sql, (err, result) => {
-      if (err) throw err;
+      if (err) throw err + "kek";
       res.send({ max: numOfResults, elements: result });
     });
   });
@@ -133,9 +134,10 @@ app.get("/api/getdrinks", (req, res) => {
     const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
     let page = req.query.page ? Number(req.query.page) : 1;
     if (page > numberOfPages) {
-      res.redirect("/?page=" + encodeURIComponent(numberOfPages));
+      //res.redirect("/api/getdrinks/?page=" + encodeURIComponent(numberOfPages));
+      res.send({ max: numOfResults, elements: [] });
     } else if (page < 1) {
-      res.redirect("/?page=" + encodeURIComponent("1"));
+      res.redirect("/api/getdrinks/?page=" + encodeURIComponent("1"));
     }
     //Determine the SQL LIMIT starting number
     const startingLimit = (page - 1) * resultsPerPage;
@@ -242,9 +244,10 @@ app.get("/api/getsushi", (req, res) => {
     const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
     let page = req.query.page ? Number(req.query.page) : 1;
     if (page > numberOfPages) {
-      res.redirect("/?page=" + encodeURIComponent(numberOfPages));
+      //res.redirect("/api/getsushi/?page=" + encodeURIComponent(numberOfPages));
+      res.send({ max: numOfResults, elements: [] });
     } else if (page < 1) {
-      res.redirect("/?page=" + encodeURIComponent("1"));
+      res.redirect("/api/getsushi/?page=" + encodeURIComponent("1"));
     }
     //Determine the SQL LIMIT starting number
     const startingLimit = (page - 1) * resultsPerPage;
@@ -351,9 +354,10 @@ app.get("/api/getsets", (req, res) => {
     const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
     let page = req.query.page ? Number(req.query.page) : 1;
     if (page > numberOfPages) {
-      res.redirect("/?page=" + encodeURIComponent(numberOfPages));
+      res.send({ max: numOfResults, elements: [] });
+      //res.redirect("/api/getsets/?page=" + encodeURIComponent(numberOfPages));
     } else if (page < 1) {
-      res.redirect("/?page=" + encodeURIComponent("1"));
+      res.redirect("/api/getsets/?page=" + encodeURIComponent("1"));
     }
     //Determine the SQL LIMIT starting number
     const startingLimit = (page - 1) * resultsPerPage;
@@ -458,9 +462,10 @@ app.get("/api/getsauces", (req, res) => {
     const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
     let page = req.query.page ? Number(req.query.page) : 1;
     if (page > numberOfPages) {
-      res.redirect("/?page=" + encodeURIComponent(numberOfPages));
+      res.send({ max: numOfResults, elements: [] });
+      //res.redirect("/api/getsauces/?page=" + encodeURIComponent(numberOfPages));
     } else if (page < 1) {
-      res.redirect("/?page=" + encodeURIComponent("1"));
+      res.redirect("/api/getsauces/?page=" + encodeURIComponent("1"));
     }
     //Determine the SQL LIMIT starting number
     const startingLimit = (page - 1) * resultsPerPage;

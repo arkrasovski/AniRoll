@@ -26,6 +26,23 @@ export default class App extends Component {
 
   GoodsService = new GoodsService();
 
+  componentDidMount() {
+    let date = new Date();
+    let localStorageEndTime = localStorage.getItem("localStorageEndTime");
+    if (localStorageEndTime === null) {
+      localStorage.setItem(
+        "localStorageEndTime",
+        +new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, 1, 0)
+      );
+    } else if (+new Date() > localStorageEndTime) {
+      localStorage.removeItem("orders");
+      localStorage.setItem(
+        "localStorageEndTime",
+        +new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, 1, 0)
+      );
+    }
+  }
+
   componentDidCatch() {
     this.setState({ error: true });
   }
