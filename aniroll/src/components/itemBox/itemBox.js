@@ -82,7 +82,6 @@ export default class ItemBox extends Component {
             onDelete={this.deleteItem}
             getResponse={this.setModalActive}
             isAdmin={this.props.isAdmin}
-            litres={this.props.litres}
           ></ItemCard>
         );
       });

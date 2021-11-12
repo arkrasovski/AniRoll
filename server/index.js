@@ -48,11 +48,12 @@ app.post("/api/createrolls", (req, res) => {
   const number = req.body.number;
   const price = req.body.price;
   const weight = req.body.weight;
+  const measure = req.body.measure;
   const description = req.body.description;
 
   db.query(
-    "INSERT INTO rolls (name, url, number, price, weight, description) VALUES (?,?,?,?,?,?)",
-    [name, url, number, price, weight, description],
+    "INSERT INTO rolls (name, url, number, price, weight, measure, description) VALUES (?,?,?,?,?,?,?)",
+    [name, url, number, price, weight, measure, description],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -73,12 +74,13 @@ app.post("/api/changerollsFromId/:id", (req, res) => {
   const number = req.body.number;
   const price = req.body.price;
   const weight = req.body.weight;
+  const measure = req.body.measure;
   const description = req.body.description;
   const id = req.body.id;
 
   db.query(
-    "UPDATE rolls SET name = ?, url = ? , number = ? , price = ?, weight = ?, description = ? WHERE id = ?",
-    [name, url, number, price, weight, description, id],
+    "UPDATE rolls SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
+    [name, url, number, price, weight, measure, description, id],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -159,11 +161,12 @@ app.post("/api/createdrinks", (req, res) => {
   const number = req.body.number;
   const price = req.body.price;
   const weight = req.body.weight;
+  const measure = req.body.measure;
   const description = req.body.description;
 
   db.query(
-    "INSERT INTO drinks (name, url, number, price, weight, description) VALUES (?,?,?,?,?,?)",
-    [name, url, number, price, weight, description],
+    "INSERT INTO drinks (name, url, number, price, weight, measure, description) VALUES (?,?,?,?,?,?,?)",
+    [name, url, number, price, weight, measure, description],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -194,12 +197,13 @@ app.post("/api/changedrinksFromId/:id", (req, res) => {
   const number = req.body.number;
   const price = req.body.price;
   const weight = req.body.weight;
+  const measure = req.body.measure;
   const description = req.body.description;
   const id = req.body.id;
 
   db.query(
-    "UPDATE drinks SET name = ?, url = ? , number = ? , price = ?, weight = ?, description = ? WHERE id = ?",
-    [name, url, number, price, weight, description, id],
+    "UPDATE drinks SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
+    [name, url, number, price, weight, measure, description, id],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -269,11 +273,12 @@ app.post("/api/createsushi", (req, res) => {
   const number = req.body.number;
   const price = req.body.price;
   const weight = req.body.weight;
+  const measure = req.body.measure;
   const description = req.body.description;
 
   db.query(
-    "INSERT INTO sushi (name, url, number, price, weight, description) VALUES (?,?,?,?,?,?)",
-    [name, url, number, price, weight, description],
+    "INSERT INTO sushi (name, url, number, price, weight, measure, description) VALUES (?,?,?,?,?,?,?)",
+    [name, url, number, price, weight, measure, description],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -304,12 +309,13 @@ app.post("/api/changesushiFromId/:id", (req, res) => {
   const number = req.body.number;
   const price = req.body.price;
   const weight = req.body.weight;
+  const measure = req.body.measure;
   const description = req.body.description;
   const id = req.body.id;
 
   db.query(
-    "UPDATE sushi SET name = ?, url = ? , number = ? , price = ?, weight = ?, description = ? WHERE id = ?",
-    [name, url, number, price, weight, description, id],
+    "UPDATE sushi SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
+    [name, url, number, price, weight, measure, description, id],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -377,11 +383,12 @@ app.post("/api/createsets", (req, res) => {
   const number = req.body.number;
   const price = req.body.price;
   const weight = req.body.weight;
+  const measure = req.body.measure;
   const description = req.body.description;
 
   db.query(
-    "INSERT INTO sets (name, url, number, price, weight, description) VALUES (?,?,?,?,?,?)",
-    [name, url, number, price, weight, description],
+    "INSERT INTO sets (name, url, number, price, weight, measure, description) VALUES (?,?,?,?,?,?,?)",
+    [name, url, number, price, weight, measure, description],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -412,12 +419,13 @@ app.post("/api/changesetsFromId/:id", (req, res) => {
   const number = req.body.number;
   const price = req.body.price;
   const weight = req.body.weight;
+  const measure = req.body.measure;
   const description = req.body.description;
   const id = req.body.id;
 
   db.query(
-    "UPDATE sets SET name = ?, url = ? , number = ? , price = ?, weight = ?, description = ? WHERE id = ?",
-    [name, url, number, price, weight, description, id],
+    "UPDATE sets SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
+    [name, url, number, price, weight, measure, description, id],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -485,11 +493,12 @@ app.post("/api/createsauces", (req, res) => {
   const number = req.body.number;
   const price = req.body.price;
   const weight = req.body.weight;
+  const measure = req.body.measure;
   const description = req.body.description;
 
   db.query(
-    "INSERT INTO sauces (name, url, number, price, weight, description) VALUES (?,?,?,?,?,?)",
-    [name, url, number, price, weight, description],
+    "INSERT INTO sauces (name, url, number, price, weight, measure, description) VALUES (?,?,?,?,?,?,?)",
+    [name, url, number, price, weight, measure, description],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -520,12 +529,13 @@ app.post("/api/changesaucesFromId/:id", (req, res) => {
   const number = req.body.number;
   const price = req.body.price;
   const weight = req.body.weight;
+  const measure = req.body.measure;
   const description = req.body.description;
   const id = req.body.id;
 
   db.query(
-    "UPDATE sauces SET name = ?, url = ? , number = ? , price = ?, weight = ?, description = ? WHERE id = ?",
-    [name, url, number, price, weight, description, id],
+    "UPDATE sauces SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
+    [name, url, number, price, weight, measure, description, id],
     (err, result) => {
       if (err) {
         console.log(err);

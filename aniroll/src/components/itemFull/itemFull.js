@@ -155,7 +155,7 @@ export default class ItemFull extends Component {
       return <NoMatch />;
     }
     if (item) {
-      const { name, url, number, price, description } = item;
+      const { name, url, number, price, weight, measure, description } = item;
       return (
         <section className="FullItemMain">
           <div className="fullItem">
@@ -182,6 +182,9 @@ export default class ItemFull extends Component {
                 <span className="name">{name}</span>
                 <span className="price">
                   Стоимость: {Math.round(price * this.state.number * 100) / 100}
+                </span>
+                <span className="weight">
+                  {weight} {measure}.
                 </span>
                 <span className="number">{number} шт</span>
               </div>

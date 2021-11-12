@@ -87,7 +87,7 @@ export default class ItemCard extends Component {
     if (!this.state.item) {
       return null;
     }
-    const { name, url, type, number, price, weight, id } = item;
+    const { name, url, type, number, price, weight, measure, id } = item;
     return (
       <div className="card">
         <Link to={"/" + type + "/" + id}>
@@ -99,7 +99,7 @@ export default class ItemCard extends Component {
         <div className="cardPrice">
           <span>{price} руб</span>
           <span>
-            {weight} {this.props.litres ? "л" : "гр"}.
+            {weight} {measure}.
           </span>
         </div>
         <button

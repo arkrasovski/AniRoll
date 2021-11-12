@@ -5,6 +5,7 @@ import { ImCross } from "react-icons/im";
 import Modal from "../modal";
 import NoMatch from "../noMatch";
 import { Redirect } from "react-router";
+import DropDown from "../dropDown";
 
 export default class ItemBox extends Component {
   state = {
@@ -13,6 +14,7 @@ export default class ItemBox extends Component {
     number: "",
     price: "",
     weight: "",
+    measure: "гр",
     description: "",
     itemToChange: null,
 
@@ -49,9 +51,11 @@ export default class ItemBox extends Component {
             number: itemToChange.number,
             price: itemToChange.price,
             weight: itemToChange.weight,
+            measure: itemToChange.measure,
             description: itemToChange.description,
             itemToChange,
           });
+          console.log("old measure", this.state.itemToChange.measure);
 
           const data = [
             itemToChange.name,
@@ -107,6 +111,7 @@ export default class ItemBox extends Component {
           number: this.state.number,
           price: this.state.price,
           weight: this.state.weight,
+          measure: this.state.measure,
           description: this.state.description,
           id: itemToChange.id,
         }
@@ -151,6 +156,7 @@ export default class ItemBox extends Component {
       number: this.state.number,
       price: this.state.price,
       weight: this.state.weight,
+      measure: this.state.measure,
       description: this.state.description,
     })
       .then((response) => {
@@ -227,6 +233,7 @@ export default class ItemBox extends Component {
         +this.state.number !== itemToChange.number ||
         +this.state.price !== itemToChange.price ||
         +this.state.weight !== itemToChange.weight ||
+        this.state.measure !== itemToChange.measure ||
         this.state.description !== itemToChange.description
       ) {
         this.setState({
@@ -261,7 +268,12 @@ export default class ItemBox extends Component {
     }
   };
 
+  setMeasure = (measure) => {
+    this.setState({ measure }, this.validateForm);
+  };
+
   render() {
+    console.log("measure", this.state.measure);
     if (this.state.Redirect) {
       return <Redirect push to={`/${this.props.type}`} />;
     }
@@ -387,6 +399,12 @@ export default class ItemBox extends Component {
                 }}
               />
             </div>
+
+            <label>Единица измерения</label>
+            <DropDown
+              selected={this.state.measure}
+              setSelected={this.setMeasure}
+            />
 
             <label>Описание: </label>
             <div className="inputBox">
