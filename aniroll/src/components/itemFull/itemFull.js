@@ -8,10 +8,11 @@ import { ImCross } from "react-icons/im";
 import { GrUpdate } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import Modal from "../modal";
-import Axios from "axios";
 import { Redirect } from "react-router";
+import GoodsService from "../../services/goodsService";
 
 export default class ItemFull extends Component {
+  GoodsService = new GoodsService();
   state = {
     item: null,
     loading: true,
@@ -25,8 +26,9 @@ export default class ItemFull extends Component {
   };
 
   componentDidMount() {
-    const { getData } = this.props;
-    getData()
+    const { getData, type, id } = this.props;
+    console.log(getData);
+    getData(type, id)
       .then((item) => {
         this.setState({
           item: item.data[0],
@@ -96,9 +98,8 @@ export default class ItemFull extends Component {
   };
 
   deleteItem = () => {
-    console.log("kotiki i sobachki", this.state.item);
     const { type, id } = this.state.item;
-    Axios.delete(`http://localhost:3002/api/delete${type}/${id}`)
+    this.GoodsService.deleteGood(type, id)
       .then((response) => {
         this.setModalActive(true);
         console.log("ok", response);

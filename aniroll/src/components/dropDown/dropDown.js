@@ -12,25 +12,25 @@ function DropDown({ selected, setSelected }) {
         <IoMdArrowDropdown />
       </div>
 
-      {isActive && (
-        <div className="dropdown-content">
-          {options.map((option, i) => (
-            <div
-              key={i}
-              className="dropdown-item"
-              onClick={(e) => {
-                if (option !== selected) {
-                  setSelected(option);
-                }
+      <div
+        className={isActive ? "dropdown-content active" : "dropdown-content"}
+      >
+        {options.map((option, i) => (
+          <div
+            key={i}
+            className="dropdown-item"
+            onClick={(e) => {
+              if (option !== selected) {
+                setSelected(option);
+              }
 
-                setIsActive(false);
-              }}
-            >
-              {option}
-            </div>
-          ))}
-        </div>
-      )}
+              setIsActive(false);
+            }}
+          >
+            {option}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

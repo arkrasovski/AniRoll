@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import "./createCardBox.sass";
-import Axios from "axios";
 import { ImCross } from "react-icons/im";
 import Modal from "../modal";
 import NoMatch from "../noMatch";
 import { Redirect } from "react-router";
 import DropDown from "../dropDown";
+import GoodsService from "../../services/goodsService";
 
 export default class ItemBox extends Component {
+  GoodsService = new GoodsService();
   state = {
     name: "",
     url: "",
@@ -101,21 +102,17 @@ export default class ItemBox extends Component {
     const textarea = document.querySelector("textarea");
 
     const { itemToChange } = this.state;
-
     if (this.props.isUpdate) {
-      Axios.post(
-        `http://localhost:3002/api/change${itemToChange.type}FromId/${itemToChange.id}`,
-        {
-          name: this.state.name,
-          url: this.state.url,
-          number: this.state.number,
-          price: this.state.price,
-          weight: this.state.weight,
-          measure: this.state.measure,
-          description: this.state.description,
-          id: itemToChange.id,
-        }
-      )
+      this.GoodsService.changeGood(itemToChange.type, itemToChange.id, {
+        name: this.state.name,
+        url: this.state.url,
+        number: this.state.number,
+        price: this.state.price,
+        weight: this.state.weight,
+        measure: this.state.measure,
+        description: this.state.description,
+        id: itemToChange.id,
+      })
         .then((response) => {
           this.setState({
             modalActive: true,
@@ -150,7 +147,7 @@ export default class ItemBox extends Component {
       return;
     }
 
-    Axios.post(`http://localhost:3002/api/create${this.props.type}`, {
+    this.GoodsService.postGood(this.props.type, {
       name: this.state.name,
       url: this.state.url,
       number: this.state.number,

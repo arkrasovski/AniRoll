@@ -10,7 +10,6 @@ import AdminLogin from "./components/adminLogin";
 import NoMatch from "./components/noMatch";
 import Gallery from "./components/gallery";
 import ErrorMessage from "./components/errorMessage";
-import Axios from "axios";
 import GoodsService from "./services/goodsService";
 import "./App.css";
 import "./fonts.css";
@@ -102,10 +101,8 @@ export default class App extends Component {
                   <CreateCardBox
                     type={"rolls"}
                     isUpdate={true}
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getrollsFromId/${id}`
-                      );
+                    getData={() => {
+                      return this.GoodsService.getGoodFromId("rolls", id);
                     }}
                   />
                 );
@@ -118,10 +115,8 @@ export default class App extends Component {
                 const { id } = match.params;
                 return (
                   <ItemFull
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getrollsFromId/${id}`
-                      );
+                    getData={() => {
+                      return this.GoodsService.getGoodFromId("rolls", id);
                     }}
                     addToOrders={this.addToOrders}
                   />
@@ -156,10 +151,8 @@ export default class App extends Component {
                   <CreateCardBox
                     type={"sushi"}
                     isUpdate={true}
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getsushiFromId/${id}`
-                      );
+                    getData={() => {
+                      return this.GoodsService.getGoodFromId("sushi", id);
                     }}
                   />
                 );
@@ -172,10 +165,8 @@ export default class App extends Component {
                 const { id } = match.params;
                 return (
                   <ItemFull
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getsushiFromId/${id}`
-                      );
+                    getData={() => {
+                      return this.GoodsService.getGoodFromId("sushi", id);
                     }}
                     addToOrders={this.addToOrders}
                   />
@@ -210,10 +201,8 @@ export default class App extends Component {
                   <CreateCardBox
                     type={"sets"}
                     isUpdate={true}
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getsetsFromId/${id}`
-                      );
+                    getData={() => {
+                      return this.GoodsService.getGoodFromId("sets", id);
                     }}
                   />
                 );
@@ -226,10 +215,8 @@ export default class App extends Component {
                 const { id } = match.params;
                 return (
                   <ItemFull
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getsetsFromId/${id}`
-                      );
+                    getData={() => {
+                      return this.GoodsService.getGoodFromId("sets", id);
                     }}
                     addToOrders={this.addToOrders}
                   />
@@ -266,10 +253,8 @@ export default class App extends Component {
                   <CreateCardBox
                     type={"sauces"}
                     isUpdate={true}
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getsaucesFromId/${id}`
-                      );
+                    getData={() => {
+                      return this.GoodsService.getGoodFromId("sauces", id);
                     }}
                   />
                 );
@@ -282,10 +267,8 @@ export default class App extends Component {
                 const { id } = match.params;
                 return (
                   <ItemFull
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getsaucesFromId/${id}`
-                      );
+                    getData={() => {
+                      return this.GoodsService.getGoodFromId("sauces", id);
                     }}
                     addToOrders={this.addToOrders}
                   />
@@ -322,10 +305,8 @@ export default class App extends Component {
                   <CreateCardBox
                     type={"drinks"}
                     isUpdate={true}
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getdrinksFromId/${id}`
-                      );
+                    getData={() => {
+                      return this.GoodsService.getGoodFromId("drinks", id);
                     }}
                   />
                 );
@@ -338,10 +319,8 @@ export default class App extends Component {
                 const { id } = match.params;
                 return (
                   <ItemFull
-                    getData={async () => {
-                      return await Axios.get(
-                        `http://localhost:3002/api/getdrinksFromId/${id}`
-                      );
+                    getData={() => {
+                      return this.GoodsService.getGoodFromId("drinks", id);
                     }}
                     addToOrders={this.addToOrders}
                   />
