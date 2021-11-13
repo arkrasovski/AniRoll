@@ -8,9 +8,9 @@ import { ImCross } from "react-icons/im";
 import { GrUpdate } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import Modal from "../modal";
-import { Redirect } from "react-router";
+import { Redirect, withRouter } from "react-router";
 
-export default class ItemFull extends Component {
+class ItemFull extends Component {
   state = {
     item: null,
     loading: true,
@@ -24,8 +24,9 @@ export default class ItemFull extends Component {
   };
 
   componentDidMount() {
-    const { getData, type, id } = this.props;
+    const { getData, type } = this.props;
     console.log(getData);
+    const id = this.props.match.params.id;
     getData(type, id)
       .then((item) => {
         this.setState({
@@ -230,3 +231,4 @@ export default class ItemFull extends Component {
     }
   }
 }
+export default withRouter(ItemFull);

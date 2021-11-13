@@ -3,10 +3,10 @@ import "./createCardBox.sass";
 import { ImCross } from "react-icons/im";
 import Modal from "../modal";
 import NoMatch from "../noMatch";
-import { Redirect } from "react-router";
+import { Redirect, withRouter } from "react-router";
 import DropDown from "../dropDown";
 
-export default class ItemBox extends Component {
+class CreateCardBox extends Component {
   state = {
     name: "",
     url: "",
@@ -40,8 +40,10 @@ export default class ItemBox extends Component {
 
   componentDidMount() {
     if (this.props.isUpdate) {
-      const { getData } = this.props;
-      getData()
+      const { getData, type } = this.props;
+      const id = this.props.match.params.id;
+      console.log(id);
+      getData(type, id)
         .then((item) => {
           const itemToChange = item.data[0];
           this.setState({
@@ -455,3 +457,4 @@ export default class ItemBox extends Component {
     }
   }
 }
+export default withRouter(CreateCardBox);

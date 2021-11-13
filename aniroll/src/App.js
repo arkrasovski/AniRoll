@@ -101,35 +101,28 @@ export default class App extends Component {
 
             <Route
               path="/updaterolls/:id"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <CreateCardBox
-                    type={"rolls"}
-                    isUpdate={true}
-                    changeData={this.GoodsService.changeGood}
-                    getData={() => {
-                      return this.GoodsService.getGoodFromId("rolls", id);
-                    }}
-                  />
-                );
-              }}
+              component={(props) => (
+                <CreateCardBox
+                  type={"rolls"}
+                  isUpdate={true}
+                  changeData={this.GoodsService.changeGood}
+                  getData={this.GoodsService.getGoodFromId}
+                  {...props}
+                />
+              )}
             />
 
             <Route
               path="/rolls/:id"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <ItemFull
-                    deleteData={this.GoodsService.deleteGood}
-                    getData={() => {
-                      return this.GoodsService.getGoodFromId("rolls", id);
-                    }}
-                    addToOrders={this.addToOrders}
-                  />
-                );
-              }}
+              component={(props) => (
+                <ItemFull
+                  type={"rolls"}
+                  deleteData={this.GoodsService.deleteGood}
+                  getData={this.GoodsService.getGoodFromId}
+                  addToOrders={this.addToOrders}
+                  {...props}
+                />
+              )}
             />
 
             <Route
@@ -159,35 +152,28 @@ export default class App extends Component {
 
             <Route
               path="/updatesushi/:id"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <CreateCardBox
-                    type={"sushi"}
-                    changeData={this.GoodsService.changeGood}
-                    isUpdate={true}
-                    getData={() => {
-                      return this.GoodsService.getGoodFromId("sushi", id);
-                    }}
-                  />
-                );
-              }}
+              component={(props) => (
+                <CreateCardBox
+                  type={"sushi"}
+                  isUpdate={true}
+                  changeData={this.GoodsService.changeGood}
+                  getData={this.GoodsService.getGoodFromId}
+                  {...props}
+                />
+              )}
             />
 
             <Route
               path="/sushi/:id"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <ItemFull
-                    deleteData={this.GoodsService.deleteGood}
-                    getData={() => {
-                      return this.GoodsService.getGoodFromId("sushi", id);
-                    }}
-                    addToOrders={this.addToOrders}
-                  />
-                );
-              }}
+              component={(props) => (
+                <ItemFull
+                  type={"sushi"}
+                  deleteData={this.GoodsService.deleteGood}
+                  getData={this.GoodsService.getGoodFromId}
+                  addToOrders={this.addToOrders}
+                  {...props}
+                />
+              )}
             />
 
             <Route
@@ -217,35 +203,28 @@ export default class App extends Component {
 
             <Route
               path="/updatesets/:id"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <CreateCardBox
-                    type={"sets"}
-                    changeData={this.GoodsService.changeGood}
-                    isUpdate={true}
-                    getData={() => {
-                      return this.GoodsService.getGoodFromId("sets", id);
-                    }}
-                  />
-                );
-              }}
+              component={(props) => (
+                <CreateCardBox
+                  type={"sets"}
+                  isUpdate={true}
+                  changeData={this.GoodsService.changeGood}
+                  getData={this.GoodsService.getGoodFromId}
+                  {...props}
+                />
+              )}
             />
 
             <Route
               path="/sets/:id"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <ItemFull
-                    deleteData={this.GoodsService.deleteGood}
-                    getData={() => {
-                      return this.GoodsService.getGoodFromId("sets", id);
-                    }}
-                    addToOrders={this.addToOrders}
-                  />
-                );
-              }}
+              component={(props) => (
+                <ItemFull
+                  type={"sets"}
+                  deleteData={this.GoodsService.deleteGood}
+                  getData={this.GoodsService.getGoodFromId}
+                  addToOrders={this.addToOrders}
+                  {...props}
+                />
+              )}
             />
 
             <Route
@@ -275,35 +254,28 @@ export default class App extends Component {
 
             <Route
               path="/updatesauces/:id"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <CreateCardBox
-                    type={"sauces"}
-                    changeData={this.GoodsService.changeGood}
-                    isUpdate={true}
-                    getData={() => {
-                      return this.GoodsService.getGoodFromId("sauces", id);
-                    }}
-                  />
-                );
-              }}
+              component={(props) => (
+                <CreateCardBox
+                  type={"sauces"}
+                  isUpdate={true}
+                  changeData={this.GoodsService.changeGood}
+                  getData={this.GoodsService.getGoodFromId}
+                  {...props}
+                />
+              )}
             />
 
             <Route
               path="/sauces/:id"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <ItemFull
-                    deleteData={this.GoodsService.deleteGood}
-                    getData={() => {
-                      return this.GoodsService.getGoodFromId("sauces", id);
-                    }}
-                    addToOrders={this.addToOrders}
-                  />
-                );
-              }}
+              component={(props) => (
+                <ItemFull
+                  type={"sauces"}
+                  deleteData={this.GoodsService.deleteGood}
+                  getData={this.GoodsService.getGoodFromId}
+                  addToOrders={this.addToOrders}
+                  {...props}
+                />
+              )}
             />
 
             <Route
@@ -333,35 +305,28 @@ export default class App extends Component {
 
             <Route
               path="/updatedrinks/:id"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <CreateCardBox
-                    type={"drinks"}
-                    changeData={this.GoodsService.changeGood}
-                    isUpdate={true}
-                    getData={() => {
-                      return this.GoodsService.getGoodFromId("drinks", id);
-                    }}
-                  />
-                );
-              }}
+              component={(props) => (
+                <CreateCardBox
+                  type={"drinks"}
+                  isUpdate={true}
+                  changeData={this.GoodsService.changeGood}
+                  getData={this.GoodsService.getGoodFromId}
+                  {...props}
+                />
+              )}
             />
 
             <Route
               path="/drinks/:id"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <ItemFull
-                    deleteData={this.GoodsService.deleteGood}
-                    getData={() => {
-                      return this.GoodsService.getGoodFromId("drinks", id);
-                    }}
-                    addToOrders={this.addToOrders}
-                  />
-                );
-              }}
+              component={(props) => (
+                <ItemFull
+                  type={"drinks"}
+                  deleteData={this.GoodsService.deleteGood}
+                  getData={this.GoodsService.getGoodFromId}
+                  addToOrders={this.addToOrders}
+                  {...props}
+                />
+              )}
             />
 
             <Route path="/basket" component={BasketBox} />
