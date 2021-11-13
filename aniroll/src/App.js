@@ -90,7 +90,13 @@ export default class App extends Component {
 
             <Route
               path="/createnewrolls"
-              component={(props) => <CreateCardBox type={"rolls"} {...props} />}
+              component={(props) => (
+                <CreateCardBox
+                  type={"rolls"}
+                  postData={this.GoodsService.postGood}
+                  {...props}
+                />
+              )}
             />
 
             <Route
@@ -101,6 +107,7 @@ export default class App extends Component {
                   <CreateCardBox
                     type={"rolls"}
                     isUpdate={true}
+                    changeData={this.GoodsService.changeGood}
                     getData={() => {
                       return this.GoodsService.getGoodFromId("rolls", id);
                     }}
@@ -115,6 +122,7 @@ export default class App extends Component {
                 const { id } = match.params;
                 return (
                   <ItemFull
+                    deleteData={this.GoodsService.deleteGood}
                     getData={() => {
                       return this.GoodsService.getGoodFromId("rolls", id);
                     }}
@@ -140,7 +148,13 @@ export default class App extends Component {
 
             <Route
               path="/createnewsushi"
-              component={(props) => <CreateCardBox type={"sushi"} {...props} />}
+              component={(props) => (
+                <CreateCardBox
+                  type={"sushi"}
+                  postData={this.GoodsService.postGood}
+                  {...props}
+                />
+              )}
             />
 
             <Route
@@ -150,6 +164,7 @@ export default class App extends Component {
                 return (
                   <CreateCardBox
                     type={"sushi"}
+                    changeData={this.GoodsService.changeGood}
                     isUpdate={true}
                     getData={() => {
                       return this.GoodsService.getGoodFromId("sushi", id);
@@ -165,6 +180,7 @@ export default class App extends Component {
                 const { id } = match.params;
                 return (
                   <ItemFull
+                    deleteData={this.GoodsService.deleteGood}
                     getData={() => {
                       return this.GoodsService.getGoodFromId("sushi", id);
                     }}
@@ -190,7 +206,13 @@ export default class App extends Component {
 
             <Route
               path="/createnewsets"
-              component={(props) => <CreateCardBox type={"sets"} {...props} />}
+              component={(props) => (
+                <CreateCardBox
+                  type={"sets"}
+                  postData={this.GoodsService.postGood}
+                  {...props}
+                />
+              )}
             />
 
             <Route
@@ -200,6 +222,7 @@ export default class App extends Component {
                 return (
                   <CreateCardBox
                     type={"sets"}
+                    changeData={this.GoodsService.changeGood}
                     isUpdate={true}
                     getData={() => {
                       return this.GoodsService.getGoodFromId("sets", id);
@@ -215,6 +238,7 @@ export default class App extends Component {
                 const { id } = match.params;
                 return (
                   <ItemFull
+                    deleteData={this.GoodsService.deleteGood}
                     getData={() => {
                       return this.GoodsService.getGoodFromId("sets", id);
                     }}
@@ -241,7 +265,11 @@ export default class App extends Component {
             <Route
               path="/createnewsauces"
               component={(props) => (
-                <CreateCardBox type={"sauces"} {...props} />
+                <CreateCardBox
+                  type={"sauces"}
+                  postData={this.GoodsService.postGood}
+                  {...props}
+                />
               )}
             />
 
@@ -252,6 +280,7 @@ export default class App extends Component {
                 return (
                   <CreateCardBox
                     type={"sauces"}
+                    changeData={this.GoodsService.changeGood}
                     isUpdate={true}
                     getData={() => {
                       return this.GoodsService.getGoodFromId("sauces", id);
@@ -267,6 +296,7 @@ export default class App extends Component {
                 const { id } = match.params;
                 return (
                   <ItemFull
+                    deleteData={this.GoodsService.deleteGood}
                     getData={() => {
                       return this.GoodsService.getGoodFromId("sauces", id);
                     }}
@@ -293,7 +323,11 @@ export default class App extends Component {
             <Route
               path="/createnewdrinks"
               component={(props) => (
-                <CreateCardBox type={"drinks"} {...props} />
+                <CreateCardBox
+                  type={"drinks"}
+                  postData={this.GoodsService.postGood}
+                  {...props}
+                />
               )}
             />
 
@@ -304,6 +338,7 @@ export default class App extends Component {
                 return (
                   <CreateCardBox
                     type={"drinks"}
+                    changeData={this.GoodsService.changeGood}
                     isUpdate={true}
                     getData={() => {
                       return this.GoodsService.getGoodFromId("drinks", id);
@@ -319,6 +354,7 @@ export default class App extends Component {
                 const { id } = match.params;
                 return (
                   <ItemFull
+                    deleteData={this.GoodsService.deleteGood}
                     getData={() => {
                       return this.GoodsService.getGoodFromId("drinks", id);
                     }}

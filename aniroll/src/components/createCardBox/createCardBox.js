@@ -5,10 +5,8 @@ import Modal from "../modal";
 import NoMatch from "../noMatch";
 import { Redirect } from "react-router";
 import DropDown from "../dropDown";
-import GoodsService from "../../services/goodsService";
 
 export default class ItemBox extends Component {
-  GoodsService = new GoodsService();
   state = {
     name: "",
     url: "",
@@ -102,8 +100,9 @@ export default class ItemBox extends Component {
     const textarea = document.querySelector("textarea");
 
     const { itemToChange } = this.state;
+    const { changeData } = this.props;
     if (this.props.isUpdate) {
-      this.GoodsService.changeGood(itemToChange.type, itemToChange.id, {
+      changeData(itemToChange.type, itemToChange.id, {
         name: this.state.name,
         url: this.state.url,
         number: this.state.number,
@@ -146,8 +145,8 @@ export default class ItemBox extends Component {
       );
       return;
     }
-
-    this.GoodsService.postGood(this.props.type, {
+    const { postData, type } = this.props;
+    postData(type, {
       name: this.state.name,
       url: this.state.url,
       number: this.state.number,

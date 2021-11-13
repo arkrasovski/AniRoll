@@ -9,10 +9,8 @@ import { GrUpdate } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import Modal from "../modal";
 import { Redirect } from "react-router";
-import GoodsService from "../../services/goodsService";
 
 export default class ItemFull extends Component {
-  GoodsService = new GoodsService();
   state = {
     item: null,
     loading: true,
@@ -99,7 +97,8 @@ export default class ItemFull extends Component {
 
   deleteItem = () => {
     const { type, id } = this.state.item;
-    this.GoodsService.deleteGood(type, id)
+    const { deleteData } = this.props;
+    deleteData(type, id)
       .then((response) => {
         this.setModalActive(true);
         console.log("ok", response);
