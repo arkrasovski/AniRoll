@@ -45,6 +45,7 @@ class CreateCardBox extends Component {
       console.log(id);
       getData(type, id)
         .then((item) => {
+          console.log("prishlo!", item);
           const itemToChange = item.data[0];
           this.setState({
             name: itemToChange.name,
@@ -87,8 +88,8 @@ class CreateCardBox extends Component {
           const textarea = document.querySelector("textarea");
           textarea.value = itemToChange.description;
         })
-        .catch(() => {
-          console.log("error!");
+        .catch((e) => {
+          console.log("error!", e);
           this.setState({
             modalActive: true,
             modalText: "Извините, что-то пошло не так",
@@ -271,7 +272,6 @@ class CreateCardBox extends Component {
   };
 
   render() {
-    console.log("measure", this.state.measure);
     if (this.state.Redirect) {
       return <Redirect push to={`/${this.props.type}`} />;
     }

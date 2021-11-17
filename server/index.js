@@ -19,23 +19,28 @@ app.get("/api/getRolls", (req, res) => {
   let sql = "SELECT * FROM rolls";
   db.query(sql, (err, result) => {
     if (err) throw err;
-    const numOfResults = result.length;
-    const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
-    let page = req.query.page ? Number(req.query.page) : 1;
-    if (page > numberOfPages) {
-      res.send({ max: numOfResults, elements: [] });
-      //res.redirect("/api/getRolls/?page=" + encodeURIComponent(numberOfPages));
-    } else if (page < 1) {
-      res.redirect("/api/getRolls/?page=" + encodeURIComponent("1"));
+    if (result.length > 0) {
+      const numOfResults = result.length;
+      const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
+      let page = req.query.page ? Number(req.query.page) : 1;
+      if (page > numberOfPages) {
+        res.send({ max: numOfResults, elements: [] });
+        return;
+        //res.redirect("/api/getRolls/?page=" + encodeURIComponent(numberOfPages));
+      } else if (page < 1) {
+        res.redirect("/api/getRolls/?page=" + encodeURIComponent("1"));
+      }
+      //Determine the SQL LIMIT starting number
+      const startingLimit = (page - 1) * resultsPerPage;
+      //Get the relevant number of POSTS for this starting page
+      sql = `SELECT * FROM rolls LIMIT ${startingLimit},${resultsPerPage}`;
+      db.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send({ max: numOfResults, elements: result });
+      });
+    } else {
+      res.send({ max: 0, elements: [] });
     }
-    //Determine the SQL LIMIT starting number
-    const startingLimit = (page - 1) * resultsPerPage;
-    //Get the relevant number of POSTS for this starting page
-    sql = `SELECT * FROM rolls LIMIT ${startingLimit},${resultsPerPage}`;
-    db.query(sql, (err, result) => {
-      if (err) throw err + "kek";
-      res.send({ max: numOfResults, elements: result });
-    });
   });
 });
 
@@ -78,19 +83,27 @@ app.post("/api/changerollsFromId/:id", (req, res) => {
   const description = req.body.description;
   const id = req.body.id;
 
-  db.query(
-    "UPDATE rolls SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
-    [name, url, number, price, weight, measure, description, id],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        res.send(error);
-        return;
-      }
-      console.log(result);
-      res.send(result);
+  db.query("SELECT * FROM rolls WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+      throw err;
     }
-  );
+    if (result.length > 0) {
+      db.query(
+        "UPDATE rolls SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
+        [name, url, number, price, weight, measure, description, id],
+        (err, result) => {
+          if (err) {
+            res.send(err);
+            return;
+          }
+          res.send(result);
+        }
+      );
+    } else {
+      res.status(404).send("something broke");
+    }
+  });
 });
 
 // Route to delete a post
@@ -100,6 +113,7 @@ app.get("/api/getrollsFromId/:id", (req, res) => {
   db.query("SELECT * FROM rolls WHERE id = ?", id, (err, result) => {
     if (err) {
       console.log(err);
+      throw err;
     }
     res.send(result);
   });
@@ -132,23 +146,28 @@ app.get("/api/getdrinks", (req, res) => {
   let sql = "SELECT * FROM drinks";
   db.query(sql, (err, result) => {
     if (err) throw err;
-    const numOfResults = result.length;
-    const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
-    let page = req.query.page ? Number(req.query.page) : 1;
-    if (page > numberOfPages) {
-      //res.redirect("/api/getdrinks/?page=" + encodeURIComponent(numberOfPages));
-      res.send({ max: numOfResults, elements: [] });
-    } else if (page < 1) {
-      res.redirect("/api/getdrinks/?page=" + encodeURIComponent("1"));
+    if (result.length > 0) {
+      const numOfResults = result.length;
+      const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
+      let page = req.query.page ? Number(req.query.page) : 1;
+      if (page > numberOfPages) {
+        //res.redirect("/api/getdrinks/?page=" + encodeURIComponent(numberOfPages));
+        res.send({ max: numOfResults, elements: [] });
+        return;
+      } else if (page < 1) {
+        res.redirect("/api/getdrinks/?page=" + encodeURIComponent("1"));
+      }
+      //Determine the SQL LIMIT starting number
+      const startingLimit = (page - 1) * resultsPerPage;
+      //Get the relevant number of POSTS for this starting page
+      sql = `SELECT * FROM drinks LIMIT ${startingLimit},${resultsPerPage}`;
+      db.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send({ max: numOfResults, elements: result });
+      });
+    } else {
+      res.send({ max: 0, elements: [] });
     }
-    //Determine the SQL LIMIT starting number
-    const startingLimit = (page - 1) * resultsPerPage;
-    //Get the relevant number of POSTS for this starting page
-    sql = `SELECT * FROM drinks LIMIT ${startingLimit},${resultsPerPage}`;
-    db.query(sql, (err, result) => {
-      if (err) throw err;
-      res.send({ max: numOfResults, elements: result });
-    });
   });
 });
 
@@ -201,19 +220,27 @@ app.post("/api/changedrinksFromId/:id", (req, res) => {
   const description = req.body.description;
   const id = req.body.id;
 
-  db.query(
-    "UPDATE drinks SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
-    [name, url, number, price, weight, measure, description, id],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        res.send(error);
-        return;
-      }
-      console.log(result);
-      res.send(result);
+  db.query("SELECT * FROM drinks WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+      throw err;
     }
-  );
+    if (result.length > 0) {
+      db.query(
+        "UPDATE drinks SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
+        [name, url, number, price, weight, measure, description, id],
+        (err, result) => {
+          if (err) {
+            res.send(err);
+            return;
+          }
+          res.send(result);
+        }
+      );
+    } else {
+      res.status(404).send("something broke");
+    }
+  });
 });
 
 app.delete("/api/deletedrinks/:id", (req, res) => {
@@ -244,23 +271,27 @@ app.get("/api/getsushi", (req, res) => {
   let sql = "SELECT * FROM sushi";
   db.query(sql, (err, result) => {
     if (err) throw err;
-    const numOfResults = result.length;
-    const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
-    let page = req.query.page ? Number(req.query.page) : 1;
-    if (page > numberOfPages) {
-      //res.redirect("/api/getsushi/?page=" + encodeURIComponent(numberOfPages));
-      res.send({ max: numOfResults, elements: [] });
-    } else if (page < 1) {
-      res.redirect("/api/getsushi/?page=" + encodeURIComponent("1"));
+    if (result.length > 0) {
+      const numOfResults = result.length;
+      const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
+      let page = req.query.page ? Number(req.query.page) : 1;
+      if (page > numberOfPages) {
+        //res.redirect("/api/getsushi/?page=" + encodeURIComponent(numberOfPages));
+        res.send({ max: numOfResults, elements: [] });
+      } else if (page < 1) {
+        res.redirect("/api/getsushi/?page=" + encodeURIComponent("1"));
+      }
+      //Determine the SQL LIMIT starting number
+      const startingLimit = (page - 1) * resultsPerPage;
+      //Get the relevant number of POSTS for this starting page
+      sql = `SELECT * FROM sushi LIMIT ${startingLimit},${resultsPerPage}`;
+      db.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send({ max: numOfResults, elements: result });
+      });
+    } else {
+      res.send({ max: 0, elements: [] });
     }
-    //Determine the SQL LIMIT starting number
-    const startingLimit = (page - 1) * resultsPerPage;
-    //Get the relevant number of POSTS for this starting page
-    sql = `SELECT * FROM sushi LIMIT ${startingLimit},${resultsPerPage}`;
-    db.query(sql, (err, result) => {
-      if (err) throw err;
-      res.send({ max: numOfResults, elements: result });
-    });
   });
 });
 
@@ -313,19 +344,27 @@ app.post("/api/changesushiFromId/:id", (req, res) => {
   const description = req.body.description;
   const id = req.body.id;
 
-  db.query(
-    "UPDATE sushi SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
-    [name, url, number, price, weight, measure, description, id],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        res.send(error);
-        return;
-      }
-      console.log(result);
-      res.send(result);
+  db.query("SELECT * FROM sushi WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+      throw err;
     }
-  );
+    if (result.length > 0) {
+      db.query(
+        "UPDATE sushi SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
+        [name, url, number, price, weight, measure, description, id],
+        (err, result) => {
+          if (err) {
+            res.send(err);
+            return;
+          }
+          res.send(result);
+        }
+      );
+    } else {
+      res.status(404).send("something broke");
+    }
+  });
 });
 
 app.delete("/api/deletesushi/:id", (req, res) => {
@@ -356,23 +395,27 @@ app.get("/api/getsets", (req, res) => {
   let sql = "SELECT * FROM sets";
   db.query(sql, (err, result) => {
     if (err) throw err;
-    const numOfResults = result.length;
-    const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
-    let page = req.query.page ? Number(req.query.page) : 1;
-    if (page > numberOfPages) {
-      res.send({ max: numOfResults, elements: [] });
-      //res.redirect("/api/getsets/?page=" + encodeURIComponent(numberOfPages));
-    } else if (page < 1) {
-      res.redirect("/api/getsets/?page=" + encodeURIComponent("1"));
+    if (result.length > 0) {
+      const numOfResults = result.length;
+      const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
+      let page = req.query.page ? Number(req.query.page) : 1;
+      if (page > numberOfPages) {
+        res.send({ max: numOfResults, elements: [] });
+        //res.redirect("/api/getsets/?page=" + encodeURIComponent(numberOfPages));
+      } else if (page < 1) {
+        res.redirect("/api/getsets/?page=" + encodeURIComponent("1"));
+      }
+      //Determine the SQL LIMIT starting number
+      const startingLimit = (page - 1) * resultsPerPage;
+      //Get the relevant number of POSTS for this starting page
+      sql = `SELECT * FROM sets LIMIT ${startingLimit},${resultsPerPage}`;
+      db.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send({ max: numOfResults, elements: result });
+      });
+    } else {
+      res.send({ max: 0, elements: [] });
     }
-    //Determine the SQL LIMIT starting number
-    const startingLimit = (page - 1) * resultsPerPage;
-    //Get the relevant number of POSTS for this starting page
-    sql = `SELECT * FROM sets LIMIT ${startingLimit},${resultsPerPage}`;
-    db.query(sql, (err, result) => {
-      if (err) throw err;
-      res.send({ max: numOfResults, elements: result });
-    });
   });
 });
 
@@ -423,19 +466,27 @@ app.post("/api/changesetsFromId/:id", (req, res) => {
   const description = req.body.description;
   const id = req.body.id;
 
-  db.query(
-    "UPDATE sets SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
-    [name, url, number, price, weight, measure, description, id],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        res.send(error);
-        return;
-      }
-      console.log(result);
-      res.send(result);
+  db.query("SELECT * FROM sets WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+      throw err;
     }
-  );
+    if (result.length > 0) {
+      db.query(
+        "UPDATE sets SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
+        [name, url, number, price, weight, measure, description, id],
+        (err, result) => {
+          if (err) {
+            res.send(err);
+            return;
+          }
+          res.send(result);
+        }
+      );
+    } else {
+      res.status(404).send("something broke");
+    }
+  });
 });
 
 app.delete("/api/deletesets/:id", (req, res) => {
@@ -466,23 +517,27 @@ app.get("/api/getsauces", (req, res) => {
   let sql = "SELECT * FROM sauces";
   db.query(sql, (err, result) => {
     if (err) throw err;
-    const numOfResults = result.length;
-    const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
-    let page = req.query.page ? Number(req.query.page) : 1;
-    if (page > numberOfPages) {
-      res.send({ max: numOfResults, elements: [] });
-      //res.redirect("/api/getsauces/?page=" + encodeURIComponent(numberOfPages));
-    } else if (page < 1) {
-      res.redirect("/api/getsauces/?page=" + encodeURIComponent("1"));
+    if (result.length > 0) {
+      const numOfResults = result.length;
+      const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
+      let page = req.query.page ? Number(req.query.page) : 1;
+      if (page > numberOfPages) {
+        res.send({ max: numOfResults, elements: [] });
+        //res.redirect("/api/getsauces/?page=" + encodeURIComponent(numberOfPages));
+      } else if (page < 1) {
+        res.redirect("/api/getsauces/?page=" + encodeURIComponent("1"));
+      }
+      //Determine the SQL LIMIT starting number
+      const startingLimit = (page - 1) * resultsPerPage;
+      //Get the relevant number of POSTS for this starting page
+      sql = `SELECT * FROM sauces LIMIT ${startingLimit},${resultsPerPage}`;
+      db.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send({ max: numOfResults, elements: result });
+      });
+    } else {
+      res.send({ max: 0, elements: [] });
     }
-    //Determine the SQL LIMIT starting number
-    const startingLimit = (page - 1) * resultsPerPage;
-    //Get the relevant number of POSTS for this starting page
-    sql = `SELECT * FROM sauces LIMIT ${startingLimit},${resultsPerPage}`;
-    db.query(sql, (err, result) => {
-      if (err) throw err;
-      res.send({ max: numOfResults, elements: result });
-    });
   });
 });
 
@@ -533,19 +588,27 @@ app.post("/api/changesaucesFromId/:id", (req, res) => {
   const description = req.body.description;
   const id = req.body.id;
 
-  db.query(
-    "UPDATE sauces SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
-    [name, url, number, price, weight, measure, description, id],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        res.send(error);
-        return;
-      }
-      console.log(result);
-      res.send(result);
+  db.query("SELECT * FROM sauces WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+      throw err;
     }
-  );
+    if (result.length > 0) {
+      db.query(
+        "UPDATE sauces SET name = ?, url = ? , number = ? , price = ?, weight = ?, measure = ?, description = ? WHERE id = ?",
+        [name, url, number, price, weight, measure, description, id],
+        (err, result) => {
+          if (err) {
+            res.send(err);
+            return;
+          }
+          res.send(result);
+        }
+      );
+    } else {
+      res.status(404).send("something broke");
+    }
+  });
 });
 
 app.delete("/api/deletesauces/:id", (req, res) => {
