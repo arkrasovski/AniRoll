@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
 import "./finishOrder.sass";
-import Axios from "axios";
 import { IMaskInput } from "react-imask";
 import Odzen from "../../images/odzen.png";
 import Modal from "../modal";
@@ -105,6 +104,7 @@ export default class ItemBox extends Component {
       });
     } else {
       const { orders } = this.state;
+      const { postOrder, getLastOrder } = this.props;
       let orderText = "";
       let sum = 0;
       orders.forEach((order) => {
@@ -114,8 +114,7 @@ export default class ItemBox extends Component {
       const deliveryDate =
         this.state.time + "." + this.state.day + "." + new Date().getFullYear();
       console.log("delivday", deliveryDate);
-
-      Axios.post(`http://localhost:3002/api/addOrder`, {
+      postOrder({
         name: this.state.name,
         address: this.state.address,
         telNumber: this.state.telNum,
@@ -124,7 +123,7 @@ export default class ItemBox extends Component {
         deliveryDate,
       })
         .then((response) => {
-          Axios.get(`http://localhost:3002/api/lastOrder`).then((response) => {
+          getLastOrder().then((response) => {
             this.setState({
               modalActive: true,
               modalText: `Ваш заказ номер ${response.data[0].ID} успешно отправлен!`,

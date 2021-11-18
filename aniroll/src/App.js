@@ -331,7 +331,16 @@ export default class App extends Component {
 
             <Route path="/basket" component={BasketBox} />
 
-            <Route path="/finishOrder" component={FinishOrder} />
+            <Route
+              path="/finishOrder"
+              component={(props) => (
+                <FinishOrder
+                  postOrder={this.GoodsService.postOrder}
+                  getLastOrder={this.GoodsService.getLastOrder}
+                  {...props}
+                />
+              )}
+            />
 
             <Route
               path="/adminlogin"

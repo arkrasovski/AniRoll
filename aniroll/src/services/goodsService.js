@@ -25,6 +25,14 @@ class GoodsService {
   deleteGood = async (type, id) => {
     return await Axios.delete(`http://localhost:3002/api/delete${type}/${id}`);
   };
+
+  postOrder = async (order) => {
+    return await Axios.post(`http://localhost:3002/api/addOrder`, order);
+  };
+
+  getLastOrder = async () => {
+    return await Axios.get(`http://localhost:3002/api/lastOrder`);
+  };
 }
 
 export default GoodsService;
