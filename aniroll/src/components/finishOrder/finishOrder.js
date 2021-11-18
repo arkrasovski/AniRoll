@@ -5,6 +5,7 @@ import Axios from "axios";
 import { IMaskInput } from "react-imask";
 import Odzen from "../../images/odzen.png";
 import Modal from "../modal";
+import DropDown from "../dropDown";
 
 export default class ItemBox extends Component {
   state = {
@@ -22,11 +23,54 @@ export default class ItemBox extends Component {
     telNumError: "Номер телефона не может быть пустым",
     addressError: "Адрес не может быть пустым",
 
+    day:
+      new Date().getHours() < 23
+        ? `${new Date().getDate()}.${+new Date().getMonth() + 1}`
+        : `${new Date().getDate() + 1}.${+new Date().getMonth() + 1}`,
+    dayArray: this.GetDates(new Date(), 5),
+
+    time:
+      new Date().getHours() < 23
+        ? `${new Date().getHours() + 1}:00-${
+            new Date().getHours() + 2 === 24 ? "00" : new Date().getHours() + 2
+          }:00`
+        : "11:00-12:00",
+    timeArray: [
+      "11:00-12:00",
+      "12:00-13:00",
+      "13:00-14:00",
+      "14:00-15:00",
+      "15:00-16:00",
+      "16:00-17:00",
+      "17:00-18:00",
+      "18:00-19:00",
+      "19:00-20:00",
+      "20:00-21:00",
+      "21:00-22:00",
+      "22:00-23:00",
+      "23:00-00:00",
+    ],
+
     formValid: false,
 
     modalActive: false,
     modalText: "",
+    problemWithTime: false,
+    catchedProblem: false,
   };
+
+  GetDates(startDate, daysToAdd) {
+    var aryDates = [];
+    let i = new Date().getHours() < 23 ? 0 : 1;
+    let end = new Date().getHours() < 23 ? daysToAdd : daysToAdd + 1;
+    for (i; i <= end; i++) {
+      var currentDate = new Date();
+      currentDate.setDate(startDate.getDate() + i);
+      aryDates.push(`${currentDate.getDate()}.${currentDate.getMonth() + 1}`);
+    }
+
+    return aryDates;
+  }
 
   componentDidMount() {
     if (localStorage.getItem("orders")) {
@@ -36,38 +80,68 @@ export default class ItemBox extends Component {
   }
 
   submitCard = async () => {
-    const { orders } = this.state;
-    let orderText = "";
-    let sum = 0;
-    orders.forEach((order) => {
-      orderText += order.name + " x" + order.qtty + " ";
-      sum += order.price * order.qtty;
-    });
+    if (
+      parseInt(this.state.time) <= new Date().getHours() &&
+      this.state.day === `${new Date().getDate()}.${+new Date().getMonth() + 1}`
+    ) {
+      this.setState({
+        modalActive: true,
+        modalText: "Указано неверное время",
+        problemWithTime: true,
+        day:
+          new Date().getHours() < 23
+            ? `${new Date().getDate()}.${+new Date().getMonth() + 1}`
+            : `${new Date().getDate() + 1}.${+new Date().getMonth() + 1}`,
+        dayArray: this.GetDates(new Date(), 5),
 
-    Axios.post(`http://localhost:3002/api/addOrder`, {
-      name: this.state.name,
-      address: this.state.address,
-      telNumber: this.state.telNum,
-      orderText,
-      total: sum,
-    })
-      .then((response) => {
-        Axios.get(`http://localhost:3002/api/lastOrder`).then((response) => {
+        time:
+          new Date().getHours() < 23
+            ? `${new Date().getHours() + 1}:00-${
+                new Date().getHours() + 2 === 24
+                  ? "00"
+                  : new Date().getHours() + 2
+              }:00`
+            : "11:00-12:00",
+      });
+    } else {
+      const { orders } = this.state;
+      let orderText = "";
+      let sum = 0;
+      orders.forEach((order) => {
+        orderText += order.name + " x" + order.qtty + " ";
+        sum += order.price * order.qtty;
+      });
+      const deliveryDate =
+        this.state.time + "." + this.state.day + "." + new Date().getFullYear();
+      console.log("delivday", deliveryDate);
+
+      Axios.post(`http://localhost:3002/api/addOrder`, {
+        name: this.state.name,
+        address: this.state.address,
+        telNumber: this.state.telNum,
+        orderText,
+        total: sum,
+        deliveryDate,
+      })
+        .then((response) => {
+          Axios.get(`http://localhost:3002/api/lastOrder`).then((response) => {
+            this.setState({
+              modalActive: true,
+              modalText: `Ваш заказ номер ${response.data[0].ID} успешно отправлен!`,
+            });
+          });
+
+          console.log("ok", response);
+        })
+        .catch((error) => {
           this.setState({
             modalActive: true,
-            modalText: `Ваш заказ номер ${response.data[0].ID} успешно отправлен!`,
+            modalText: "Извините, произошла ошибка",
+            catchedProblem: true,
           });
+          console.log("ne ok", error);
         });
-
-        console.log("ok", response);
-      })
-      .catch((error) => {
-        this.setState({
-          modalActive: true,
-          modalText: "Извините, произошла ошибка",
-        });
-        console.log("ne ok", error);
-      });
+    }
   };
 
   blurHandler = (e) => {
@@ -80,7 +154,6 @@ export default class ItemBox extends Component {
 
   inputHandler = (e) => {
     e.target.classList.remove("empty");
-    console.log("lol!");
     const name = e.target.name;
     const nameError = name + "Error";
 
@@ -106,14 +179,47 @@ export default class ItemBox extends Component {
   };
 
   setModalActive = () => {
+    if (this.state.problemWithTime) {
+      this.setState({ modalActive: false, problemWithTime: false });
+      return;
+    }
+    if (this.state.catchedProblem) {
+      this.setState({ modalActive: false });
+      this.setState({ Redirect: true });
+      return;
+    }
+
     this.setState({ modalActive: false });
     this.setState({ Redirect: true }, () => {
       localStorage.removeItem("orders");
     });
   };
 
+  setDay = (day) => {
+    this.setState({
+      day,
+      time:
+        day === `${new Date().getDate()}.${+new Date().getMonth() + 1}`
+          ? `${new Date().getHours() + 1}:00-${
+              new Date().getHours() + 2 === 24
+                ? "00"
+                : new Date().getHours() + 2
+            }:00`
+          : "11:00-12:00",
+    });
+  };
+
+  setTime = (time) => {
+    this.setState({ time });
+  };
+
+  filterTime(array) {
+    console.log("filtered time!");
+    return array.filter((el, i) => i > new Date().getHours() - 11);
+  }
+
   render() {
-    console.log("telNum", this.state.telNum);
+    console.log("kek", parseInt(this.state.time));
     if (this.state.Redirect) {
       return <Redirect push to="/" />;
     }
@@ -197,6 +303,27 @@ export default class ItemBox extends Component {
                   onChange={(e) => {
                     this.inputHandler(e);
                   }}
+                />
+              </div>
+
+              <label>Выберите дату доставки</label>
+              <div className="dropdowns">
+                <DropDown
+                  selected={this.state.day}
+                  setSelected={this.setDay}
+                  options={this.state.dayArray}
+                />
+
+                <DropDown
+                  selected={this.state.time}
+                  setSelected={this.setTime}
+                  options={
+                    `${new Date().getDate()}.${+new Date().getMonth() + 1}` ===
+                    this.state.day
+                      ? this.filterTime(this.state.timeArray)
+                      : this.state.timeArray
+                  }
+                  specialClass={"time"}
                 />
               </div>
 

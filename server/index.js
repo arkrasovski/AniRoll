@@ -647,10 +647,11 @@ app.post("/api/addOrder", (req, res) => {
   const telNumber = req.body.telNumber;
   const orderText = req.body.orderText;
   const total = req.body.total;
+  const deliveryDate = req.body.deliveryDate;
 
   db.query(
-    "INSERT INTO orders (client, address, telNumber, orderText, total) VALUES (?,?,?,?,?)",
-    [name, address, telNumber, orderText, total],
+    "INSERT INTO orders (client, address, telNumber, orderText, total, deliveryDate) VALUES (?,?,?,?,?,?)",
+    [name, address, telNumber, orderText, total, deliveryDate],
     (err, result) => {
       if (err) {
         console.log(err);

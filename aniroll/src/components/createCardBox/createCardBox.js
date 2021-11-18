@@ -402,6 +402,7 @@ class CreateCardBox extends Component {
             <DropDown
               selected={this.state.measure}
               setSelected={this.setMeasure}
+              options={["гр", "кг", "л"]}
             />
 
             <label>Описание: </label>

@@ -2,11 +2,11 @@ import { useState } from "react";
 import "./dropDown.sass";
 import { IoMdArrowDropdown } from "react-icons/io";
 
-function DropDown({ selected, setSelected }) {
+function DropDown({ selected, setSelected, options, specialClass }) {
   const [isActive, setIsActive] = useState(false);
-  const options = ["гр", "кг", "л"];
+
   return (
-    <div className="dropdown">
+    <div className={`dropdown ${specialClass}`}>
       <div className="dropdown-btn" onClick={(e) => setIsActive(!isActive)}>
         {selected}
         <IoMdArrowDropdown />

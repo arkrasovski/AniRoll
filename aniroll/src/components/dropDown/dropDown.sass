@@ -1,5 +1,5 @@
 .dropdown
-    width: 100px
+    width: 90px
     position: relative
     font-size: 20px
     .dropdown-btn
@@ -21,7 +21,7 @@
     //3) со свойством visibility чтобы скрывать тот кусочек с padding
     .dropdown-content
         max-height: 0
-        overflow: hidden
+        overflow-y: hidden
         //transform: scaleY(0)
         transition: max-height 0.26s ease-in, visibility 0.26s linear
         position: absolute
@@ -50,9 +50,15 @@
         //transform: scaleY(1)
         //transition: transform 0.5s ease
 
+.dropdown.time
+    width: 150px
+    margin-left: 20px
+    .dropdown-content
+        overflow-y: scroll
+
 @media screen and (max-width: 1600px) and (min-width: 1400px)
     .dropdown
-        width: 100px
+        width: 90px
         font-size: 18px
 
 
@@ -73,7 +79,14 @@
             .dropdown-item
                 padding: 3px
 
+    .dropdown.time
+        width: 100px
+    
+
 @media screen and (max-width: 500px) and (min-width: 320px)
     .dropdown
         width: 50px
         font-size: 10px
+    .dropdown.time
+        width: 80px
+   
