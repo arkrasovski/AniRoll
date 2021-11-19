@@ -5,6 +5,7 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
 .FullItemMain
   font-family: 'Bellota Text', cursive
   padding: 50px 10%
+  width: 100%
   display: flex
   flex-direction: column
   justify-content: center
@@ -34,6 +35,7 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
       top: 50px
       cursor: pointer
     .fullItemInfo
+      width: 75%
       display: flex
       img
         border-radius: 20px
@@ -92,7 +94,7 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
 @media screen and (max-width: 1700px) and (min-width: 1500px)
   .FullItemMain
     .fullItem
-      height: 250px
+      height: 230px
       .fullItemInfo
         img
           margin-right: 25px
@@ -141,10 +143,10 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
       font-size: 18px
       width: 170px
 
-@media screen and (max-width: 1200px) and (min-width: 1000px)
+@media screen and (max-width: 1200px) and (min-width: 800px)
   .FullItemMain
     .fullItem
-      height: 170px
+      height: 200px
       .fullItemInfo
         img
           margin-right: 10px
@@ -171,33 +173,78 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
       font-size: 15px
       width: 160px
 
-@media screen and (max-width: 1000px) and (min-width: 800px)
+// @media screen and (max-width: 1000px) and (min-width: 800px)
+//   .FullItemMain
+//     .fullItem
+//       height: 200px
+//       flex-direction: column
+//       align-items: center
+//       justify-content: center
+      
+//       .fullItemInfo
+//         width: 100%
+//         padding: 0 20%
+//         display: flex
+//         justify-content: center
+     
+//         img
+//           margin-right: 10px
+//           width: 30%
+//         .fullItemText
+//           margin-right: 10px
+//           .name
+//             font-size: 15px
+//           .price
+//             font-size: 12px
+//           .number
+//             font-size: 12px
+//       .description
+//         font-size: 10px
+//       .fullItemCounter
+//         border-top: 1px solid $mainColor
+//         margin-top: 20px
+//         svg
+//           font-size: 20px
+//         .counter
+//           width: 30px
+//           height: 30px
+//           font-size: 12px
+//     .toBasketFullItem
+//       height: 40px
+//       font-size: 15px
+//       width: 160px
+
+@media screen and (max-width: 800px) and (min-width: 0px)
   .FullItemMain
     .fullItem
-      height: 150px
+      width: 80%
+      height: 100%
       flex-direction: column
       align-items: center
       justify-content: center
-      
       .fullItemInfo
-        width: 100%
-        padding: 0 20%
-        display: flex
-        justify-content: center
-     
+        flex-direction: column
+        align-items: center
         img
           margin-right: 10px
-          width: 30%
+          width: 50%
         .fullItemText
-          margin-right: 10px
+          
+          margin: 20px 0 0 0
+          width: 100%
           .name
+            text-align: center
             font-size: 15px
           .price
             font-size: 12px
           .number
             font-size: 12px
-      .description
-        font-size: 10px
+        .description
+          border-top: 1px solid $mainColor
+          margin-top: 10px
+          width: 100%
+          font-size: 12px
+          width: 100%
       .fullItemCounter
         border-top: 1px solid $mainColor
         margin-top: 20px
@@ -212,51 +259,13 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
       font-size: 15px
       width: 160px
 
-@media screen and (max-width: 800px) and (min-width: 320px)
+@media screen and (max-width: 500px) and (min-width: 0px)
   .FullItemMain
     .fullItem
-      height: 100%
-      flex-direction: column
-      align-items: center
-      justify-content: center
       .fullItemInfo
-        flex-direction: column
-        align-items: center
         img
           margin-right: 10px
-          width: 50%
-        .fullItemText
-          margin: 0
-          width: 100%
-          .name
-            font-size: 15px
-          .price
-            font-size: 12px
-          .number
-            font-size: 12px
-        .description
-          border-top: 1px solid $mainColor
-          margin-top: 10px
-          width: 100%
-          font-size: 12px
-          width: 100%
-      .fullItemCounter
-        margin-top: 20px
-        svg
-          font-size: 20px
-        .counter
-          width: 30px
-          height: 30px
-          font-size: 12px
-    .toBasketFullItem
-      height: 40px
-      font-size: 15px
-      width: 160px
-
-@media screen and (max-width: 500px) and (min-width: 320px)
-  .FullItemMain
-    .fullItem
-      .fullItemInfo
+          width: 80%
         .description
           font-size: 10px
     .toBasketFullItem

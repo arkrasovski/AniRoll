@@ -49,7 +49,7 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
         font-size: 20px
         flex: 0 0 auto
   .basketCounter
-    width: 20%
+   
     display: flex
     align-items: center
     justify-content: flex-end
@@ -120,7 +120,7 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
         width: 35px
         height: 35px
 
-@media screen and (max-width: 800px) and (min-width: 320px)
+@media screen and (max-width: 800px) and (min-width: 0px)
   .cardBasket
     flex-direction: column
     height: 100%
@@ -143,7 +143,9 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
         .number
           font-size: 10px
     .basketCounter
-      width: 100%
+      border-top: 1px solid $mainColor
+    
+      margin: 0 auto
       justify-content: center
       margin-bottom: 5px
       svg
@@ -153,7 +155,7 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
         width: 30px
         height: 30px
 
-@media screen and (max-width: 500px) and (min-width: 320px)
+@media screen and (max-width: 500px) and (min-width: 0px)
   .cardBasket
     flex-direction: column
     height: 100%
@@ -167,17 +169,18 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
       width: 100%
       img
         margin: 0 auto
-        width: 50%
+        width: 70%
       .basketItemInfo
         .name
           font-size: 15px
+          margin-top: 20px
         .price
           margin-top: 10px
           font-size: 10px
         .number
           font-size: 10px
     .basketCounter
-      width: 100%
+      
       justify-content: center
       svg
         font-size: 15px
