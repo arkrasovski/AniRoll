@@ -125,6 +125,7 @@ export default class ItemBox extends Component {
         .then((response) => {
           getLastOrder().then((response) => {
             this.setState({
+              orders: null // для того чтобы если модалка схлопнется нельзя было пустые заказывать
               modalActive: true,
               modalText: `Ваш заказ номер ${response.data[0].ID} успешно отправлен!`,
             });
