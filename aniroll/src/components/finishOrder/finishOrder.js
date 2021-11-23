@@ -55,7 +55,7 @@ export default class ItemBox extends Component {
     modalActive: false,
     modalText: "",
     problemWithTime: false,
-    catchedProblem: false,
+    //catchedProblem: false,
   };
 
   GetDates(startDate, daysToAdd) {
@@ -129,14 +129,14 @@ export default class ItemBox extends Component {
               modalText: `Ваш заказ номер ${response.data[0].ID} успешно отправлен!`,
             });
           });
-
+          localStorage.removeItem("orders");
           console.log("ok", response);
         })
         .catch((error) => {
           this.setState({
             modalActive: true,
             modalText: "Извините, произошла ошибка",
-            catchedProblem: true,
+            //catchedProblem: true,
           });
           console.log("ne ok", error);
         });
@@ -182,16 +182,18 @@ export default class ItemBox extends Component {
       this.setState({ modalActive: false, problemWithTime: false });
       return;
     }
-    if (this.state.catchedProblem) {
-      this.setState({ modalActive: false });
-      this.setState({ Redirect: true });
-      return;
-    }
+//     if (this.state.catchedProblem) {
+//       this.setState({ modalActive: false });
+//       this.setState({ Redirect: true });
+//       return;
+//     }
 
     this.setState({ modalActive: false });
-    this.setState({ Redirect: true }, () => {
-      localStorage.removeItem("orders");
-    });
+    this.setState({ Redirect: true }
+      //, () => {
+      //localStorage.removeItem("orders");
+      //}
+                 );
   };
 
   setDay = (day) => {
