@@ -37,6 +37,7 @@ export default class AdminLogin extends Component {
         modalText: "Вы успешно зашли",
         validateTrue: true,
       });
+      localStorage.setItem("isAdmin", true);
     } else {
       const inputs = document.querySelectorAll("input");
       inputs.forEach((input) => {
@@ -58,16 +59,17 @@ export default class AdminLogin extends Component {
       modalText: "Вы успешно вышли",
       validateTrue: false,
     });
+    localStorage.removeItem("isAdmin");
   };
 
   setModalActiveAdmin = () => {
     this.setState({ modalActive: false, Redirect: true });
-    localStorage.setItem("isAdmin", true);
+    //localStorage.setItem("isAdmin", true);
   };
 
   setModalActiveNoAdmin = () => {
     this.setState({ modalActive: false, Redirect: true });
-    localStorage.removeItem("isAdmin");
+    //localStorage.removeItem("isAdmin");
   };
 
   setModalActive = () => {
