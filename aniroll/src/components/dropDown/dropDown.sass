@@ -22,8 +22,9 @@
     .dropdown-content
         max-height: 0
         overflow-y: hidden
+        z-index: 2
         //transform: scaleY(0)
-        transition: max-height 0.26s ease-in, visibility 0.26s linear
+        transition: max-height 0.26s ease-out, visibility 0.26s linear
         position: absolute
         top: 110%
         left: 0
@@ -45,7 +46,7 @@
     .dropdown-content.active
         visibility: visible
         max-height: 250px
-        transition: max-height 0.26s ease-in, visibility 0.26s linear
+        transition: max-height 0.26s ease-in//, visibility 0.26s linear
         //transition: visibility 1s linear
         //transform: scaleY(1)
         //transition: transform 0.5s ease

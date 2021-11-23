@@ -151,15 +151,50 @@ footer
       align-items: center
       ul
         li
+          margin: 10px 0
           svg
-            margin: 0 20px
+            transform: scale(2)
+          .workTimeInfo
+            span
+              font-size: 20px
 
     .telNumber
       justify-content: center
+      svg
+        margin: 0 15px
+        transform: scale(2)
+      .fullTelNotation
+        span
+          font-size: 25px
+          margin-right: 10px
+        .telNumbers span
+          font-size: 20px
+  // footer
+  //   grid-template-columns: 1fr
+  //   grid-gap: 30px
+  //   .workTime
+  //     align-items: center
+  //     ul
+  //       li
+  //         svg
+  //           transform: scale(2)
+  //           margin: 0 20px
+  //         .workTimeInfo
+  //           span
+  //             font-size: 20px
 
-    .footerImg
-      img
-        width: 80%
+  //   .telNumber
+  //     justify-content: center
+  //     .fullTelNotation
+  //       span
+  //         font-size: 25px
+  //         margin-right: 10px
+  //       .telNumbers span
+  //         font-size: 20px
+
+  //   .footerImg
+  //     img
+  //       width: 80%
 
 @media screen and (max-width: 500px) and (min-width: 0px)
   footer
@@ -169,7 +204,7 @@ footer
         li
           margin: 10px 0
           svg
-            transform: scale(2)
+            transform: scale(1.5)
           .workTimeInfo
             span
               font-size: 15px
@@ -177,7 +212,7 @@ footer
     .telNumber
       svg
         margin: 0 15px
-        transform: scale(2)
+        transform: scale(1.5)
       .fullTelNotation
         span
           font-size: 25px

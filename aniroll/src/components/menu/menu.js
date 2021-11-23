@@ -2,10 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Menu = ({ links, names, active, setActive }) => {
+  if (active && document.body.style.overflow !== "hidden") {
+    document.body.style.overflow = "hidden";
+  }
   return (
     <div
       className={active === true ? "adaptive_menu active" : "adaptive_menu"}
-      onClick={() => setActive(false)}
+      onClick={() => {
+        document.body.style.overflow = "";
+        setActive(false);
+      }}
     >
       <div
         className={active === true ? "am_links active" : "am_links"}
@@ -15,7 +21,13 @@ const Menu = ({ links, names, active, setActive }) => {
           {links.map((value, key) => {
             return (
               <li key={key} className="route">
-                <Link to={"/" + value} onClick={() => setActive(false)}>
+                <Link
+                  to={"/" + value}
+                  onClick={() => {
+                    document.body.style.overflow = "";
+                    setActive(false);
+                  }}
+                >
                   {names[key]}
                 </Link>
               </li>
