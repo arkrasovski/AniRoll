@@ -9,7 +9,11 @@ const Menu = ({ links, names, active, setActive }) => {
     <div
       className={active === true ? "adaptive_menu active" : "adaptive_menu"}
       onClick={() => {
-        document.body.style.overflow = "";
+        const modal = document.querySelector(".modal.active")
+        if(!modal){
+          document.body.style.overflow = "";
+        }
+        
         setActive(false);
       }}
     >
@@ -24,7 +28,10 @@ const Menu = ({ links, names, active, setActive }) => {
                 <Link
                   to={"/" + value}
                   onClick={() => {
-                    document.body.style.overflow = "";
+                    const modal = document.querySelector(".modal.active")
+                    if(!modal){
+                      document.body.style.overflow = "";
+                    }
                     setActive(false);
                   }}
                 >

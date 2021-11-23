@@ -5,6 +5,7 @@ import Modal from "../modal";
 import NoMatch from "../noMatch";
 import { Redirect, withRouter } from "react-router";
 import DropDown from "../dropDown";
+import Spinner from "../spinner";
 
 class CreateCardBox extends Component {
   state = {
@@ -16,6 +17,7 @@ class CreateCardBox extends Component {
     measure: "гр",
     description: "",
     itemToChange: null,
+    loading: false,
 
     nameDirty: false,
     urlDirty: false,
@@ -43,6 +45,7 @@ class CreateCardBox extends Component {
       const { getData, type } = this.props;
       const id = this.props.match.params.id;
       console.log(id);
+      this.setState({loading: true})
       getData(type, id)
         .then((item) => {
           console.log("prishlo!", item);
@@ -56,6 +59,7 @@ class CreateCardBox extends Component {
             measure: itemToChange.measure,
             description: itemToChange.description,
             itemToChange,
+            loading: false
           });
           console.log("old measure", this.state.itemToChange.measure);
 
@@ -101,7 +105,7 @@ class CreateCardBox extends Component {
   submitCard = () => {
     const inputs = document.querySelectorAll("input[required]");
     const textarea = document.querySelector("textarea");
-
+    this.setState({loading: true})
     const { itemToChange } = this.state;
     const { changeData } = this.props;
     if (this.props.isUpdate) {
@@ -117,6 +121,7 @@ class CreateCardBox extends Component {
       })
         .then((response) => {
           this.setState({
+            loading: false,
             modalActive: true,
             modalText: "Товар успешно обновлен!",
           });
@@ -124,6 +129,7 @@ class CreateCardBox extends Component {
         })
         .catch((error) => {
           this.setState({
+            loading: false,
             modalActive: true,
             modalText: "Извините, не получилось обновить товар",
           });
@@ -160,6 +166,7 @@ class CreateCardBox extends Component {
     })
       .then((response) => {
         this.setState({
+          loading: false,
           modalActive: true,
           modalText: "Товар успешно добавлен!",
           description: "",
@@ -173,6 +180,7 @@ class CreateCardBox extends Component {
       })
       .catch((error) => {
         this.setState({
+          loading: false,
           modalActive: true,
           modalText: "Извините, не получилось добавить товар",
         });
@@ -274,6 +282,19 @@ class CreateCardBox extends Component {
   render() {
     if (this.state.Redirect) {
       return <Redirect push to={`/${this.props.type}`} />;
+    }
+
+    if(this.state.loading) {
+      return (
+        <section className="spinnerBox">
+          {this.state.modalActive ? null : <Spinner />}
+          <Modal
+            active={this.state.modalActive}
+            setActive={this.setModalActive}
+            content={this.state.modalText}
+          />
+        </section>
+      );
     }
 
     if (localStorage.getItem("isAdmin")) {

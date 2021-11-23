@@ -5,6 +5,7 @@ import { IMaskInput } from "react-imask";
 import Odzen from "../../images/odzen.png";
 import Modal from "../modal";
 import DropDown from "../dropDown";
+import Spinner from "../spinner"
 
 export default class ItemBox extends Component {
   state = {
@@ -13,6 +14,7 @@ export default class ItemBox extends Component {
     telNum: "",
     address: "",
     Redirect: false,
+    loading: false,
 
     nameDirty: false,
     telNumDirty: false,
@@ -80,7 +82,7 @@ export default class ItemBox extends Component {
 
   submitCard = async () => {
     if (
-      parseInt(this.state.time) <= new Date().getHours() &&
+      parseInt(this.state.time) <= new Date().getHours() && 
       this.state.day === `${new Date().getDate()}.${+new Date().getMonth() + 1}`
     ) {
       this.setState({
@@ -114,6 +116,7 @@ export default class ItemBox extends Component {
       const deliveryDate =
         this.state.time + "." + this.state.day + "." + new Date().getFullYear();
       console.log("delivday", deliveryDate);
+      this.setState({loading: true})
       postOrder({
         name: this.state.name,
         address: this.state.address,
@@ -125,9 +128,10 @@ export default class ItemBox extends Component {
         .then((response) => {
           getLastOrder().then((response) => {
             this.setState({
-              orders: null // для того чтобы если модалка схлопнется нельзя было пустые заказывать
+              loading: false,
               modalActive: true,
               modalText: `Ваш заказ номер ${response.data[0].ID} успешно отправлен!`,
+              //orders: null // для того чтобы если модалка схлопнется нельзя было пустые заказывать
             });
           });
           localStorage.removeItem("orders");
@@ -135,6 +139,7 @@ export default class ItemBox extends Component {
         })
         .catch((error) => {
           this.setState({
+            loading: false,
             modalActive: true,
             modalText: "Извините, произошла ошибка",
             //catchedProblem: true,
@@ -229,6 +234,19 @@ export default class ItemBox extends Component {
       return (
         <section className="main">
           Ваша корзина пуста, сделайте сначала заказ
+          <Modal
+            active={this.state.modalActive}
+            setActive={this.setModalActive}
+            content={this.state.modalText}
+          />
+        </section>
+      );
+    }
+
+    if(this.state.loading) {
+      return (
+        <section className="spinnerBox">
+          <Spinner />
         </section>
       );
     }

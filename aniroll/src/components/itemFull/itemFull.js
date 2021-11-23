@@ -99,12 +99,15 @@ class ItemFull extends Component {
   deleteItem = () => {
     const { type, id } = this.state.item;
     const { deleteData } = this.props;
+    this.setState({loading: true})
     deleteData(type, id)
       .then((response) => {
+        //this.setState({loading: false})
         this.setModalActive(true);
         console.log("ok", response);
       })
       .catch((error) => {
+        //this.setState({loading: false})
         this.setModalActive(false);
         console.log("ne ok", error);
       });
@@ -145,7 +148,12 @@ class ItemFull extends Component {
     if (this.state.loading) {
       return (
         <section className="spinnerBox">
-          <Spinner />
+          {this.state.modalActive ? null : <Spinner />}
+          <Modal
+            active={this.state.modalActive}
+            setActive={this.setModalUnActive}
+            content={this.state.modalText}
+          />
         </section>
       );
     }
