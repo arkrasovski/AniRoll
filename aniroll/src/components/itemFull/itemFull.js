@@ -102,13 +102,18 @@ class ItemFull extends Component {
     this.setState({loading: true})
     deleteData(type, id)
       .then((response) => {
-        //this.setState({loading: false})
-        this.setModalActive(true);
+        this.setState({
+         // loading: false,
+          modalActive: true,
+          modalText: "Товар успешно удалён!",})
+        //this.setModalActive(true);
         console.log("ok", response);
       })
       .catch((error) => {
-        //this.setState({loading: false})
-        this.setModalActive(false);
+        this.setState({//loading: false,
+          modalActive: true,
+          modalText: "Извините, не получилось удалить товар",})
+        //this.setModalActive(false);
         console.log("ne ok", error);
       });
   };
@@ -137,15 +142,8 @@ class ItemFull extends Component {
       return <Redirect push to={`/${this.state.item.type}`} />;
     }
 
-    if (!this.state.item && this.state.error) {
-      return (
-        <section className="spinnerBox">
-          <ErrorMessage />;{" "}
-        </section>
-      );
-    }
-
     if (this.state.loading) {
+      console.log("load and modal in load", this.state.loading, this.state.modalActive)
       return (
         <section className="spinnerBox">
           {this.state.modalActive ? null : <Spinner />}
@@ -158,12 +156,18 @@ class ItemFull extends Component {
       );
     }
 
+    if (!this.state.item && this.state.error) {
+      return (
+        <section className="spinnerBox">
+          <ErrorMessage />;{" "}
+        </section>
+      );
+    }
+
     const { item } = this.state;
 
-    if (!item || item.length === 0) {
-      return <NoMatch />;
-    }
-    if (item) {
+    if (this.state.item) {
+      console.log("load and modal", this.state.loading, this.state.modalActive)
       const { name, url, number, price, weight, measure, description } = item;
       return (
         <section className="FullItemMain">
@@ -237,6 +241,13 @@ class ItemFull extends Component {
         </section>
       );
     }
+
+
+
+    if (!item || item.length === 0) {
+      return <NoMatch />;
+    }
+   
   }
 }
 export default withRouter(ItemFull);

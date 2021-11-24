@@ -31,7 +31,7 @@ export default class ItemBox extends Component {
     dayArray: this.GetDates(new Date(), 5),
 
     time:
-      new Date().getHours() < 23
+      new Date().getHours() < 23 && new Date().getHours() > 10
         ? `${new Date().getHours() + 1}:00-${
             new Date().getHours() + 2 === 24 ? "00" : new Date().getHours() + 2
           }:00`
@@ -96,7 +96,7 @@ export default class ItemBox extends Component {
         dayArray: this.GetDates(new Date(), 5),
 
         time:
-          new Date().getHours() < 23
+          new Date().getHours() < 23 && new Date().getHours()>10
             ? `${new Date().getHours() + 1}:00-${
                 new Date().getHours() + 2 === 24
                   ? "00"
@@ -128,7 +128,7 @@ export default class ItemBox extends Component {
         .then((response) => {
           getLastOrder().then((response) => {
             this.setState({
-              loading: false,
+              //loading: false,
               modalActive: true,
               modalText: `Ваш заказ номер ${response.data[0].ID} успешно отправлен!`,
               //orders: null // для того чтобы если модалка схлопнется нельзя было пустые заказывать
@@ -139,7 +139,7 @@ export default class ItemBox extends Component {
         })
         .catch((error) => {
           this.setState({
-            loading: false,
+            //loading: false,
             modalActive: true,
             modalText: "Извините, произошла ошибка",
             //catchedProblem: true,
@@ -234,11 +234,7 @@ export default class ItemBox extends Component {
       return (
         <section className="main">
           Ваша корзина пуста, сделайте сначала заказ
-          <Modal
-            active={this.state.modalActive}
-            setActive={this.setModalActive}
-            content={this.state.modalText}
-          />
+    
         </section>
       );
     }
@@ -246,7 +242,12 @@ export default class ItemBox extends Component {
     if(this.state.loading) {
       return (
         <section className="spinnerBox">
-          <Spinner />
+          {this.state.modalActive ? null : <Spinner />}
+          <Modal
+            active={this.state.modalActive}
+            setActive={this.setModalActive}
+            content={this.state.modalText}
+          />
         </section>
       );
     }

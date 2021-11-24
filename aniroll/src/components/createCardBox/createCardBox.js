@@ -97,6 +97,7 @@ class CreateCardBox extends Component {
           this.setState({
             modalActive: true,
             modalText: "Извините, что-то пошло не так",
+            //тут оно попадет в loading и отрисует ничего
           });
         });
     }
@@ -121,7 +122,7 @@ class CreateCardBox extends Component {
       })
         .then((response) => {
           this.setState({
-            loading: false,
+            //loading: false,
             modalActive: true,
             modalText: "Товар успешно обновлен!",
           });
@@ -129,7 +130,7 @@ class CreateCardBox extends Component {
         })
         .catch((error) => {
           this.setState({
-            loading: false,
+            //loading: false,
             modalActive: true,
             modalText: "Извините, не получилось обновить товар",
           });
@@ -166,7 +167,7 @@ class CreateCardBox extends Component {
     })
       .then((response) => {
         this.setState({
-          loading: false,
+          //loading: false,
           modalActive: true,
           modalText: "Товар успешно добавлен!",
           description: "",
@@ -180,7 +181,7 @@ class CreateCardBox extends Component {
       })
       .catch((error) => {
         this.setState({
-          loading: false,
+          //loading: false,
           modalActive: true,
           modalText: "Извините, не получилось добавить товар",
         });
@@ -269,9 +270,17 @@ class CreateCardBox extends Component {
   };
 
   setModalActive = () => {
+    console.log(this.state.modalText)
     this.setState({ modalActive: false });
     if (this.props.isUpdate) {
       this.setState({ Redirect: true });
+    }
+    if(this.state.modalText==="Извините, не получилось добавить товар") {
+      console.log("REDIRECT")
+      this.setState({ Redirect: true });
+    }
+    if(!this.props.isUpdate) {
+      this.setState({loading: false})
     }
   };
 
@@ -285,6 +294,7 @@ class CreateCardBox extends Component {
     }
 
     if(this.state.loading) {
+      console.log("load and modal in load", this.state.loading, this.state.modalActive)
       return (
         <section className="spinnerBox">
           {this.state.modalActive ? null : <Spinner />}
@@ -298,6 +308,7 @@ class CreateCardBox extends Component {
     }
 
     if (localStorage.getItem("isAdmin")) {
+      console.log("load and modal", this.state.loading, this.state.modalActive)
       return (
         <section className="main">
           <form
