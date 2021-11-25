@@ -187,19 +187,19 @@ class CreateCardBox extends Component {
         });
         console.log("ne ok", error);
       });
-    // this.setState({
-    //   formValid: false,
-    //   nameDirty: false,
-    //   urlDirty: false,
-    //   numberDirty: false,
-    //   priceDirty: false,
-    //   weightDirty: false,
-    //   nameError: "Имя не может быть пустым",
-    //   urlError: "Url не может быть пустым",
-    //   numberError: "Количество не может быть пустым",
-    //   priceError: "Цена не может быть пустой",
-    //   weightError: "Вес не может быть пустым",
-    // });
+    this.setState({
+      formValid: false,
+      nameDirty: false,
+      urlDirty: false,
+      numberDirty: false,
+      priceDirty: false,
+      weightDirty: false,
+      nameError: "Имя не может быть пустым",
+      urlError: "Url не может быть пустым",
+      numberError: "Количество не может быть пустым",
+      priceError: "Цена не может быть пустой",
+      weightError: "Вес не может быть пустым",
+    });
   };
 
   blurHandler = (e) => {
