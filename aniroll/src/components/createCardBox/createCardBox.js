@@ -45,7 +45,7 @@ class CreateCardBox extends Component {
       const { getData, type } = this.props;
       const id = this.props.match.params.id;
       console.log(id);
-      this.setState({loading: true})
+      this.setState({ loading: true });
       getData(type, id)
         .then((item) => {
           console.log("prishlo!", item);
@@ -59,7 +59,7 @@ class CreateCardBox extends Component {
             measure: itemToChange.measure,
             description: itemToChange.description,
             itemToChange,
-            loading: false
+            loading: false,
           });
           console.log("old measure", this.state.itemToChange.measure);
 
@@ -106,7 +106,7 @@ class CreateCardBox extends Component {
   submitCard = () => {
     const inputs = document.querySelectorAll("input[required]");
     const textarea = document.querySelector("textarea");
-    this.setState({loading: true})
+    this.setState({ loading: true });
     const { itemToChange } = this.state;
     const { changeData } = this.props;
     if (this.props.isUpdate) {
@@ -137,22 +137,22 @@ class CreateCardBox extends Component {
           console.log("ne ok", error);
         });
 
-      this.setState(
-        {
-          formValid: false,
-          nameDirty: false,
-          urlDirty: false,
-          numberDirty: false,
-          priceDirty: false,
-          weightDirty: false,
-          nameError: "",
-          urlError: "",
-          numberError: "",
-          priceError: "",
-          weightError: "",
-        },
-        this.validateForm
-      );
+      // this.setState(
+      //   {
+      //     formValid: false,
+      //     nameDirty: false,
+      //     urlDirty: false,
+      //     numberDirty: false,
+      //     priceDirty: false,
+      //     weightDirty: false,
+      //     nameError: "",
+      //     urlError: "",
+      //     numberError: "",
+      //     priceError: "",
+      //     weightError: "",
+      //   },
+      //   this.validateForm
+      // );
       return;
     }
     const { postData, type } = this.props;
@@ -187,19 +187,19 @@ class CreateCardBox extends Component {
         });
         console.log("ne ok", error);
       });
-    this.setState({
-      formValid: false,
-      nameDirty: false,
-      urlDirty: false,
-      numberDirty: false,
-      priceDirty: false,
-      weightDirty: false,
-      nameError: "Имя не может быть пустым",
-      urlError: "Url не может быть пустым",
-      numberError: "Количество не может быть пустым",
-      priceError: "Цена не может быть пустой",
-      weightError: "Вес не может быть пустым",
-    });
+    // this.setState({
+    //   formValid: false,
+    //   nameDirty: false,
+    //   urlDirty: false,
+    //   numberDirty: false,
+    //   priceDirty: false,
+    //   weightDirty: false,
+    //   nameError: "Имя не может быть пустым",
+    //   urlError: "Url не может быть пустым",
+    //   numberError: "Количество не может быть пустым",
+    //   priceError: "Цена не может быть пустой",
+    //   weightError: "Вес не может быть пустым",
+    // });
   };
 
   blurHandler = (e) => {
@@ -270,17 +270,17 @@ class CreateCardBox extends Component {
   };
 
   setModalActive = () => {
-    console.log(this.state.modalText)
+    console.log(this.state.modalText);
     this.setState({ modalActive: false });
     if (this.props.isUpdate) {
       this.setState({ Redirect: true });
     }
-    if(this.state.modalText==="Извините, не получилось добавить товар") {
-      console.log("REDIRECT")
+    if (this.state.modalText === "Извините, не получилось добавить товар") {
+      console.log("REDIRECT");
       this.setState({ Redirect: true });
     }
-    if(!this.props.isUpdate) {
-      this.setState({loading: false})
+    if (!this.props.isUpdate) {
+      this.setState({ loading: false });
     }
   };
 
@@ -293,8 +293,12 @@ class CreateCardBox extends Component {
       return <Redirect push to={`/${this.props.type}`} />;
     }
 
-    if(this.state.loading) {
-      console.log("load and modal in load", this.state.loading, this.state.modalActive)
+    if (this.state.loading) {
+      console.log(
+        "load and modal in load",
+        this.state.loading,
+        this.state.modalActive
+      );
       return (
         <section className="spinnerBox">
           {this.state.modalActive ? null : <Spinner />}
@@ -308,7 +312,7 @@ class CreateCardBox extends Component {
     }
 
     if (localStorage.getItem("isAdmin")) {
-      console.log("load and modal", this.state.loading, this.state.modalActive)
+      console.log("load and modal", this.state.loading, this.state.modalActive);
       return (
         <section className="main">
           <form
@@ -373,6 +377,7 @@ class CreateCardBox extends Component {
                   onClick={() => {
                     const inputUrl = document.querySelector("#url");
                     inputUrl.value = "";
+                    inputUrl.classList.add("empty");
                     this.setState(
                       {
                         url: "",
@@ -457,7 +462,7 @@ class CreateCardBox extends Component {
                   onClick={() => {
                     const textarea = document.querySelector("textarea");
                     textarea.value = "";
-                    this.setState({ description: "" });
+                    this.setState({ description: "" }, this.validateForm);
                   }}
                 />
               ) : null}
