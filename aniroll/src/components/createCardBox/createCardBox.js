@@ -104,8 +104,8 @@ class CreateCardBox extends Component {
   }
 
   submitCard = () => {
-    const inputs = document.querySelectorAll("input[required]");
-    const textarea = document.querySelector("textarea");
+    //const inputs = document.querySelectorAll("input[required]");
+    //const textarea = document.querySelector("textarea");
     this.setState({ loading: true });
     const { itemToChange } = this.state;
     const { changeData } = this.props;
@@ -136,23 +136,6 @@ class CreateCardBox extends Component {
           });
           console.log("ne ok", error);
         });
-
-      // this.setState(
-      //   {
-      //     formValid: false,
-      //     nameDirty: false,
-      //     urlDirty: false,
-      //     numberDirty: false,
-      //     priceDirty: false,
-      //     weightDirty: false,
-      //     nameError: "",
-      //     urlError: "",
-      //     numberError: "",
-      //     priceError: "",
-      //     weightError: "",
-      //   },
-      //   this.validateForm
-      // );
       return;
     }
     const { postData, type } = this.props;
@@ -173,10 +156,10 @@ class CreateCardBox extends Component {
           description: "",
           url: "",
         });
-        textarea.value = "";
-        inputs.forEach((input) => {
-          input.value = "";
-        });
+        //textarea.value = "";
+        //inputs.forEach((input) => {
+        //  input.value = "";
+        //});
         console.log("ok", response);
       })
       .catch((error) => {
