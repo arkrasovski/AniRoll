@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./itemCard.sass";
-import Axios from "axios";
 
 export default class ItemCard extends Component {
   state = {
@@ -12,22 +11,6 @@ export default class ItemCard extends Component {
     const { item } = this.props;
     this.setState({ item });
   }
-
-  deletePost = (id) => {
-    Axios.delete(
-      `http://localhost:3002/api/delete${this.state.item.type}/${id}`
-    )
-      .then((response) => {
-        this.props.onDelete(this.state.item.id);
-
-        this.props.getResponse(true);
-        console.log("ok", response);
-      })
-      .catch((error) => {
-        this.props.getResponse(false);
-        console.log("ne ok", error);
-      });
-  };
 
   localAddToOrders = (order, number = 1) => {
     if (localStorage.getItem("orders")) {
