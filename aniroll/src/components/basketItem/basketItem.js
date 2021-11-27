@@ -44,7 +44,7 @@ export default class BasketItem extends Component {
             <span className="price">
               Стоимость: {Math.round(price * qtty * 100) / 100}
             </span>
-            <span className="number">{number} шт</span>
+            <span className="number">{number * qtty} шт</span>
           </div>
         </div>
         <div className="basketCounter">

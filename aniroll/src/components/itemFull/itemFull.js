@@ -99,20 +99,23 @@ class ItemFull extends Component {
   deleteItem = () => {
     const { type, id } = this.state.item;
     const { deleteData } = this.props;
-    this.setState({loading: true})
+    this.setState({ loading: true });
     deleteData(type, id)
       .then((response) => {
         this.setState({
-         // loading: false,
+          // loading: false,
           modalActive: true,
-          modalText: "Товар успешно удалён!",})
+          modalText: "Товар успешно удалён!",
+        });
         //this.setModalActive(true);
         console.log("ok", response);
       })
       .catch((error) => {
-        this.setState({//loading: false,
+        this.setState({
+          //loading: false,
           modalActive: true,
-          modalText: "Извините, не получилось удалить товар",})
+          modalText: "Извините, не получилось удалить товар",
+        });
         //this.setModalActive(false);
         console.log("ne ok", error);
       });
@@ -143,7 +146,11 @@ class ItemFull extends Component {
     }
 
     if (this.state.loading) {
-      console.log("load and modal in load", this.state.loading, this.state.modalActive)
+      console.log(
+        "load and modal in load",
+        this.state.loading,
+        this.state.modalActive
+      );
       return (
         <section className="spinnerBox">
           {this.state.modalActive ? null : <Spinner />}
@@ -167,7 +174,7 @@ class ItemFull extends Component {
     const { item } = this.state;
 
     if (this.state.item) {
-      console.log("load and modal", this.state.loading, this.state.modalActive)
+      console.log("load and modal", this.state.loading, this.state.modalActive);
       const { name, url, number, price, weight, measure, description } = item;
       return (
         <section className="FullItemMain">
@@ -197,9 +204,9 @@ class ItemFull extends Component {
                   Стоимость: {Math.round(price * this.state.number * 100) / 100}
                 </span>
                 <span className="weight">
-                  {weight} {measure}.
+                  {weight * this.state.number} {measure}.
                 </span>
-                <span className="number">{number} шт</span>
+                <span className="number">{number * this.state.number} шт</span>
               </div>
               {description === "" ? null : (
                 <div className="description">{description}</div>
@@ -242,12 +249,9 @@ class ItemFull extends Component {
       );
     }
 
-
-
     if (!item || item.length === 0) {
       return <NoMatch />;
     }
-   
   }
 }
 export default withRouter(ItemFull);
