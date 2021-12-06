@@ -624,9 +624,8 @@ app.delete("/api/deletesauces/:id", (req, res) => {
 app.get("/api/lastOrder", (req, res) => {
   db.query("SELECT MAX(id) as ID from orders", (err, result) => {
     if (err) {
-      console.log(err);
-      res.send(error);
-      return;
+      console.log("error", err);
+      throw err;
     }
     console.log(result);
     res.send(result);
@@ -648,9 +647,8 @@ app.post("/api/addOrder", (req, res) => {
     [name, address, telNumber, orderText, total, deliveryDate],
     (err, result) => {
       if (err) {
-        console.log(err);
-        res.send(error);
-        return;
+        console.log("error", err);
+        throw err;
       }
       console.log(result);
       res.send(result);
