@@ -61,9 +61,8 @@ app.post("/api/createrolls", (req, res) => {
     [name, url, number, price, weight, measure, description],
     (err, result) => {
       if (err) {
-        console.log(err);
-        res.send(error);
-        return;
+        console.log("error", err);
+        throw err;
       }
       console.log(result);
       res.send(result);
@@ -85,7 +84,7 @@ app.post("/api/changerollsFromId/:id", (req, res) => {
 
   db.query("SELECT * FROM rolls WHERE id = ?", id, (err, result) => {
     if (err) {
-      console.log(err);
+      console.log("error", err);
       throw err;
     }
     if (result.length > 0) {
@@ -94,8 +93,8 @@ app.post("/api/changerollsFromId/:id", (req, res) => {
         [name, url, number, price, weight, measure, description, id],
         (err, result) => {
           if (err) {
-            res.send(err);
-            return;
+            console.log("error", err);
+            throw err;
           }
           res.send(result);
         }
@@ -112,7 +111,7 @@ app.get("/api/getrollsFromId/:id", (req, res) => {
   const id = req.params.id;
   db.query("SELECT * FROM rolls WHERE id = ?", id, (err, result) => {
     if (err) {
-      console.log(err);
+      console.log("error", err);
       throw err;
     }
     res.send(result);
@@ -125,9 +124,8 @@ app.delete("/api/deleterolls/:id", (req, res) => {
   db.query("DELETE FROM rolls WHERE id= ?", id, (err, result) => {
     {
       if (err) {
-        console.log(err);
-        res.send(error);
-        return;
+        console.log("error", err);
+        throw err;
       }
       console.log(result);
       res.send(result);
@@ -188,9 +186,8 @@ app.post("/api/createdrinks", (req, res) => {
     [name, url, number, price, weight, measure, description],
     (err, result) => {
       if (err) {
-        console.log(err);
-        res.send(error);
-        return;
+        console.log("error", err);
+        throw err;
       }
       console.log(result);
       res.send(result);
@@ -204,7 +201,8 @@ app.get("/api/getdrinksFromId/:id", (req, res) => {
   const id = req.params.id;
   db.query("SELECT * FROM drinks WHERE id = ?", id, (err, result) => {
     if (err) {
-      console.log(err);
+      console.log("error", err);
+      throw err;
     }
     res.send(result);
   });
@@ -222,7 +220,7 @@ app.post("/api/changedrinksFromId/:id", (req, res) => {
 
   db.query("SELECT * FROM drinks WHERE id = ?", id, (err, result) => {
     if (err) {
-      console.log(err);
+      console.log("error", err);
       throw err;
     }
     if (result.length > 0) {
@@ -231,8 +229,8 @@ app.post("/api/changedrinksFromId/:id", (req, res) => {
         [name, url, number, price, weight, measure, description, id],
         (err, result) => {
           if (err) {
-            res.send(err);
-            return;
+            console.log("error", err);
+            throw err;
           }
           res.send(result);
         }
@@ -249,9 +247,8 @@ app.delete("/api/deletedrinks/:id", (req, res) => {
   db.query("DELETE FROM drinks WHERE id= ?", id, (err, result) => {
     {
       if (err) {
-        console.log(err);
-        res.send(error);
-        return;
+        console.log("error", err);
+        throw err;
       }
       console.log(result);
       res.send(result);
@@ -312,9 +309,8 @@ app.post("/api/createsushi", (req, res) => {
     [name, url, number, price, weight, measure, description],
     (err, result) => {
       if (err) {
-        console.log(err);
-        res.send(error);
-        return;
+        console.log("error", err);
+        throw err;
       }
       console.log(result);
       res.send(result);
@@ -328,7 +324,8 @@ app.get("/api/getsushiFromId/:id", (req, res) => {
   const id = req.params.id;
   db.query("SELECT * FROM sushi WHERE id = ?", id, (err, result) => {
     if (err) {
-      console.log(err);
+      console.log("error", err);
+      throw err;
     }
     res.send(result);
   });
@@ -346,7 +343,7 @@ app.post("/api/changesushiFromId/:id", (req, res) => {
 
   db.query("SELECT * FROM sushi WHERE id = ?", id, (err, result) => {
     if (err) {
-      console.log(err);
+      console.log("error", err);
       throw err;
     }
     if (result.length > 0) {
@@ -355,8 +352,8 @@ app.post("/api/changesushiFromId/:id", (req, res) => {
         [name, url, number, price, weight, measure, description, id],
         (err, result) => {
           if (err) {
-            res.send(err);
-            return;
+            console.log("error", err);
+            throw err;
           }
           res.send(result);
         }
@@ -373,9 +370,8 @@ app.delete("/api/deletesushi/:id", (req, res) => {
   db.query("DELETE FROM sushi WHERE id= ?", id, (err, result) => {
     {
       if (err) {
-        console.log(err);
-        res.send(error);
-        return;
+        console.log("error", err);
+        throw err;
       }
       console.log(result);
       res.send(result);
@@ -434,9 +430,8 @@ app.post("/api/createsets", (req, res) => {
     [name, url, number, price, weight, measure, description],
     (err, result) => {
       if (err) {
-        console.log(err);
-        res.send(error);
-        return;
+        console.log("error", err);
+        throw err;
       }
       console.log(result);
       res.send(result);
@@ -450,7 +445,8 @@ app.get("/api/getsetsFromId/:id", (req, res) => {
   const id = req.params.id;
   db.query("SELECT * FROM sets WHERE id = ?", id, (err, result) => {
     if (err) {
-      console.log(err);
+      console.log("error", err);
+      throw err;
     }
     res.send(result);
   });
@@ -468,7 +464,7 @@ app.post("/api/changesetsFromId/:id", (req, res) => {
 
   db.query("SELECT * FROM sets WHERE id = ?", id, (err, result) => {
     if (err) {
-      console.log(err);
+      console.log("error", err);
       throw err;
     }
     if (result.length > 0) {
@@ -477,8 +473,8 @@ app.post("/api/changesetsFromId/:id", (req, res) => {
         [name, url, number, price, weight, measure, description, id],
         (err, result) => {
           if (err) {
-            res.send(err);
-            return;
+            console.log("error", err);
+            throw err;
           }
           res.send(result);
         }
@@ -495,9 +491,8 @@ app.delete("/api/deletesets/:id", (req, res) => {
   db.query("DELETE FROM sets WHERE id= ?", id, (err, result) => {
     {
       if (err) {
-        console.log(err);
-        res.send(error);
-        return;
+        console.log("error", err);
+        throw err;
       }
       console.log(result);
       res.send(result);
@@ -556,9 +551,8 @@ app.post("/api/createsauces", (req, res) => {
     [name, url, number, price, weight, measure, description],
     (err, result) => {
       if (err) {
-        console.log(err);
-        res.send(error);
-        return;
+        console.log("error", err);
+        throw err;
       }
       console.log(result);
       res.send(result);
@@ -572,7 +566,8 @@ app.get("/api/getsaucesFromId/:id", (req, res) => {
   const id = req.params.id;
   db.query("SELECT * FROM sauces WHERE id = ?", id, (err, result) => {
     if (err) {
-      console.log(err);
+      console.log("error", err);
+      throw err;
     }
     res.send(result);
   });
@@ -590,7 +585,7 @@ app.post("/api/changesaucesFromId/:id", (req, res) => {
 
   db.query("SELECT * FROM sauces WHERE id = ?", id, (err, result) => {
     if (err) {
-      console.log(err);
+      console.log("error", err);
       throw err;
     }
     if (result.length > 0) {
@@ -599,8 +594,8 @@ app.post("/api/changesaucesFromId/:id", (req, res) => {
         [name, url, number, price, weight, measure, description, id],
         (err, result) => {
           if (err) {
-            res.send(err);
-            return;
+            console.log("error", err);
+            throw err;
           }
           res.send(result);
         }
@@ -617,9 +612,8 @@ app.delete("/api/deletesauces/:id", (req, res) => {
   db.query("DELETE FROM sauces WHERE id= ?", id, (err, result) => {
     {
       if (err) {
-        console.log(err);
-        res.send(error);
-        return;
+        console.log("error", err);
+        throw err;
       }
       console.log(result);
       res.send(result);
