@@ -25,7 +25,7 @@ class ItemFull extends Component {
 
   componentDidMount() {
     const { getData, type } = this.props;
-    console.log(getData);
+
     const id = this.props.match.params.id;
     getData(type, id)
       .then((item) => {
@@ -121,19 +121,19 @@ class ItemFull extends Component {
       });
   };
 
-  setModalActive = (isOk) => {
-    if (isOk) {
-      this.setState({
-        modalActive: true,
-        modalText: "Товар успешно удалён!",
-      });
-    } else {
-      this.setState({
-        modalActive: true,
-        modalText: "Извините, не получилось удалить товар",
-      });
-    }
-  };
+  // setModalActive = (isOk) => {
+  //   if (isOk) {
+  //     this.setState({
+  //       modalActive: true,
+  //       modalText: "Товар успешно удалён!",
+  //     });
+  //   } else {
+  //     this.setState({
+  //       modalActive: true,
+  //       modalText: "Извините, не получилось удалить товар",
+  //     });
+  //   }
+  // };
 
   setModalUnActive = () => {
     this.setState({ modalActive: false, redirect: true });
@@ -146,11 +146,6 @@ class ItemFull extends Component {
     }
 
     if (this.state.loading) {
-      console.log(
-        "load and modal in load",
-        this.state.loading,
-        this.state.modalActive
-      );
       return (
         <section className="spinnerBox">
           {this.state.modalActive ? null : <Spinner />}
@@ -166,7 +161,7 @@ class ItemFull extends Component {
     if (!this.state.item && this.state.error) {
       return (
         <section className="spinnerBox">
-          <ErrorMessage />;{" "}
+          <ErrorMessage />
         </section>
       );
     }
@@ -174,7 +169,6 @@ class ItemFull extends Component {
     const { item } = this.state;
 
     if (this.state.item) {
-      console.log("load and modal", this.state.loading, this.state.modalActive);
       const { name, url, number, price, weight, measure, description } = item;
       return (
         <section className="FullItemMain">
@@ -240,11 +234,11 @@ class ItemFull extends Component {
           >
             В корзину
           </button>
-          <Modal
+          {/* <Modal
             active={this.state.modalActive}
             setActive={this.setModalUnActive}
             content={this.state.modalText}
-          />
+          /> */}
         </section>
       );
     }

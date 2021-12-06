@@ -46,11 +46,6 @@ export default class ItemBox extends Component {
   }
 
   onCharListLoaded = (newItemList) => {
-    console.log("char is loaded!", newItemList);
-    // if (newItemList.data.elements.length === 0 && this.state.offset !== 1) {
-    //   console.log("pusto v zaprose  ");
-    //   return;
-    // }
     this.setState(({ itemList, offset, max }) => ({
       itemList: [...itemList, ...newItemList.data.elements],
       loading: false,
@@ -79,8 +74,6 @@ export default class ItemBox extends Component {
           <ItemCard
             item={item}
             key={item.id}
-            onDelete={this.deleteItem}
-            getResponse={this.setModalActive}
             isAdmin={this.props.isAdmin}
           ></ItemCard>
         );
@@ -89,7 +82,6 @@ export default class ItemBox extends Component {
   }
 
   render() {
-    console.log("offset", this.state.offset, "max", this.state.max);
     if (!this.state.item && this.state.error) {
       return (
         <section className="spinnerBox">

@@ -5,7 +5,7 @@ import { IMaskInput } from "react-imask";
 import Odzen from "../../images/odzen.png";
 import Modal from "../modal";
 import DropDown from "../dropDown";
-import Spinner from "../spinner"
+import Spinner from "../spinner";
 
 export default class ItemBox extends Component {
   state = {
@@ -82,7 +82,7 @@ export default class ItemBox extends Component {
 
   submitCard = async () => {
     if (
-      parseInt(this.state.time) <= new Date().getHours() && 
+      parseInt(this.state.time) <= new Date().getHours() &&
       this.state.day === `${new Date().getDate()}.${+new Date().getMonth() + 1}`
     ) {
       this.setState({
@@ -96,7 +96,7 @@ export default class ItemBox extends Component {
         dayArray: this.GetDates(new Date(), 5),
 
         time:
-          new Date().getHours() < 23 && new Date().getHours()>10
+          new Date().getHours() < 23 && new Date().getHours() > 10
             ? `${new Date().getHours() + 1}:00-${
                 new Date().getHours() + 2 === 24
                   ? "00"
@@ -116,7 +116,7 @@ export default class ItemBox extends Component {
       const deliveryDate =
         this.state.time + "." + this.state.day + "." + new Date().getFullYear();
       console.log("delivday", deliveryDate);
-      this.setState({loading: true})
+      this.setState({ loading: true });
       postOrder({
         name: this.state.name,
         address: this.state.address,
@@ -162,7 +162,8 @@ export default class ItemBox extends Component {
     const name = e.target.name;
     const nameError = name + "Error";
 
-    this.setState({ [name]: e.target.value }, this.validateForm);
+    this.setState({ [name]: e.target.value });
+    //this.setState({ [name]: e.target.value }, this.validateForm);
     if (e.target.value === "") {
       e.target.classList.add("empty");
       this.setState(
@@ -188,18 +189,19 @@ export default class ItemBox extends Component {
       this.setState({ modalActive: false, problemWithTime: false });
       return;
     }
-//     if (this.state.catchedProblem) {
-//       this.setState({ modalActive: false });
-//       this.setState({ Redirect: true });
-//       return;
-//     }
+    //     if (this.state.catchedProblem) {
+    //       this.setState({ modalActive: false });
+    //       this.setState({ Redirect: true });
+    //       return;
+    //     }
 
     this.setState({ modalActive: false });
-    this.setState({ Redirect: true }
+    this.setState(
+      { Redirect: true }
       //, () => {
       //localStorage.removeItem("orders");
       //}
-                 );
+    );
   };
 
   setDay = (day) => {
@@ -234,12 +236,11 @@ export default class ItemBox extends Component {
       return (
         <section className="main">
           Ваша корзина пуста, сделайте сначала заказ
-    
         </section>
       );
     }
 
-    if(this.state.loading) {
+    if (this.state.loading) {
       return (
         <section className="spinnerBox">
           {this.state.modalActive ? null : <Spinner />}
@@ -293,13 +294,14 @@ export default class ItemBox extends Component {
                   onAccept={(value, mask) => {
                     console.log("VALUE", mask.el.input);
 
-                    this.setState({ telNum: value }, this.validateForm);
+                    //this.setState({ telNum: value }, this.validateForm);
+                    this.setState({ telNum: value });
                     if (value.length < 19) {
                       mask.el.input.classList.add("empty");
                       this.setState(
                         {
                           telNumError: "Поле должно быть заполнено",
-                          telNumDirty: true,
+                          //telNumDirty: true,
                         },
                         this.validateForm
                       );

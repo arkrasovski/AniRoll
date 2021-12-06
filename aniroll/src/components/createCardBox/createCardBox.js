@@ -44,11 +44,10 @@ class CreateCardBox extends Component {
     if (this.props.isUpdate) {
       const { getData, type } = this.props;
       const id = this.props.match.params.id;
-      console.log(id);
+
       this.setState({ loading: true });
       getData(type, id)
         .then((item) => {
-          console.log("prishlo!", item);
           const itemToChange = item.data[0];
           this.setState({
             name: itemToChange.name,
@@ -61,7 +60,6 @@ class CreateCardBox extends Component {
             itemToChange,
             loading: false,
           });
-          console.log("old measure", this.state.itemToChange.measure);
 
           const data = [
             itemToChange.name,
@@ -93,7 +91,6 @@ class CreateCardBox extends Component {
           textarea.value = itemToChange.description;
         })
         .catch((e) => {
-          console.log("error!", e);
           this.setState({
             modalActive: true,
             modalText: "Извините, что-то пошло не так",
@@ -253,13 +250,11 @@ class CreateCardBox extends Component {
   };
 
   setModalActive = () => {
-    console.log(this.state.modalText);
     this.setState({ modalActive: false });
     if (this.props.isUpdate) {
       this.setState({ Redirect: true });
     }
     if (this.state.modalText === "Извините, не получилось добавить товар") {
-      console.log("REDIRECT");
       this.setState({ Redirect: true });
     }
     if (!this.props.isUpdate) {
@@ -277,11 +272,6 @@ class CreateCardBox extends Component {
     }
 
     if (this.state.loading) {
-      console.log(
-        "load and modal in load",
-        this.state.loading,
-        this.state.modalActive
-      );
       return (
         <section className="spinnerBox">
           {this.state.modalActive ? null : <Spinner />}
@@ -295,7 +285,6 @@ class CreateCardBox extends Component {
     }
 
     if (localStorage.getItem("isAdmin")) {
-      console.log("load and modal", this.state.loading, this.state.modalActive);
       return (
         <section className="main">
           <form

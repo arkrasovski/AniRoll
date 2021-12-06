@@ -96,7 +96,8 @@ export default class AdminLogin extends Component {
     const name = e.target.name;
     const nameError = name + "Error";
 
-    this.setState({ [name]: e.target.value }, this.validateForm);
+    //this.setState({ [name]: e.target.value }, this.validateForm);
+    this.setState({ [name]: e.target.value });
     if (e.target.value === "") {
       e.target.classList.add("empty");
       this.setState(
