@@ -47,7 +47,7 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.GoodsService.getGoods);
+
     if (this.state.error) {
       return (
         <section className="main">

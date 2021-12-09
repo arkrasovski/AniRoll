@@ -4,7 +4,8 @@ import "./header.sass";
 import logo from "../../images/yatologo.png";
 import { FaShoppingBasket } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
-import { RiGalleryFill } from "react-icons/ri";
+
+import {FaUserNinja} from "react-icons/fa"
 import Menu from "../menu";
 
 export default class Header extends Component {
@@ -18,15 +19,15 @@ export default class Header extends Component {
 
   componentDidMount() {
     window.addEventListener("resize", (e) => {
-      console.log("okno > 800", this.state.menuActive);
+      
       if (e.target.innerWidth > 800) {
-        console.log("okno > 800", this.state.menuActive);
+       
         if (
           this.state.menuActive &&
           document.body.style.overflow === "hidden"
         ) {
           document.body.style.overflow = "";
-          console.log("ya tutu");
+         
         }
         this.setMenuActive(false);
       }
@@ -79,9 +80,14 @@ export default class Header extends Component {
                 />
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/gallery">
                 <RiGalleryFill color={"rgb(127, 0, 0)"} size={"40px"} />{" "}
+              </Link>
+            </li> */}
+            <li>
+              <Link to="/adminlogin">
+                <FaUserNinja color={"rgb(127, 0, 0)"} size={"40px"} />{" "}
               </Link>
             </li>
             <li>
@@ -91,6 +97,7 @@ export default class Header extends Component {
                 }}
               />
             </li>
+                
           </ul>
         </div>
         <Menu

@@ -3,6 +3,8 @@ import "./footer.sass";
 import footerImg from "../../images/footer.png";
 import { MdHeadsetMic } from "react-icons/md";
 import { ImTruck, ImPhone } from "react-icons/im";
+import { RiGalleryFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -23,6 +25,14 @@ const Footer = () => {
               <span>11:00 - 00:00</span>
             </div>
           </li>
+          <li>
+              <Link to="/gallery">
+                <RiGalleryFill color={"rgb(127, 0, 0)"} />
+              <div className="workTimeInfo">
+              <span>Галерея персонажей</span>
+            </div>
+            </Link>
+          </li>
         </ul>
       </div>
 
@@ -36,6 +46,7 @@ const Footer = () => {
             <span>(44) 512-23-43</span>
           </div>
         </div>
+      
       </div>
 
       <div className="footerImg">
@@ -44,6 +55,8 @@ const Footer = () => {
           alt="Изображение Юкихиры Сомы из аниме Повар-боец сома"
         ></img>
       </div>
+    
+           
     </footer>
   );
 };
