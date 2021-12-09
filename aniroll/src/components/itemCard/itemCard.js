@@ -80,7 +80,7 @@ export default class ItemCard extends Component {
           <span className="title">{name}</span>, {number} шт.
         </div>
         <div className="cardPrice">
-          <span>{price} руб</span>
+          <span>{Number.isInteger(price) ? price : (Math.round(price * 100) % 10 === 0 ? price + '0' : price)} руб</span>
           <span>
             {weight} {measure}.
           </span>

@@ -132,7 +132,8 @@ export default class BasketBox extends Component {
 
     return (
       <section className="mainBasket">
-        <div className="total">{Math.round(total * 100) / 100} руб.</div>
+        <div className="total">{Number.isInteger(Math.round(total * 100) / 100) ? Math.round(total * 100) / 100
+                   : (Math.round(total * 100) % 10 === 0 ? Math.round(total * 100) / 100 + '0' : Math.round(total * 100) / 100)} руб.</div>
         {items}
         <Link to="/finishOrder">
           <button className="checkout">Оформить заказ</button>

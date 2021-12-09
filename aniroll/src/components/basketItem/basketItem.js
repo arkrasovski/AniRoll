@@ -42,7 +42,8 @@ export default class BasketItem extends Component {
           <div className="basketItemInfo">
             <span className="name">{name}</span>
             <span className="price">
-              Стоимость: {Math.round(price * qtty * 100) / 100}
+              Стоимость: {Number.isInteger(Math.round(price * qtty * 100) / 100) ? Math.round(price * qtty * 100) / 100
+                   : (Math.round(price * qtty * 100) % 10 === 0 ? Math.round(price * qtty * 100) / 100 + '0' : Math.round(price * qtty * 100) / 100)}
             </span>
             <span className="number">{number * qtty} шт</span>
           </div>
