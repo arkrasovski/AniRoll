@@ -17,27 +17,27 @@ export default class ItemBox extends Component {
 
   componentDidMount() {
     this.onRequest();
-    //document.addEventListener("scroll", this.scrollHandler);
+    document.addEventListener("scroll", this.scrollHandler);
   }
 
-  //componentWillUnmount() {
-    //document.removeEventListener("scroll", this.scrollHandler);
-  //}
+  componentWillUnmount() {
+    document.removeEventListener("scroll", this.scrollHandler);
+  }
 
-  // scrollHandler = (e) => {
-  //   const footer = document.querySelector("footer");
-  //   if (
-  //     e.target.documentElement.scrollHeight -
-  //       (e.target.documentElement.scrollTop +
-  //         window.innerHeight +
-  //         footer.offsetHeight) <
-  //       100 &&
-  //     this.state.itemList.length < this.state.max &&
-  //     !this.state.newItemLoading
-  //   ) {
-  //     this.onRequest(this.state.offset);
-  //   }
-  // };
+  scrollHandler = (e) => {
+    const footer = document.querySelector("footer");
+    if (
+      e.target.documentElement.scrollHeight -
+        (e.target.documentElement.scrollTop +
+          window.innerHeight +
+          footer.offsetHeight) <
+        100 &&
+      this.state.itemList.length < this.state.max &&
+      !this.state.newItemLoading
+    ) {
+      this.onRequest(this.state.offset);
+    }
+  };
 
   onRequest(offset) {
     this.onCharListLoading();
@@ -108,7 +108,6 @@ export default class ItemBox extends Component {
           </Link>
         ) : null}
         <div className="itemContainer"> {items}</div>
-        {this.state.itemList.length < this.state.max &&  !this.state.newItemLoading ? <button className="load" onClick={()=>{this.onRequest(this.state.offset)}}>Загрузить еще</button> : null}
         {this.state.newItemLoading ? <Spinner /> : null}
         
       </section>

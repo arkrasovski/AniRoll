@@ -368,6 +368,7 @@ class CreateCardBox extends Component {
             <div className="inputBox">
               <input
                 required
+                maxLength="7"
                 type="text"
                 name="number"
                 onBlur={(e) => this.blurHandler(e)}
@@ -383,6 +384,7 @@ class CreateCardBox extends Component {
             <div className="inputBox">
               <input
                 required
+                maxLength="7"
                 type="text"
                 name="price"
                 onBlur={(e) => this.blurHandler(e)}
@@ -398,6 +400,7 @@ class CreateCardBox extends Component {
             <div className="inputBox">
               <input
                 required
+                maxLength="7"
                 type="text"
                 name="weight"
                 onBlur={(e) => this.blurHandler(e)}

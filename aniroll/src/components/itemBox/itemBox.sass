@@ -2,15 +2,16 @@ $mainColor: rgb(127, 0, 0)
 $shadow: 0 5px 5px rgba(0, 0, 0, 0.2)
 
 section.main
-  display: flex
-  flex-direction: column
+  //display: flex
+  //flex-direction: column
   padding: 500px 10%
   .itemContainer
     display: grid
     grid-template-columns: repeat(4, 1fr)
     grid-gap: 40px
     align-content: start
-    flex: 1 0 auto
+    //flex: 1 0 auto
+    
 
 section.spinnerBox
   min-height: 400px
@@ -20,14 +21,29 @@ section.spinnerBox
 
 
 .addCard
-  flex: 0 0 auto
-  margin-top: 50px
+  //flex: 0 0 auto
+  margin-bottom: 50px
   height: 70px
   width: 200px
   font-size: 20px
   color: #fff
   border-radius: 20px
   background-color: #0c6304
+  cursor: pointer
+  box-shadow: $shadow
+  font-family: 'Bellota Text', cursive
+
+.load
+  margin-top: 50px
+  display: block
+  margin-left: auto
+  margin-right: auto
+  height: 70px
+  width: 200px
+  font-size: 20px
+  color: #fff
+  border-radius: 20px
+  background-color: $mainColor
   cursor: pointer
   box-shadow: $shadow
   font-family: 'Bellota Text', cursive
@@ -45,7 +61,7 @@ section.spinnerBox
     .itemContainer
       grid-template-columns: 1fr 1fr
       grid-gap: 40px
-  .addCard
+  .addCard, .load
     height: 50px
     border-radius: 20px
     width: 150px
@@ -56,7 +72,7 @@ section.spinnerBox
     .itemContainer
       grid-template-columns: 1fr
       grid-gap: 20px
-    .addCard
+    .addCard, .load
       height: 40px
       border-radius: 12px
       width: 110px
