@@ -40,6 +40,10 @@ export default class AdminLogin extends Component {
     img: [yato, footer, errorImage, rem, odzen, megumin, hhi],
   };
 
+  componentDidMount() {
+    window.scrollTo(0,0)
+  }
+
   renderItems(arr) {
     return arr.map((item, i) => {
       return (
