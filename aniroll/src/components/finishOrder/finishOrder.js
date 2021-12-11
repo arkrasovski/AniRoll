@@ -8,6 +8,19 @@ import DropDown from "../dropDown";
 import Spinner from "../spinner";
 
 export default class ItemBox extends Component {
+  GetDates = (startDate, daysToAdd) => {
+    var aryDates = [];
+    let i = new Date().getHours() < 23 ? 0 : 1;
+    let end = new Date().getHours() < 23 ? daysToAdd : daysToAdd + 1;
+    for (i; i <= end; i++) {
+      var currentDate = new Date();
+      currentDate.setDate(startDate.getDate() + i);
+      aryDates.push(`${currentDate.getDate()}.${currentDate.getMonth() + 1}`);
+    }
+
+    return aryDates;
+  };
+
   state = {
     orders: null,
     name: "",
@@ -60,19 +73,6 @@ export default class ItemBox extends Component {
     //catchedProblem: false,
   };
 
-  GetDates(startDate, daysToAdd) {
-    var aryDates = [];
-    let i = new Date().getHours() < 23 ? 0 : 1;
-    let end = new Date().getHours() < 23 ? daysToAdd : daysToAdd + 1;
-    for (i; i <= end; i++) {
-      var currentDate = new Date();
-      currentDate.setDate(startDate.getDate() + i);
-      aryDates.push(`${currentDate.getDate()}.${currentDate.getMonth() + 1}`);
-    }
-
-    return aryDates;
-  }
-
   componentDidMount() {
     if (localStorage.getItem("orders")) {
       const orders = JSON.parse(localStorage.getItem("orders"));
@@ -80,7 +80,7 @@ export default class ItemBox extends Component {
     }
   }
 
-  submitCard = async () => {
+  submitCard = () => {
     if (
       parseInt(this.state.time) <= new Date().getHours() &&
       this.state.day === `${new Date().getDate()}.${+new Date().getMonth() + 1}`
@@ -222,9 +222,9 @@ export default class ItemBox extends Component {
     this.setState({ time });
   };
 
-  filterTime(array) {
+  filterTime = (array) => {
     return array.filter((el, i) => i > new Date().getHours() - 11);
-  }
+  };
 
   render() {
     if (this.state.Redirect) {

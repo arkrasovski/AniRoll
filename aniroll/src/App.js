@@ -15,7 +15,6 @@ import "./App.css";
 import "./fonts.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-//let orders = [];
 export default class App extends Component {
   state = {
     links: ["rolls", "sushi", "sets", "sauces", "drinks"],
@@ -26,6 +25,7 @@ export default class App extends Component {
   GoodsService = new GoodsService();
 
   componentDidMount() {
+    console.log("241412421");
     let date = new Date();
     let localStorageEndTime = localStorage.getItem("localStorageEndTime");
     if (localStorageEndTime === null) {
@@ -104,7 +104,6 @@ export default class App extends Component {
                   type={"rolls"}
                   deleteData={this.GoodsService.deleteGood}
                   getData={this.GoodsService.getGoodFromId}
-                  addToOrders={this.addToOrders}
                   {...props}
                 />
               )}
@@ -155,7 +154,6 @@ export default class App extends Component {
                   type={"sushi"}
                   deleteData={this.GoodsService.deleteGood}
                   getData={this.GoodsService.getGoodFromId}
-                  addToOrders={this.addToOrders}
                   {...props}
                 />
               )}
@@ -206,7 +204,6 @@ export default class App extends Component {
                   type={"sets"}
                   deleteData={this.GoodsService.deleteGood}
                   getData={this.GoodsService.getGoodFromId}
-                  addToOrders={this.addToOrders}
                   {...props}
                 />
               )}
@@ -257,7 +254,6 @@ export default class App extends Component {
                   type={"sauces"}
                   deleteData={this.GoodsService.deleteGood}
                   getData={this.GoodsService.getGoodFromId}
-                  addToOrders={this.addToOrders}
                   {...props}
                 />
               )}
@@ -308,7 +304,6 @@ export default class App extends Component {
                   type={"drinks"}
                   deleteData={this.GoodsService.deleteGood}
                   getData={this.GoodsService.getGoodFromId}
-                  addToOrders={this.addToOrders}
                   {...props}
                 />
               )}

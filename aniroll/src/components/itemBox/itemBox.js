@@ -21,7 +21,7 @@ export default class ItemBox extends Component {
   }
 
   //componentWillUnmount() {
-    //document.removeEventListener("scroll", this.scrollHandler);
+  //document.removeEventListener("scroll", this.scrollHandler);
   //}
 
   // scrollHandler = (e) => {
@@ -39,11 +39,11 @@ export default class ItemBox extends Component {
   //   }
   // };
 
-  onRequest(offset) {
+  onRequest = (offset) => {
     this.onCharListLoading();
     const { getData, type } = this.props;
     getData(type, offset).then(this.onCharListLoaded).catch(this.onError);
-  }
+  };
 
   onCharListLoaded = (newItemList) => {
     this.setState(({ itemList, offset, max }) => ({
@@ -67,7 +67,7 @@ export default class ItemBox extends Component {
     this.setState({ newItemLoading: true });
   };
 
-  renderItems(arr) {
+  renderItems = (arr) => {
     if (arr) {
       return arr.map((item) => {
         return (
@@ -79,7 +79,7 @@ export default class ItemBox extends Component {
         );
       });
     }
-  }
+  };
 
   render() {
     if (!this.state.item && this.state.error) {
@@ -108,9 +108,18 @@ export default class ItemBox extends Component {
           </Link>
         ) : null}
         <div className="itemContainer"> {items}</div>
-        {this.state.itemList.length < this.state.max &&  !this.state.newItemLoading ? <button className="load" onClick={()=>{this.onRequest(this.state.offset)}}>Загрузить еще</button> : null}
+        {this.state.itemList.length < this.state.max &&
+        !this.state.newItemLoading ? (
+          <button
+            className="load"
+            onClick={() => {
+              this.onRequest(this.state.offset);
+            }}
+          >
+            Загрузить еще
+          </button>
+        ) : null}
         {this.state.newItemLoading ? <Spinner /> : null}
-        
       </section>
     );
   }

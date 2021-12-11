@@ -41,10 +41,10 @@ export default class AdminLogin extends Component {
   };
 
   componentDidMount() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
   }
 
-  renderItems(arr) {
+  renderItems = (arr) => {
     return arr.map((item, i) => {
       return (
         <div className="galeryCard" key={i}>
@@ -59,7 +59,7 @@ export default class AdminLogin extends Component {
         </div>
       );
     });
-  }
+  };
 
   render() {
     const items = this.renderItems(this.state.name);

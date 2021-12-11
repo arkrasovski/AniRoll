@@ -29,7 +29,7 @@ export default class BasketBox extends Component {
   //   this.setState({ basketList: newArray });
   // };
 
-  renderItems(arr) {
+  renderItems = (arr) => {
     if (arr) {
       return arr.map((item) => {
         return (
@@ -43,9 +43,9 @@ export default class BasketBox extends Component {
         );
       });
     }
-  }
+  };
 
-  fintTotal(arr) {
+  fintTotal = (arr) => {
     let sum = 0;
     if (arr) {
       arr.forEach((item) => {
@@ -53,7 +53,7 @@ export default class BasketBox extends Component {
       });
     }
     return sum;
-  }
+  };
 
   removeFromOrders = (id, type) => {
     let orders = this.state.basketList;
@@ -132,8 +132,14 @@ export default class BasketBox extends Component {
 
     return (
       <section className="mainBasket">
-        <div className="total">{Number.isInteger(Math.round(total * 100) / 100) ? Math.round(total * 100) / 100
-                   : (Math.round(total * 100) % 10 === 0 ? Math.round(total * 100) / 100 + '0' : Math.round(total * 100) / 100)} руб.</div>
+        <div className="total">
+          {Number.isInteger(Math.round(total * 100) / 100)
+            ? Math.round(total * 100) / 100
+            : Math.round(total * 100) % 10 === 0
+            ? Math.round(total * 100) / 100 + "0"
+            : Math.round(total * 100) / 100}{" "}
+          руб.
+        </div>
         {items}
         <Link to="/finishOrder">
           <button className="checkout">Оформить заказ</button>
