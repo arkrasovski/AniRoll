@@ -61,17 +61,17 @@ class CreateCardBox extends Component {
             loading: false,
           });
 
-          const data = [
-            itemToChange.name,
-            itemToChange.url,
-            itemToChange.number,
-            itemToChange.price,
-            itemToChange.weight,
-          ];
-          const inputs = document.querySelectorAll("input[required]");
-          inputs.forEach((input, i) => {
-            input.value = data[i];
-          });
+          // const data = [
+          //   itemToChange.name,
+          //   itemToChange.url,
+          //   itemToChange.number,
+          //   itemToChange.price,
+          //   itemToChange.weight,
+          // ];
+          // const inputs = document.querySelectorAll("input[required]");
+          // inputs.forEach((input, i) => {
+          //   input.value = data[i];
+          // });
           this.setState(
             {
               nameDirty: true,
@@ -87,8 +87,8 @@ class CreateCardBox extends Component {
             },
             this.validateForm
           );
-          const textarea = document.querySelector("textarea");
-          textarea.value = itemToChange.description;
+          //const textarea = document.querySelector("textarea");
+          //textarea.value = itemToChange.description;
         })
         .catch((e) => {
           this.setState({
@@ -150,8 +150,13 @@ class CreateCardBox extends Component {
           //loading: false,
           modalActive: true,
           modalText: "Товар успешно добавлен!",
-          description: "",
+          name: "",
           url: "",
+          number: "",
+          price: "",
+          weight: "",
+          measure: "гр",
+          description: "",
         });
         //textarea.value = "";
         //inputs.forEach((input) => {
@@ -305,6 +310,7 @@ class CreateCardBox extends Component {
             <div className="inputBox">
               <input
                 required
+                value={this.state.name}
                 maxLength="30"
                 type="text"
                 name="name"
@@ -330,6 +336,7 @@ class CreateCardBox extends Component {
             )}
             <div className="inputBox">
               <input
+                value={this.state.url}
                 required
                 type="text"
                 id="url"
@@ -373,6 +380,7 @@ class CreateCardBox extends Component {
             <div className="inputBox">
               <input
                 required
+                value={this.state.number}
                 maxLength="7"
                 type="text"
                 name="number"
@@ -389,6 +397,7 @@ class CreateCardBox extends Component {
             <div className="inputBox">
               <input
                 required
+                value={this.state.price}
                 maxLength="7"
                 type="text"
                 name="price"
@@ -405,6 +414,7 @@ class CreateCardBox extends Component {
             <div className="inputBox">
               <input
                 required
+                value={this.state.weight}
                 maxLength="7"
                 type="text"
                 name="weight"
@@ -425,6 +435,7 @@ class CreateCardBox extends Component {
             <label>Описание: </label>
             <div className="inputBox">
               <textarea
+                value={this.state.description}
                 maxLength="300"
                 type="text"
                 name="description"
