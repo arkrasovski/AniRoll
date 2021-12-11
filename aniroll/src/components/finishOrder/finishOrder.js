@@ -270,10 +270,8 @@ export default class ItemBox extends Component {
                   name="name"
                   type="text"
                   placeholder="Иванов Иван Иванович"
-                  onBlur={(e) => this.blurHandler(e)}
-                  onChange={(e) => {
-                    this.inputHandler(e);
-                  }}
+                  onBlur={this.blurHandler}
+                  onChange={this.inputHandler}
                 />
               </div>
               <label>Номер телефона: </label>
@@ -285,7 +283,7 @@ export default class ItemBox extends Component {
                 <IMaskInput
                   placeholder="+375 (29) 000-00-00"
                   mask={"+375 (00) 000-00-00"}
-                  onBlur={(e) => this.blurHandler(e)}
+                  onBlur={this.blurHandler}
                   name="telNum"
                   type="text"
                   lazy={true}
@@ -318,10 +316,8 @@ export default class ItemBox extends Component {
                   placeholder="ул. Бельского д. 1 кв. 1"
                   name="address"
                   type="text"
-                  onBlur={(e) => this.blurHandler(e)}
-                  onChange={(e) => {
-                    this.inputHandler(e);
-                  }}
+                  onBlur={this.blurHandler}
+                  onChange={this.inputHandler}
                 />
               </div>
 

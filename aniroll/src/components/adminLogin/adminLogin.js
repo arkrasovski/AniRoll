@@ -127,10 +127,8 @@ export default class AdminLogin extends Component {
                 type="text"
                 name="login"
                 placeholder="Логин"
-                onBlur={(e) => this.blurHandler(e)}
-                onChange={(e) => {
-                  this.inputHandler(e);
-                }}
+                onBlur={this.blurHandler}
+                onChange={this.inputHandler}
               />
             </div>
             <div>
@@ -143,10 +141,8 @@ export default class AdminLogin extends Component {
                 type="password"
                 name="password"
                 placeholder="Пароль"
-                onBlur={(e) => this.blurHandler(e)}
-                onChange={(e) => {
-                  this.inputHandler(e);
-                }}
+                onBlur={this.blurHandler}
+                onChange={this.inputHandler}
               />
             </div>
             <button

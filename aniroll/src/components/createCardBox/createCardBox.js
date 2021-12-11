@@ -38,6 +38,7 @@ class CreateCardBox extends Component {
     modalText: "",
 
     Redirect: false,
+    error: false,
   };
 
   componentDidMount() {
@@ -59,6 +60,16 @@ class CreateCardBox extends Component {
             description: itemToChange.description,
             itemToChange,
             loading: false,
+            nameDirty: true,
+            urlDirty: true,
+            numberDirty: true,
+            priceDirty: true,
+            weightDirty: true,
+            nameError: "",
+            urlError: "",
+            numberError: "",
+            priceError: "",
+            weightError: "",
           });
 
           // const data = [
@@ -72,21 +83,7 @@ class CreateCardBox extends Component {
           // inputs.forEach((input, i) => {
           //   input.value = data[i];
           // });
-          this.setState(
-            {
-              nameDirty: true,
-              urlDirty: true,
-              numberDirty: true,
-              priceDirty: true,
-              weightDirty: true,
-              nameError: "",
-              urlError: "",
-              numberError: "",
-              priceError: "",
-              weightError: "",
-            },
-            this.validateForm
-          );
+
           //const textarea = document.querySelector("textarea");
           //textarea.value = itemToChange.description;
         })
@@ -155,8 +152,18 @@ class CreateCardBox extends Component {
           number: "",
           price: "",
           weight: "",
-          measure: "гр",
           description: "",
+          formValid: false,
+          nameDirty: false,
+          urlDirty: false,
+          numberDirty: false,
+          priceDirty: false,
+          weightDirty: false,
+          nameError: "Имя не может быть пустым",
+          urlError: "Url не может быть пустым",
+          numberError: "Количество не может быть пустым",
+          priceError: "Цена не может быть пустой",
+          weightError: "Вес не может быть пустым",
         });
         //textarea.value = "";
         //inputs.forEach((input) => {
@@ -169,22 +176,11 @@ class CreateCardBox extends Component {
           //loading: false,
           modalActive: true,
           modalText: "Извините, не получилось добавить товар",
+          error: true,
         });
         console.log("ne ok", error);
       });
-    this.setState({
-      formValid: false,
-      nameDirty: false,
-      urlDirty: false,
-      numberDirty: false,
-      priceDirty: false,
-      weightDirty: false,
-      nameError: "Имя не может быть пустым",
-      urlError: "Url не может быть пустым",
-      numberError: "Количество не может быть пустым",
-      priceError: "Цена не может быть пустой",
-      weightError: "Вес не может быть пустым",
-    });
+
   };
 
   blurHandler = (e) => {
@@ -259,7 +255,7 @@ class CreateCardBox extends Component {
     if (this.props.isUpdate) {
       this.setState({ Redirect: true });
     }
-    if (this.state.modalText === "Извините, не получилось добавить товар") {
+    if (this.state.error) {
       this.setState({ Redirect: true });
     }
     if (!this.props.isUpdate) {
@@ -314,7 +310,7 @@ class CreateCardBox extends Component {
                 maxLength="30"
                 type="text"
                 name="name"
-                onBlur={(e) => this.blurHandler(e)}
+                onBlur={this.blurHandler}
                 onChange={(e) => {
                   e.target.classList.remove("empty");
                   this.setState({ name: e.target.value }, this.validateForm);
@@ -341,7 +337,7 @@ class CreateCardBox extends Component {
                 type="text"
                 id="url"
                 name="url"
-                onBlur={(e) => this.blurHandler(e)}
+                onBlur={this.blurHandler}
                 onChange={(e) => {
                   e.target.classList.remove("empty");
                   this.setState({ url: e.target.value }, this.validateForm);
@@ -360,7 +356,7 @@ class CreateCardBox extends Component {
                 <ImCross
                   onClick={() => {
                     const inputUrl = document.querySelector("#url");
-                    inputUrl.value = "";
+                    
                     inputUrl.classList.add("empty");
                     this.setState(
                       {
@@ -384,10 +380,8 @@ class CreateCardBox extends Component {
                 maxLength="7"
                 type="text"
                 name="number"
-                onBlur={(e) => this.blurHandler(e)}
-                onChange={(e) => {
-                  this.numericInputHandler(e);
-                }}
+                onBlur={this.blurHandler}
+                onChange={this.numericInputHandler}
               />
             </div>
             <label>Цена: </label>
@@ -401,10 +395,8 @@ class CreateCardBox extends Component {
                 maxLength="7"
                 type="text"
                 name="price"
-                onBlur={(e) => this.blurHandler(e)}
-                onChange={(e) => {
-                  this.numericInputHandler(e);
-                }}
+                onBlur={this.blurHandler}
+                onChange={this.numericInputHandler}
               />
             </div>
             <label>Вес: </label>
@@ -418,10 +410,8 @@ class CreateCardBox extends Component {
                 maxLength="7"
                 type="text"
                 name="weight"
-                onBlur={(e) => this.blurHandler(e)}
-                onChange={(e) => {
-                  this.numericInputHandler(e);
-                }}
+                onBlur={this.blurHandler}
+                onChange={this.numericInputHandler}
               />
             </div>
 
@@ -439,7 +429,6 @@ class CreateCardBox extends Component {
                 maxLength="300"
                 type="text"
                 name="description"
-                onBlur={(e) => this.blurHandler(e)}
                 onChange={(e) => {
                   e.target.classList.remove("empty");
                   this.setState(
@@ -451,8 +440,7 @@ class CreateCardBox extends Component {
               {this.state.description ? (
                 <ImCross
                   onClick={() => {
-                    const textarea = document.querySelector("textarea");
-                    textarea.value = "";
+                    
                     this.setState({ description: "" }, this.validateForm);
                   }}
                 />
