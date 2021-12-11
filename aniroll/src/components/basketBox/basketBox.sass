@@ -16,21 +16,24 @@ section.mainBasket
     img
       width: 50%
 
-.total, .checkout
-  background: $mainColor
-  color: #fff
-  height: 70px
-  font-size: 25px
-  width: 200px
-  display: flex
-  justify-content: center
-  align-items: center
-  border-radius: 15px
-  box-shadow: $shadow
+  .total, .checkout
+    background: $mainColor
+    color: #fff
+    height: 70px
+    font-size: 25px
+    width: 200px
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 15px
+    box-shadow: $shadow
 
-.checkout
-  width: 250px
-  margin-top: 25px
+  a
+    margin-top: 25px
+    .checkout
+      width: 250px
+      cursor: pointer
+
 
 @media screen and (max-width: 1450px) and (min-width: 1000px)
   section.mainBasket
@@ -38,13 +41,14 @@ section.mainBasket
       span
         font-size: 20px
 
-  .total, .checkout
-    height: 60px
-    font-size: 20px
-    width: 150px
+    .total, .checkout
+      height: 60px
+      font-size: 20px
+      width: 150px
 
-  .checkout
-    width: 200px
+    a
+      .checkout
+          width: 200px
 
 @media screen and (max-width: 1200px) and (min-width: 800px)
   section.mainBasket
@@ -56,13 +60,14 @@ section.mainBasket
       span
         font-size: 20px
 
-  .total, .checkout
-    height: 50px
-    font-size: 15px
-    width: 130px
+    .total, .checkout
+      height: 50px
+      font-size: 15px
+      width: 130px
 
-  .checkout
-    width: 160px
+    a
+      .checkout
+        width: 160px
 
 @media screen and (max-width: 800px) and (min-width: 0px)
   section.mainBasket
@@ -70,12 +75,12 @@ section.mainBasket
       span
         font-size: 10px
 
-  .total, .checkout
-    height: 40px
-    font-size: 13px
-    width: 100px
+    .total, .checkout
+      height: 40px
+      font-size: 13px
+      width: 100px
 
-  .checkout
-    height: 30px
-    width: 140px
-    margin-top: 20px
+    a 
+      .checkout
+        height: 30px
+        width: 140px

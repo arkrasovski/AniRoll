@@ -3,7 +3,7 @@ body.modal.active
     overflow: hidden
 
 .modal
-    
+    cursor: pointer
     height: 100%
     width: 100%
     background-color: rgba(0, 0, 0, 0.4)
@@ -19,6 +19,7 @@ body.modal.active
     z-index: 2
 
     .modal_content
+        cursor: default
         max-width: 700px
         padding: 20px
         border-radius: 12px
@@ -44,6 +45,7 @@ body.modal.active
             font-size: 25px
             z-index: 100 //чтобы текст был поверх картинки
         button
+            cursor: pointer
             outline: none
             height: 30px
             font-size: 18px

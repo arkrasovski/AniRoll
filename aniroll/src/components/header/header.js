@@ -56,7 +56,7 @@ export default class Header extends Component {
                 </li>
               );
             })}
-            <li>
+            <li className="icon">
               <Link to="/basket">
                 <FaShoppingBasket color={"rgb(127, 0, 0)"} size={"40px"} />
               </Link>
@@ -66,17 +66,17 @@ export default class Header extends Component {
                 <RiGalleryFill color={"rgb(127, 0, 0)"} size={"40px"} />{" "}
               </Link>
             </li> */}
-            <li>
+            <li className="icon">
               <Link to="/adminlogin">
                 <FaUserNinja color={"rgb(127, 0, 0)"} size={"40px"} />{" "}
               </Link>
             </li>
-            <li>
+            <li className="icon">
               <FiMenu
                 onClick={() => {
                   this.setMenuActive(!this.state.menuActive);
                 }}
-              />
+                size={"40px"} />{" "}
             </li>
           </ul>
         </div>
