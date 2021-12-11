@@ -116,10 +116,10 @@ $shadow: 0 5px 5px rgba(0, 0, 0, 0.2)
       input
         padding: 0 5px
         font-size: 10px
-        width: 400px
+        width: 350px
         height: 20px
       textarea
-        width: 100%
+        width: 70%
         height: 120px
         font-size: 10px
 
@@ -132,7 +132,13 @@ $shadow: 0 5px 5px rgba(0, 0, 0, 0.2)
 @media screen and (max-width: 500px) and (min-width: 0px)
   .uploadPost
     .inputBox
+      position: relative
       input
+        width: 100%
+      textarea
         width: 100%
     .identValues
       font-size: 10px
+    svg
+      position: absolute
+      left: 100%

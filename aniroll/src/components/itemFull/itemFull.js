@@ -142,7 +142,12 @@ class ItemFull extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect push to={`/${this.state.item.type}`} />;
+      return (
+        <Redirect
+          push
+          to={this.props.type === "rolls" ? "/" : `/${this.props.type}`}
+        />
+      );
     }
 
     if (this.state.loading) {
@@ -195,12 +200,19 @@ class ItemFull extends Component {
               <div className="fullItemText">
                 <span className="name">{name}</span>
                 <span className="price">
-                  Стоимость:  {Number.isInteger(Math.round(price * this.state.number * 100) / 100) ? Math.round(price * this.state.number * 100) / 100
-                   : (Math.round(price * this.state.number * 100) % 10 === 0 ? Math.round(price * this.state.number * 100) / 100 + '0' : Math.round(price * this.state.number * 100) / 100)}
+                  Стоимость:{" "}
+                  {Number.isInteger(
+                    Math.round(price * this.state.number * 100) / 100
+                  )
+                    ? Math.round(price * this.state.number * 100) / 100
+                    : Math.round(price * this.state.number * 100) % 10 === 0
+                    ? Math.round(price * this.state.number * 100) / 100 + "0"
+                    : Math.round(price * this.state.number * 100) / 100}
                   {/* {Math.round(price * this.state.number * 100) / 100} */}
                 </span>
                 <span className="weight">
-                  {Math.round(weight * this.state.number * 100) / 100} {measure}.
+                  {Math.round(weight * this.state.number * 100) / 100} {measure}
+                  .
                 </span>
                 <span className="number">{number * this.state.number} шт</span>
               </div>

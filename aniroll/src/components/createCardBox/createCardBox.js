@@ -268,7 +268,12 @@ class CreateCardBox extends Component {
 
   render() {
     if (this.state.Redirect) {
-      return <Redirect push to={`/${this.props.type}`} />;
+      return (
+        <Redirect
+          push
+          to={this.props.type === "rolls" ? "/" : `/${this.props.type}`}
+        />
+      );
     }
 
     if (this.state.loading) {

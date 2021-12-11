@@ -115,7 +115,7 @@ export default class ItemBox extends Component {
       });
       const deliveryDate =
         this.state.time + "." + this.state.day + "." + new Date().getFullYear();
-    
+
       this.setState({ loading: true });
       postOrder({
         name: this.state.name,
@@ -223,12 +223,10 @@ export default class ItemBox extends Component {
   };
 
   filterTime(array) {
-
     return array.filter((el, i) => i > new Date().getHours() - 11);
   }
 
   render() {
-
     if (this.state.Redirect) {
       return <Redirect push to="/" />;
     }
@@ -292,8 +290,6 @@ export default class ItemBox extends Component {
                   type="text"
                   lazy={true}
                   onAccept={(value, mask) => {
-                    
-
                     //this.setState({ telNum: value }, this.validateForm);
                     this.setState({ telNum: value });
                     if (value.length < 19) {

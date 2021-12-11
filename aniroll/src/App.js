@@ -47,7 +47,6 @@ export default class App extends Component {
   }
 
   render() {
-
     if (this.state.error) {
       return (
         <section className="main">
@@ -62,20 +61,6 @@ export default class App extends Component {
           <Switch>
             <Route
               path="/"
-              exact
-              component={(props) => (
-                <ItemBox
-                  getData={this.GoodsService.getGoods}
-                  type={"rolls"}
-                  goFullItem={this.goFullItem}
-                  isAdmin={this.state.isAdmin}
-                  {...props}
-                />
-              )}
-            />
-
-            <Route
-              path="/rolls"
               exact
               component={(props) => (
                 <ItemBox

@@ -9,11 +9,11 @@ const Menu = ({ links, names, active, setActive }) => {
     <div
       className={active === true ? "adaptive_menu active" : "adaptive_menu"}
       onClick={() => {
-        const modal = document.querySelector(".modal.active")
-        if(!modal){
+        const modal = document.querySelector(".modal.active");
+        if (!modal) {
           document.body.style.overflow = "";
         }
-        
+
         setActive(false);
       }}
     >
@@ -26,10 +26,10 @@ const Menu = ({ links, names, active, setActive }) => {
             return (
               <li key={key} className="route">
                 <Link
-                  to={"/" + value}
+                  to={"/" + (value === "rolls" ? "" : value)}
                   onClick={() => {
-                    const modal = document.querySelector(".modal.active")
-                    if(!modal){
+                    const modal = document.querySelector(".modal.active");
+                    if (!modal) {
                       document.body.style.overflow = "";
                     }
                     setActive(false);

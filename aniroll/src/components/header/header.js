@@ -5,7 +5,7 @@ import logo from "../../images/yatologo.png";
 import { FaShoppingBasket } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 
-import {FaUserNinja} from "react-icons/fa"
+import { FaUserNinja } from "react-icons/fa";
 import Menu from "../menu";
 
 export default class Header extends Component {
@@ -18,41 +18,24 @@ export default class Header extends Component {
   };
 
   componentDidMount() {
-    window.addEventListener("resize", (e) => {
-      
-      if (e.target.innerWidth > 800) {
-       
-        if (
-          this.state.menuActive &&
-          document.body.style.overflow === "hidden"
-        ) {
-          document.body.style.overflow = "";
-         
-        }
-        this.setMenuActive(false);
-      }
-    });
+    window.addEventListener("resize", this.resizeHandler);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", (e) => {
-      console.log("okno > 800", this.state.menuActive);
-      if (e.target.innerWidth > 800) {
-        console.log("okno > 800", this.state.menuActive);
-        if (
-          this.state.menuActive &&
-          document.body.style.overflow === "hidden"
-        ) {
-          document.body.style.overflow = "";
-          console.log("ya tutu");
-        }
-        this.setMenuActive(false);
-      }
-    });
+    window.removeEventListener("resize", this.resizeHandler);
   }
 
+  resizeHandler = (e) => {
+    if (e.target.innerWidth > 800) {
+      if (this.state.menuActive && document.body.style.overflow === "hidden") {
+        document.body.style.overflow = "";
+      }
+      this.setMenuActive(false);
+    }
+  };
+
   render() {
-    const { links, updateOrders, names } = this.props;
+    const { links, names } = this.props;
     return (
       <header>
         <Link to="/">
@@ -67,17 +50,15 @@ export default class Header extends Component {
             {links.map((value, key) => {
               return (
                 <li key={key} className="route">
-                  <Link to={"/" + value}>{names[key]}</Link>
+                  <Link to={"/" + (value === "rolls" ? "" : value)}>
+                    {names[key]}
+                  </Link>
                 </li>
               );
             })}
             <li>
               <Link to="/basket">
-                <FaShoppingBasket
-                  onClick={updateOrders}
-                  color={"rgb(127, 0, 0)"}
-                  size={"40px"}
-                />
+                <FaShoppingBasket color={"rgb(127, 0, 0)"} size={"40px"} />
               </Link>
             </li>
             {/* <li>
@@ -97,7 +78,6 @@ export default class Header extends Component {
                 }}
               />
             </li>
-                
           </ul>
         </div>
         <Menu

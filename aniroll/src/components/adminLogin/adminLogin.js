@@ -57,7 +57,7 @@ export default class AdminLogin extends Component {
     this.setState({
       modalActive: true,
       modalText: "Вы успешно вышли",
-      validateTrue: false,
+      validateTrue: true,
     });
     localStorage.removeItem("isAdmin");
   };
@@ -65,11 +65,6 @@ export default class AdminLogin extends Component {
   setModalActiveAdmin = () => {
     this.setState({ modalActive: false, Redirect: true });
     //localStorage.setItem("isAdmin", true);
-  };
-
-  setModalActiveNoAdmin = () => {
-    this.setState({ modalActive: false, Redirect: true });
-    //localStorage.removeItem("isAdmin");
   };
 
   setModalActive = () => {
@@ -185,7 +180,7 @@ export default class AdminLogin extends Component {
           </button>
           <Modal
             active={this.state.modalActive}
-            setActive={this.setModalActiveNoAdmin}
+            setActive={this.setModalActiveAdmin}
             content={this.state.modalText}
           />
         </section>
