@@ -53,7 +53,8 @@ export default class AdminLogin extends Component {
     }
   };
 
-  leave = () => {
+  leave = (e) => {
+    e.preventDefault();
     this.setState({
       modalActive: true,
       modalText: "Вы успешно вышли",
@@ -64,7 +65,7 @@ export default class AdminLogin extends Component {
 
   setModalActiveAdmin = () => {
     this.setState({ modalActive: false, Redirect: true });
-    //localStorage.setItem("isAdmin", true);
+
   };
 
   setModalActive = () => {
@@ -91,7 +92,7 @@ export default class AdminLogin extends Component {
     const name = e.target.name;
     const nameError = name + "Error";
 
-    //this.setState({ [name]: e.target.value }, this.validateForm);
+    
     this.setState({ [name]: e.target.value });
     if (e.target.value === "") {
       e.target.classList.add("empty");
@@ -146,7 +147,7 @@ export default class AdminLogin extends Component {
               />
             </div>
             <button
-              className={this.state.formValid + "Disable"}
+
               disabled={!this.state.formValid}
               type="submit"
               onClick={this.enter}
@@ -171,9 +172,12 @@ export default class AdminLogin extends Component {
       return (
         <section className="mainAdmin">
           <span className="title">Выйти из режима администратора</span>
+          <form>
           <button type="submit" onClick={this.leave}>
             Выйти
           </button>
+          </form>
+          
           <Modal
             active={this.state.modalActive}
             setActive={this.setModalActiveAdmin}

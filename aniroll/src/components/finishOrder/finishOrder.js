@@ -343,7 +343,6 @@ export default class ItemBox extends Component {
               </div>
 
               <button
-                className={this.state.formValid + "Disable"}
                 disabled={!this.state.formValid}
                 onClick={() => {
                   this.submitCard();

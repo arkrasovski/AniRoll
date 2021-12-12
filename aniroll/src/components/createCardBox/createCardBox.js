@@ -452,7 +452,6 @@ class CreateCardBox extends Component {
               </span>
             ) : null}
             <button
-              className={this.state.formValid + "Disable"}
               disabled={!this.state.formValid}
               onClick={this.submitCard}
             >

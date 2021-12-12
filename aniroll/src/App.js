@@ -66,8 +66,6 @@ export default class App extends Component {
                 <ItemBox
                   getData={this.GoodsService.getGoods}
                   type={"rolls"}
-                  goFullItem={this.goFullItem}
-                  isAdmin={this.state.isAdmin}
                   {...props}
                 />
               )}
@@ -116,8 +114,6 @@ export default class App extends Component {
                 <ItemBox
                   getData={this.GoodsService.getGoods}
                   type={"sushi"}
-                  goFullItem={this.goFullItem}
-                  isAdmin={this.state.isAdmin}
                   {...props}
                 />
               )}
@@ -166,8 +162,6 @@ export default class App extends Component {
                 <ItemBox
                   getData={this.GoodsService.getGoods}
                   type={"sets"}
-                  goFullItem={this.goFullItem}
-                  isAdmin={this.state.isAdmin}
                   {...props}
                 />
               )}
@@ -216,8 +210,6 @@ export default class App extends Component {
                 <ItemBox
                   getData={this.GoodsService.getGoods}
                   type={"sauces"}
-                  goFullItem={this.goFullItem}
-                  isAdmin={this.state.isAdmin}
                   {...props}
                 />
               )}
@@ -266,8 +258,6 @@ export default class App extends Component {
                 <ItemBox
                   getData={this.GoodsService.getGoods}
                   type={"drinks"}
-                  goFullItem={this.goFullItem}
-                  isAdmin={this.state.isAdmin}
                   {...props}
                 />
               )}
@@ -324,13 +314,7 @@ export default class App extends Component {
 
             <Route
               path="/adminlogin"
-              component={(props) => (
-                <AdminLogin
-                  setAdmin={this.setAdmin}
-                  isAdmin={this.state.isAdmin}
-                  {...props}
-                />
-              )}
+              component={AdminLogin}
             />
 
             <Route path="/gallery" component={Gallery} />

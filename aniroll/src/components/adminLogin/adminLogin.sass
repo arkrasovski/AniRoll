@@ -36,22 +36,19 @@ section.mainAdmin
       input.empty
         border-top: 1px solid rgba(0, 0, 0, 0.3)
         border-left: 1px solid rgba(0, 0, 0, 0.3)
-  button
-    cursor: pointer
-    outline: none
-    margin-top: 50px
-    height: 40px
-    font-size: 20px
-    background-color: $mainColor
-    color: #fff
-    width: 150px
-    border-radius: 15px
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)
-  .falseDisable
-    cursor: no-drop
-
-  .trueDisable
-    cursor: pointer
+    button
+      cursor: pointer
+      outline: none
+      margin-top: 50px
+      height: 40px
+      font-size: 20px
+      background-color: $mainColor
+      color: #fff
+      width: 150px
+      border-radius: 15px
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)
+    button:disabled
+      cursor: no-drop
 
 @media screen and (max-width: 1600px) and (min-width: 1400px)
   section.mainAdmin
@@ -63,11 +60,11 @@ section.mainAdmin
         input
           font-size: 17px
           height: 35px
-    button
-      margin-top: 40px
-      height: 40px
-      font-size: 17px
-      width: 140px
+      button
+        margin-top: 40px
+        height: 40px
+        font-size: 17px
+        width: 140px
 
 @media screen and (max-width: 1400px) and (min-width: 560px)
   section.mainAdmin
@@ -80,11 +77,11 @@ section.mainAdmin
         input
           font-size: 15px
           height: 30px
-    button
-      margin-top: 30px
-      height: 35px
-      font-size: 15px
-      width: 130px
+      button
+        margin-top: 30px
+        height: 40px
+        font-size: 15px
+        width: 130px
 
 @media screen and (max-width: 560px) and (min-width: 0px)
   section.mainAdmin
@@ -97,8 +94,8 @@ section.mainAdmin
         input
           font-size: 12px
           height: 25px
-    button
-      margin-top: 20px
-      height: 30px
-      font-size: 12px
-      width: 100px
+      button
+        margin-top: 20px
+        height: 40px
+        font-size: 12px
+        width: 100px
