@@ -3,6 +3,8 @@ import Modal from "../modal";
 import "./adminLogin.sass";
 import { Redirect } from "react-router";
 
+//тут если перезагрузить, автозаполнение не подхватит изменения в формах
+
 export default class AdminLogin extends Component {
   state = {
     login: "",
@@ -25,6 +27,9 @@ export default class AdminLogin extends Component {
     trueLogin: "admin",
     truePassword: "admin",
   };
+
+
+
 
   enter = (e) => {
     e.preventDefault();
@@ -112,6 +117,7 @@ export default class AdminLogin extends Component {
   };
 
   render() {
+    console.log("apchi", this.state.login, this.state.password, this.state.formValid, this.state.loginDirty)
     if (this.state.Redirect) {
       return <Redirect push to="/" />;
     }
@@ -125,6 +131,7 @@ export default class AdminLogin extends Component {
                 <span className="validateError">{this.state.loginError}</span>
               )}
               <input
+                autoComplete="off"
                 type="text"
                 name="login"
                 placeholder="Логин"
@@ -139,6 +146,7 @@ export default class AdminLogin extends Component {
                 </span>
               )}
               <input
+                autoComplete="off"
                 type="password"
                 name="password"
                 placeholder="Пароль"

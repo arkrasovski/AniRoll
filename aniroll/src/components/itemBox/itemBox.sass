@@ -11,7 +11,35 @@ section.main
     grid-gap: 40px
     align-content: start
     //flex: 1 0 auto
-    
+
+  a
+    .addCard
+      //flex: 0 0 auto
+      margin-bottom: 50px
+      height: 70px
+      width: 200px
+      font-size: 20px
+      color: #fff
+      border-radius: 20px
+      background-color: #0c6304
+      cursor: pointer
+      box-shadow: $shadow
+      font-family: 'Bellota Text', cursive
+  .load
+    margin-top: 50px
+    display: block
+    margin-left: auto
+    margin-right: auto
+    height: 70px
+    width: 200px
+    font-size: 20px
+    color: #fff
+    border-radius: 20px
+    background-color: $mainColor
+    cursor: pointer
+    box-shadow: $shadow
+    font-family: 'Bellota Text', cursive
+      
 
 section.spinnerBox
   min-height: 400px
@@ -19,34 +47,6 @@ section.spinnerBox
   align-items: center
   justify-content: center
 
-
-.addCard
-  //flex: 0 0 auto
-  margin-bottom: 50px
-  height: 70px
-  width: 200px
-  font-size: 20px
-  color: #fff
-  border-radius: 20px
-  background-color: #0c6304
-  cursor: pointer
-  box-shadow: $shadow
-  font-family: 'Bellota Text', cursive
-
-.load
-  margin-top: 50px
-  display: block
-  margin-left: auto
-  margin-right: auto
-  height: 70px
-  width: 200px
-  font-size: 20px
-  color: #fff
-  border-radius: 20px
-  background-color: $mainColor
-  cursor: pointer
-  box-shadow: $shadow
-  font-family: 'Bellota Text', cursive
 
 @media screen and (max-width: 1400px) and (min-width: 0px)
   section.main
@@ -61,19 +61,20 @@ section.spinnerBox
     .itemContainer
       grid-template-columns: 1fr 1fr
       grid-gap: 40px
-  .addCard, .load
-    height: 50px
-    border-radius: 20px
-    width: 150px
-    font-size: 15px
+    a .addCard, .load
+      height: 50px
+      border-radius: 20px
+      width: 150px
+      font-size: 15px
 
 @media screen and (max-width: 500px) and (min-width: 0px)
   section.main
     .itemContainer
       grid-template-columns: 1fr
       grid-gap: 20px
-    .addCard, .load
+      
+    a .addCard, .load
       height: 40px
       border-radius: 12px
-      width: 110px
+      width: 100px
       font-size: 12px

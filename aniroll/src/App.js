@@ -25,7 +25,7 @@ export default class App extends Component {
   GoodsService = new GoodsService();
 
   componentDidMount() {
-    console.log("241412421");
+    
     let date = new Date();
     let localStorageEndTime = localStorage.getItem("localStorageEndTime");
     if (localStorageEndTime === null) {
