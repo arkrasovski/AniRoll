@@ -131,7 +131,6 @@ export default class AdminLogin extends Component {
                 <span className="validateError">{this.state.loginError}</span>
               )}
               <input
-                autoComplete="off"
                 type="text"
                 name="login"
                 placeholder="Логин"
@@ -146,7 +145,6 @@ export default class AdminLogin extends Component {
                 </span>
               )}
               <input
-                autoComplete="off"
                 type="password"
                 name="password"
                 placeholder="Пароль"
