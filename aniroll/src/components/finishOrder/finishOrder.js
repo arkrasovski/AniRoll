@@ -6,6 +6,7 @@ import Odzen from "../../images/odzen.png";
 import Modal from "../modal";
 import DropDown from "../dropDown";
 import Spinner from "../spinner";
+import hhi from "../../images/hhi.jpg";
 
 export default class ItemBox extends Component {
   GetDates = (startDate, daysToAdd) => {
@@ -232,8 +233,12 @@ export default class ItemBox extends Component {
     }
     if (!this.state.orders || this.state.orders.length === 0) {
       return (
-        <section className="main">
-          Ваша корзина пуста, сделайте сначала заказ
+        <section className="mainFinishOrder">
+          <div className="emptyOrder">
+            <span>Ваша корзина пуста, сделайте сначала заказ</span>
+            <img src={hhi} alt="Хитрый хайповый извращенец" />
+          </div>
+          
         </section>
       );
     }
@@ -253,7 +258,7 @@ export default class ItemBox extends Component {
 
     if (this.state.orders) {
       return (
-        <section className="main">
+        <section className="mainFinishOrder">
           <div className="uploadPostWrapper">
             <form
               onClick={(e) => {

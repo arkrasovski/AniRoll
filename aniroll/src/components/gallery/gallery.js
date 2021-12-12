@@ -64,8 +64,8 @@ export default class AdminLogin extends Component {
   render() {
     const items = this.renderItems(this.state.name);
     return (
-      <section className="main">
-        <h2>Галерея персонажов сервиса AniRoll</h2>
+      <section className="mainGallery">
+        <h2>Галерея персонажей сервиса AniRoll</h2>
         {items}
       </section>
     );
