@@ -211,7 +211,7 @@ class ItemFull extends Component {
                   {/* {Math.round(price * this.state.number * 100) / 100} */}
                 </span>
                 <span className="weight">
-                  {Math.round(weight * this.state.number * 100) / 100} {measure}
+                  {Math.round(weight * this.state.number * 1000) / 1000} {measure}
                   .
                 </span>
                 <span className="number">{number * this.state.number} шт</span>
