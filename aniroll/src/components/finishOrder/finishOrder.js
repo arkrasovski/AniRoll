@@ -114,6 +114,7 @@ export default class ItemBox extends Component {
         orderText += order.name + " x" + order.qtty + " ";
         sum += order.price * order.qtty;
       });
+     
       const deliveryDate =
         this.state.time + "." + this.state.day + "." + new Date().getFullYear();
 
@@ -123,7 +124,7 @@ export default class ItemBox extends Component {
         address: this.state.address,
         telNumber: this.state.telNum,
         orderText,
-        total: sum,
+        total: Math.round(sum * 100) / 100,
         deliveryDate,
       })
         .then((response) => {
