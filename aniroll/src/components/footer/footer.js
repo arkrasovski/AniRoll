@@ -26,12 +26,12 @@ const Footer = () => {
             </div>
           </li>
           <li>
-              <Link to="/gallery">
+            
                 <RiGalleryFill color={"rgb(127, 0, 0)"} />
               <div className="workTimeInfo">
-              <span>Галерея персонажей</span>
+              <Link to="/gallery"><span>Галерея персонажей</span></Link>
             </div>
-            </Link>
+            
           </li>
         </ul>
       </div>
