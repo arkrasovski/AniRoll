@@ -58,7 +58,7 @@ export default class Header extends Component {
             })}
             <li className="icon">
               <Link to="/basket">
-                <FaShoppingBasket color={"rgb(127, 0, 0)"} size={"40px"} />
+                <FaShoppingBasket  />
               </Link>
             </li>
             {/* <li>
@@ -68,7 +68,7 @@ export default class Header extends Component {
             </li> */}
             <li className="icon">
               <Link to="/adminlogin">
-                <FaUserNinja color={"rgb(127, 0, 0)"} size={"40px"} />{" "}
+                <FaUserNinja  />
               </Link>
             </li>
             <li className="icon">
@@ -76,7 +76,7 @@ export default class Header extends Component {
                 onClick={() => {
                   this.setMenuActive(!this.state.menuActive);
                 }}
-                size={"40px"} />{" "}
+                 />
             </li>
           </ul>
         </div>
