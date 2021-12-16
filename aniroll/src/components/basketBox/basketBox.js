@@ -90,6 +90,7 @@ export default class BasketBox extends Component {
   };
 
   subQTTY = (id, type) => {
+    
     let orders = this.state.basketList;
     const itemInd = orders.findIndex(
       (item) => item.id === id && item.type === type

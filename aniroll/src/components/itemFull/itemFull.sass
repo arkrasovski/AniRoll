@@ -23,17 +23,19 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
     display: flex
     justify-content: space-between
     .deleteSign
+      font-size: 20px
       position: absolute
       top: 0
-      right: -20px
+      right: -25px
       cursor: pointer
-      svg
-        color: $mainColor
+      color: $mainColor
     .updateSign
+      font-size: 20px
       position: absolute
-      right: -20px
+      right: -25px
       top: 50px
       cursor: pointer
+        
     .fullItemInfo
       width: 75%
       display: flex
@@ -147,6 +149,11 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
   .FullItemMain
     .fullItem
       height: 200px
+      .deleteSign
+        font-size: 15px
+      .updateSign
+        top: 40px
+        font-size: 15px
       .fullItemInfo
         img
           margin-right: 10px
@@ -223,6 +230,15 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
       flex-direction: column
       align-items: center
       justify-content: center
+      .deleteSign 
+        right: -15px
+        top: 0
+        font-size: 10px
+      .updateSign
+        right: -15px
+        top: 20px
+        font-size: 10px
+          
       .fullItemInfo
         width: 80%
         flex-direction: column
@@ -231,7 +247,6 @@ $cardShadow: 10px 5px 5px rgba(0, 0, 0, 0.2)
           margin-right: 10px
           width: 50%
         .fullItemText
-          
           margin: 20px 0 0 0
           width: 100%
           .name

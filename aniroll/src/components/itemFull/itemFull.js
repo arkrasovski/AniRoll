@@ -180,19 +180,16 @@ class ItemFull extends Component {
           <div className="fullItem">
             {localStorage.getItem("isAdmin") ? (
               <>
-                <div
-                  className="deleteSign"
-                  onClick={() => {
+ 
+                  <ImCross className="deleteSign" onClick={() => {
                     this.deleteItem();
-                  }}
-                >
-                  <ImCross />
-                </div>
-                <div className="updateSign">
-                  <Link to={`/update${item.type}/${item.id}`}>
+                  }}/>
+         
+                
+                  <Link className="updateSign" to={`/update${item.type}/${item.id}`}>
                     <GrUpdate />
                   </Link>
-                </div>
+                
               </>
             ) : null}
             <div className="fullItemInfo">
