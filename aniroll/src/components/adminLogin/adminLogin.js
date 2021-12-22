@@ -117,7 +117,6 @@ export default class AdminLogin extends Component {
   };
 
   render() {
-    console.log("apchi", this.state.login, this.state.password, this.state.formValid, this.state.loginDirty)
     if (this.state.Redirect) {
       return <Redirect push to="/" />;
     }
